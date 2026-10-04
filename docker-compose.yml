@@ -1,0 +1,57 @@
+# Déploiement complet : PostgreSQL + API + site (Nginx).
+# 1. cp .env.example .env  puis compléter les valeurs
+# 2. docker compose up -d --build
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ebena
+      POSTGRES_USER: ebena
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Renseignez DB_PASSWORD dans .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ebena -d ebena']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./Backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      SITE_URL: ${SITE_URL:-http://localhost:8080}
+      TRUST_PROXY: ${TRUST_PROXY:-1}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: ebena
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE: ebena
+      JWT_SECRET: ${JWT_SECRET:?Renseignez JWT_SECRET dans .env}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_SECURE: ${SMTP_SECURE:-false}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      MAIL_FROM: '${MAIL_FROM:-ÉBËNA 2027 <contacts.ebena@gmail.com>}'
+      NOTIFY_TO: ${NOTIFY_TO:-contacts.ebena@gmail.com}
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - '${HTTP_PORT:-8080}:80'
+
+volumes:
+  pgdata:

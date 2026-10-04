@@ -1,0 +1,21 @@
+.contact-aside {
+  position: sticky;
+  top: calc(var(--header-h) + 2rem);
+}
+
+.contact-phones {
+  list-style: none;
+  display: grid;
+  gap: 0.1rem;
+  margin-top: 0.15rem;
+}
+
+.contact-map {
+  margin-top: 0.7rem;
+}
+
+@media (max-width: 900px) {
+  .contact-aside {
+    position: static;
+  }
+}

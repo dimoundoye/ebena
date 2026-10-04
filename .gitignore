@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.env
+*.log
+
+# Documents fournis par le client (plaquette PDF) : non versionnés
+/Document/

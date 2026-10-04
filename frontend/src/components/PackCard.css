@@ -1,0 +1,203 @@
+.packs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  align-items: stretch;
+}
+
+.pack-card {
+  --metal: linear-gradient(105deg, #8f8a83 0%, #cfcac2 26%, #ffffff 48%, #c9c4bc 70%, #8f8a83 100%);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 2.2rem 1.8rem 1.9rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(246, 203, 116, 0.32), transparent 45%),
+    var(--ivoire-50);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition:
+    transform 0.6s var(--ease-out),
+    box-shadow 0.6s var(--ease-out),
+    border-color 0.4s;
+}
+
+/* Arc doré dans l'angle, comme sur les flyers des packs */
+.pack-card::before {
+  content: '';
+  position: absolute;
+  top: -70px;
+  left: -70px;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background: var(--gold) border-box;
+  -webkit-mask:
+    linear-gradient(#000 0 0) padding-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.pack-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 40px 70px -42px rgba(68, 34, 10, 0.65);
+}
+
+.pack-card--gold {
+  --metal: var(--gold);
+  border-color: rgba(176, 122, 42, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(213, 155, 64, 0.35),
+    0 40px 70px -40px rgba(138, 84, 18, 0.65);
+}
+
+.pack-card--platinum {
+  --metal: linear-gradient(105deg, #a89f92 0%, #e4ded4 28%, #ffffff 48%, #ddd5c8 68%, #a39a8c 100%);
+}
+
+.pack-card.is-selected {
+  border-color: var(--ebene-900);
+  box-shadow:
+    0 0 0 2px var(--ebene-900),
+    0 40px 70px -40px rgba(49, 21, 2, 0.6);
+}
+
+.pack-card__head {
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+  text-align: center;
+}
+
+.pack-card__kicker {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ebene-800);
+}
+
+.pack-card__ribbon {
+  width: calc(100% + 1rem);
+  margin: 0.4rem 0 0.2rem;
+  padding: 0.7rem 1rem;
+  background: var(--metal);
+  background-size: 200% 100%;
+  clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
+  font-family: var(--font-sans);
+  font-size: clamp(1.45rem, 2.2vw, 1.85rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ebene-950);
+  transition: background-position 1.2s var(--ease);
+}
+
+.pack-card:hover .pack-card__ribbon {
+  background-position: 100% 0;
+}
+
+.pack-card__ribbon-light {
+  font-weight: 300;
+}
+
+.pack-card__price {
+  font-variant-numeric: lining-nums;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 4vw, 3.3rem);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--ebene-900);
+}
+
+.pack-card__price small {
+  font-size: 0.45em;
+  font-weight: 600;
+  color: var(--or-700);
+}
+
+.pack-card__surface {
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--or-700);
+}
+
+.pack-card__features {
+  list-style: none;
+  display: grid;
+  gap: 0.85rem;
+  margin: 1.8rem 0 0;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--line);
+}
+
+.pack-card__features li {
+  display: grid;
+  grid-template-columns: 2.3rem 1fr;
+  gap: 0.85rem;
+  align-items: center;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--text-soft);
+}
+
+.pack-card__features strong {
+  display: block;
+  font-weight: 600;
+  color: var(--ebene-900);
+}
+
+.pack-card__icon {
+  display: grid;
+  place-items: center;
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 50%;
+  border: 1px solid var(--or-400);
+  color: var(--ebene-900);
+  background: var(--ivoire-100);
+}
+
+.pack-card__icon svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  stroke-width: 1.6;
+}
+
+.pack-card__more {
+  margin-top: 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--or-700);
+}
+
+.pack-card__accroche {
+  margin-top: auto;
+  padding-top: 1.6rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--ebene-800);
+}
+
+.pack-card__footer {
+  margin-top: 1.4rem;
+}
+
+@media (max-width: 980px) {
+  .packs-grid {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+}

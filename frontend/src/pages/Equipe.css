@@ -1,0 +1,26 @@
+.equipe-chef__photo {
+  position: relative;
+  max-width: 440px;
+  margin: 14px;
+}
+
+.equipe-chef__photo::before {
+  content: '';
+  position: absolute;
+  inset: -14px 14px 14px -14px;
+  border: 1px solid var(--or-500);
+  border-radius: 22px;
+}
+
+.equipe-chef__photo img {
+  position: relative;
+  width: 100%;
+  border-radius: 18px;
+  box-shadow: 0 50px 80px -46px rgba(68, 34, 10, 0.75);
+}
+
+@media (max-width: 900px) {
+  .equipe-chef__photo {
+    max-width: 340px;
+  }
+}

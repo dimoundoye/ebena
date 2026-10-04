@@ -1,0 +1,177 @@
+.salon-poster {
+  position: relative;
+  justify-self: end;
+  width: min(100%, 360px);
+  margin: 0;
+  transform: rotate(2.5deg);
+}
+
+.salon-poster img {
+  width: 100%;
+  border-radius: 14px;
+  box-shadow:
+    0 0 0 10px var(--ivoire-50),
+    0 0 0 11px rgba(213, 155, 64, 0.55),
+    0 50px 80px -40px rgba(68, 34, 10, 0.7);
+}
+
+.salon-poster figcaption {
+  position: absolute;
+  left: -1.6rem;
+  bottom: 2.4rem;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  background: var(--ebene-900);
+  color: var(--or-200);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  transform: rotate(-2.5deg);
+  box-shadow: 0 12px 24px -12px rgba(30, 10, 6, 0.8);
+}
+
+.salon-themes {
+  display: grid;
+  border-top: 1px solid var(--line-strong);
+}
+
+.salon-themes span {
+  display: flex;
+  align-items: baseline;
+  gap: 1.2rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--line-strong);
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--ebene-900);
+  transition:
+    padding-left 0.5s var(--ease-out),
+    color 0.3s;
+}
+
+.salon-themes span:hover {
+  padding-left: 0.8rem;
+  color: var(--or-700);
+}
+
+.salon-themes small {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--or-600);
+}
+
+.salon-lieu {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+.salon-benin {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: stretch;
+}
+
+/* Grand drapeau vertical stylisé : vert, jaune, rouge */
+.salon-benin__flag {
+  display: grid;
+  grid-template-rows: 2fr 1.5fr 1.5fr;
+  width: 14px;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.salon-benin__flag span:nth-child(1) {
+  background: #008751;
+}
+
+.salon-benin__flag span:nth-child(2) {
+  background: #fcd116;
+}
+
+.salon-benin__flag span:nth-child(3) {
+  background: #e8112d;
+}
+
+.salon-benin__text {
+  display: grid;
+  gap: 1.4rem;
+  max-width: 900px;
+}
+
+.salon-parrain__photo {
+  max-width: 440px;
+  margin: 14px;
+}
+
+.salon-parrain__photo .arch {
+  aspect-ratio: 3 / 4;
+}
+
+.salon-parrain__photo img {
+  object-position: 50% 15%;
+}
+
+.salon-parrain__role {
+  margin-top: -0.6rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--or-700);
+}
+
+.salon-porteurs {
+  display: grid;
+  justify-items: center;
+  gap: 1.1rem;
+  text-align: center;
+}
+
+.salon-porteurs__list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.8rem;
+  max-width: 860px;
+  margin-bottom: 1rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+  font-weight: 600;
+  color: var(--ebene-900);
+}
+
+.salon-porteurs__list li {
+  position: relative;
+}
+
+.salon-porteurs__list li + li::before {
+  content: '';
+  position: absolute;
+  left: -1rem;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--or-500);
+}
+
+@media (max-width: 900px) {
+  .salon-poster {
+    justify-self: center;
+    width: min(80%, 320px);
+    margin-top: 1rem;
+  }
+
+  .salon-lieu {
+    grid-template-columns: 1fr;
+  }
+}

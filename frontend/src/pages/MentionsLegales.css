@@ -1,0 +1,33 @@
+.legal {
+  display: grid;
+  gap: 1.1rem;
+  color: var(--text-soft);
+}
+
+.legal h2 {
+  margin-top: 1.6rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--line);
+}
+
+.legal h2:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.legal strong {
+  color: var(--ebene-900);
+}
+
+.legal a {
+  color: var(--or-700);
+}
+
+.todo {
+  padding: 0.05rem 0.4rem;
+  border-radius: 4px;
+  background: rgba(246, 203, 116, 0.35);
+  color: var(--ebene-800);
+  font-style: italic;
+}
