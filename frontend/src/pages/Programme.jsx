@@ -1,67 +1,190 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, CalendarClock } from 'lucide-react';
-import { COUR_ROYALE, EXPOSITIONS, METHODE, PAVILLONS, SCENE, VOYAGE } from '../data/site.js';
+import { ArrowLeft, ArrowRight, CalendarClock } from 'lucide-react';
+import { EXPOSITIONS, METHODE, PAVILLONS, SCENE, VOYAGE } from '../data/site.js';
 import { useDocumentMeta } from '../lib/useDocumentMeta.js';
 import PageHero from '../components/PageHero.jsx';
-import Reveal from '../components/Reveal.jsx';
-import SectionHeading from '../components/SectionHeading.jsx';
+import SceneFlow, { Scene } from '../components/scene/SceneFlow.jsx';
+import { order } from '../components/scene/order.js';
 import Icon from '../components/Icon.jsx';
+import PavillonDoor from '../components/PavillonDoor.jsx';
+import SceneProjects from '../components/SceneProjects.jsx';
+import CourRoyale from '../components/CourRoyale.jsx';
 import TramLine from '../components/TramLine.jsx';
-import LeadersGallery from '../components/LeadersGallery.jsx';
-import CtaBand from '../components/CtaBand.jsx';
+import LeadersCarousel from '../components/LeadersCarousel.jsx';
+import ClosingCta from '../components/ClosingCta.jsx';
 import './pages.css';
 import './Programme.css';
 
-function Pavillon({ pavillon }) {
+function Introduction() {
   return (
-    <article className="pavillon" id={pavillon.slug}>
-      <Reveal className="pavillon__aside">
-        <span className="pavillon__number" aria-hidden="true">
+    <div className="container prog-intro">
+      <div className="prog-intro__head">
+        <p className="eyebrow build" style={order(0)}>
+          {EXPOSITIONS.title}
+        </p>
+        <h2 className="scene-title build" style={order(1)}>
+          Six pavillons, <em className="text-gold">une traversée</em>
+        </h2>
+        <p className="prog-intro__ambition build" style={order(2)}>
+          {EXPOSITIONS.ambition}
+        </p>
+      </div>
+      <div className="prog-intro__note build" style={order(3)}>
+        <CalendarClock aria-hidden="true" />
+        <p>
+          <strong>Programme détaillé jour par jour</strong> : horaires, intervenants et showcases seront publiés à
+          l’approche du salon. <Link to="/inscription">Inscrivez-vous</Link> pour le recevoir en avant-première.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// Un pavillon : sa porte en arche reste à côté du texte pendant la lecture (grand écran)
+function Pavillon({ pavillon, index }) {
+  const previous = PAVILLONS[index - 1];
+  const next = PAVILLONS[index + 1];
+  return (
+    <div className="container pav-detail">
+      <div className="pav-detail__aside">
+        <div className="pav-detail__door build build--zoom" style={order(0)}>
+          <PavillonDoor pavillon={pavillon} />
+        </div>
+        <p className="pav-detail__count build" style={order(1)} aria-hidden="true">
           {pavillon.numero}
-        </span>
-        <span className="icon-medallion pavillon__icon">
-          <Icon name={pavillon.icon} />
-        </span>
-        <p className="pavillon__kicker">Pavillon {pavillon.numero}</p>
-      </Reveal>
-      <div className="pavillon__body">
-        <Reveal as="h3" className="h3">
+          <span> / {String(PAVILLONS.length).padStart(2, '0')}</span>
+        </p>
+      </div>
+
+      <article className="pav-detail__body">
+        <p className="scene-kicker build" style={order(0)}>
+          Pavillon {pavillon.numero}
+        </p>
+        <h2 className="pav-detail__title build" style={order(1)}>
           {pavillon.title}
-        </Reveal>
-        <Reveal as="p" className="pavillon__quote" delay={0.06}>
+        </h2>
+        <p className="scene-quote build" style={order(2)}>
           « {pavillon.quote} »
-        </Reveal>
-        <Reveal className="prose" delay={0.1}>
+        </p>
+        <div className="prose build" style={order(3)}>
           {pavillon.paragraphs.map((paragraph) => (
             <p key={paragraph.slice(0, 24)}>{paragraph}</p>
           ))}
-        </Reveal>
+        </div>
         {pavillon.list && (
-          <Reveal className="stack" delay={0.12} style={{ '--stack-gap': '0.9rem' }}>
-            <p className="pavillon__list-title">{pavillon.listTitle}</p>
+          <div className="pav-detail__list build" style={order(0)}>
+            <p className="pav-detail__list-title">{pavillon.listTitle}</p>
             <ul className="list-cowrie">
               {pavillon.list.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
-          </Reveal>
+          </div>
         )}
         {pavillon.tags && (
-          <Reveal as="ul" className="tags" delay={0.12}>
+          <ul className="tags build" style={order(0)}>
             {pavillon.tags.map((tag) => (
               <li key={tag} className="tag">
                 {tag}
               </li>
             ))}
-          </Reveal>
+          </ul>
         )}
         {pavillon.note && (
-          <Reveal as="p" className="pavillon__note" delay={0.14}>
+          <p className="pav-detail__note build" style={order(0)}>
             {pavillon.note}
-          </Reveal>
+          </p>
         )}
+
+        <nav className="pav-detail__nav build" style={order(0)} aria-label="Pavillons voisins">
+          {previous ? (
+            <Link to={`#${previous.slug}`} className="link-arrow pav-detail__prev">
+              <ArrowLeft /> {previous.short}
+            </Link>
+          ) : (
+            <span />
+          )}
+          {next ? (
+            <Link to={`#${next.slug}`} className="link-arrow">
+              {next.short} <ArrowRight />
+            </Link>
+          ) : (
+            <Link to="#scene" className="link-arrow">
+              La Scène ÉBËNA <ArrowRight />
+            </Link>
+          )}
+        </nav>
+      </article>
+    </div>
+  );
+}
+
+function Voyage() {
+  const projet = SCENE.projets[1];
+  return (
+    <div className="container prog-voyage">
+      <div className="prog-voyage__head">
+        <p className="scene-kicker build" style={order(0)}>
+          <Icon name={projet.icon} /> {projet.kicker} · trois stylistes africains
+        </p>
+        <h2 className="scene-title build" style={order(1)}>
+          Le Voyage, <em className="text-gold">au fil du tramway</em>
+        </h2>
+        <p className="lead build" style={order(2)}>
+          {VOYAGE.intro[0]}
+        </p>
       </div>
-    </article>
+      <TramLine />
+      <p className="prog-voyage__outro build" style={order(0)}>
+        {VOYAGE.outro}
+      </p>
+    </div>
+  );
+}
+
+function Methode() {
+  return (
+    <div className="container prog-methode">
+      <div className="prog-methode__head">
+        <div className="prog-methode__title">
+          <p className="eyebrow build" style={order(0)}>
+            Cycle de conférences et talk-shows
+          </p>
+          <h2 className="scene-title build" style={order(1)}>
+            La Méthode <em className="text-gold">des Leaders</em>
+          </h2>
+          <p className="scene-quote build" style={order(2)}>
+            Inspirer, entreprendre, transmettre
+          </p>
+        </div>
+        <div className="prose build" style={order(1)}>
+          <p>{METHODE.intro}</p>
+          <p>{METHODE.vocation}</p>
+        </div>
+      </div>
+
+      <div className="prog-methode__objectifs">
+        <p className="eyebrow build" style={order(0)}>
+          Les objectifs
+        </p>
+        <ol>
+          {METHODE.objectifs.map((objectif, index) => (
+            <li key={objectif} className="build" style={order(1 + index)}>
+              <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              {objectif}
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <LeadersCarousel heading={false} />
+
+      <div className="prog-methode__cta build" style={order(0)}>
+        <Link to="/exposants?pack=platinum#packs" className="btn btn--gold">
+          Prendre la parole : pack Platinum <ArrowRight />
+        </Link>
+      </div>
+    </div>
   );
 }
 
@@ -94,162 +217,37 @@ export default function Programme() {
         </nav>
       </PageHero>
 
-      <section className="section programme-intro">
-        <div className="container programme-intro__grid">
-          <Reveal as="p" className="programme-intro__ambition">
-            {EXPOSITIONS.ambition}
-          </Reveal>
-          <Reveal className="programme-intro__note" delay={0.1}>
-            <CalendarClock aria-hidden="true" />
-            <p>
-              <strong>Programme détaillé jour par jour</strong> : horaires, intervenants et showcases seront publiés à
-              l’approche du salon. <Link to="/inscription">Inscrivez-vous</Link> pour le recevoir en avant-première.
-            </p>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="section section--alt pavillons" aria-labelledby="pavillons-titre">
-        <div className="container">
-          <SectionHeading
-            eyebrow="Des expositions"
-            title={
-              <span id="pavillons-titre">
-                Six pavillons, <em className="text-gold">une traversée</em>
-              </span>
-            }
-          />
-          <div className="pavillons__list">
-            {PAVILLONS.map((pavillon) => (
-              <Pavillon key={pavillon.slug} pavillon={pavillon} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* La Scène ÉBËNA */}
-      <section className="section" id="scene">
-        <div className="container">
-          <SectionHeading
-            eyebrow={SCENE.subtitle}
-            title={
-              <>
-                La Scène <em className="text-gold">ÉBËNA</em>
-              </>
-            }
-            intro={SCENE.intro}
-          />
-
-          <div className="scene-index">
-            {SCENE.projets.map((projet, index) => (
-              <Reveal as="a" key={projet.slug} href={`#${projet.slug}`} className="scene-index__item" delay={index * 0.08}>
-                <span className="icon-medallion">
-                  <Icon name={projet.icon} />
-                </span>
-                <span>
-                  <small>{projet.kicker}</small>
-                  {projet.title}
-                </span>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* La Cour Royale de Maam */}
-      <section className="section section--alt" id="cour-royale">
-        <div className="container feature">
-          <Reveal className="feature__media">
-            <div className="cour-royale__visual">
-              <div className="cour-royale__band band-zigzag-v" aria-hidden="true" />
-              <Icon name="Crown" />
-              <p className="cour-royale__artist script">{COUR_ROYALE.artiste}</p>
-              <p className="cour-royale__maison">{COUR_ROYALE.maison}</p>
-            </div>
-          </Reveal>
-          <div className="feature__text">
-            <Reveal as="p" className="eyebrow">
-              Exposition immersive · Artiste invitée
-            </Reveal>
-            <Reveal as="h2" className="h2" delay={0.08}>
-              La Cour Royale <em className="text-gold">de Maam</em>
-            </Reveal>
-            <Reveal as="p" className="quote" delay={0.12}>
-              « Une mémoire vestimentaire sénégalaise mise en scène »
-            </Reveal>
-            <Reveal className="prose" delay={0.16}>
-              {COUR_ROYALE.paragraphs.map((paragraph) => (
-                <p key={paragraph.slice(0, 24)}>{paragraph}</p>
-              ))}
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Le Voyage */}
-      <section className="section" id="voyage">
-        <div className="container">
-          <SectionHeading
-            eyebrow="Défilés de mode · trois stylistes africains"
-            title={
-              <>
-                Le Voyage, <em className="text-gold">au fil du tramway</em>
-              </>
-            }
-            intro={VOYAGE.intro[0]}
-          />
-          <TramLine />
-          <Reveal as="p" className="voyage__outro" delay={0.1}>
-            {VOYAGE.outro}
-          </Reveal>
-        </div>
-      </section>
-
-      {/* La Méthode des Leaders */}
-      <section className="section section--alt" id="leaders">
-        <div className="container">
-          <div className="split leaders-split">
-            <div className="split__aside">
-              <Reveal as="p" className="eyebrow">
-                Cycle de conférences et talk-shows
-              </Reveal>
-              <Reveal as="h2" className="h2" delay={0.08}>
-                La Méthode <em className="text-gold">des Leaders</em>
-              </Reveal>
-              <Reveal as="p" className="quote" delay={0.12}>
-                Inspirer, entreprendre, transmettre
-              </Reveal>
-            </div>
-            <div className="split__body">
-              <Reveal className="prose lead">
-                <p>{METHODE.intro}</p>
-                <p>{METHODE.vocation}</p>
-              </Reveal>
-              <Reveal className="objectifs" delay={0.1}>
-                <p className="eyebrow">Les objectifs</p>
-                <ol>
-                  {METHODE.objectifs.map((objectif, index) => (
-                    <li key={objectif}>
-                      <span>{String(index + 1).padStart(2, '0')}</span>
-                      {objectif}
-                    </li>
-                  ))}
-                </ol>
-              </Reveal>
-            </div>
-          </div>
-          <div className="leaders-wrap">
-            <LeadersGallery />
-          </div>
-          <Reveal className="programme-cta">
-            <Link to="/exposants?pack=platinum#packs" className="btn btn--dark">
-              Prendre la parole : pack Platinum <ArrowRight />
-            </Link>
-          </Reveal>
-        </div>
-      </section>
-
-      <CtaBand />
+      {/* Chaque pavillon entre par une porte (ou un balayage), en alternant fonds sable et ivoire */}
+      <SceneFlow>
+        <Scene id="introduction">
+          <Introduction />
+        </Scene>
+        {PAVILLONS.map((pavillon, index) => (
+          <Scene
+            key={pavillon.slug}
+            id={pavillon.slug}
+            tone={index % 2 === 0 ? 'sable' : 'ivoire'}
+            transition={index % 2 === 0 ? 'porte' : 'balayage'}
+          >
+            <Pavillon pavillon={pavillon} index={index} />
+          </Scene>
+        ))}
+        <Scene id="scene" tone="scene" transition="rideau">
+          <SceneProjects />
+        </Scene>
+        <Scene id="cour-royale" tone="bordeaux" transition="stores">
+          <CourRoyale full />
+        </Scene>
+        <Scene id="voyage" tone="sable" transition="poussee">
+          <Voyage />
+        </Scene>
+        <Scene id="leaders" tone="ebene" transition="noir">
+          <Methode />
+        </Scene>
+        <Scene id="rendez-vous" tone="soleil" transition="cercle">
+          <ClosingCta />
+        </Scene>
+      </SceneFlow>
     </>
   );
 }

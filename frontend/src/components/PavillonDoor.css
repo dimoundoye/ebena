@@ -1,0 +1,87 @@
+/* ==========================================================================
+   Pavillons : couleur propre à chacun et porte en arche
+   ========================================================================== */
+
+.pav-tone--memoire {
+  --panel: linear-gradient(165deg, #a36a22 0%, #5e2c07 100%);
+  --ink: var(--or-200);
+}
+
+.pav-tone--artisanat {
+  --panel: linear-gradient(165deg, #fbe2a4 0%, #e6b25a 55%, #b07a2a 100%);
+  --ink: var(--ebene-900);
+}
+
+.pav-tone--numerique {
+  --panel: linear-gradient(165deg, #5e2c07 0%, #311502 60%, #1e0a06 100%);
+  --ink: var(--or-300);
+}
+
+.pav-tone--musique {
+  --panel: linear-gradient(165deg, #93291f 0%, #761f18 50%, #44110c 100%);
+  --ink: var(--or-200);
+}
+
+.pav-tone--agroalimentaire {
+  --panel: linear-gradient(165deg, var(--ivoire-200) 0%, var(--sable-400) 60%, var(--sable-500) 100%);
+  --ink: var(--ebene-900);
+}
+
+.pav-tone--business {
+  --panel: linear-gradient(165deg, #d59b40 0%, #8a5412 100%);
+  --ink: var(--ivoire-50);
+}
+
+/* Porte : fond aux couleurs du pavillon, motif en losanges, icône et numéro en filigrane */
+.pav-door {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  aspect-ratio: 11 / 15;
+  border-radius: 999px 999px var(--radius) var(--radius);
+  background: var(--panel);
+  box-shadow: 0 50px 80px -50px rgba(68, 34, 10, 0.75);
+}
+
+.pav-door::before,
+.pav-story__panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--lattice);
+  background-size: 44px 44px;
+  opacity: 0.2;
+}
+
+.pav-door__watermark {
+  position: absolute;
+  right: -0.06em;
+  bottom: -0.18em;
+  font-family: var(--font-display);
+  font-size: clamp(7rem, 24vh, 15rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink);
+  opacity: 0.14;
+}
+
+.pav-door__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: clamp(5rem, 15vh, 8.5rem);
+  aspect-ratio: 1;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  color: var(--ink);
+  box-shadow: 0 0 0 10px rgba(255, 251, 244, 0.08);
+}
+
+.pav-door__icon svg {
+  width: 46%;
+  height: auto;
+  stroke-width: 1.2;
+}

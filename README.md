@@ -11,10 +11,10 @@ Un projet de l’association Art à Conter.
 
 | Route | Contenu |
 |---|---|
-| `/` | Accueil : hero avec compte à rebours, manifeste, chiffres clés, les six pavillons en défilement horizontal, Scène ÉBËNA, Bénin pays invité et parrain, Méthode des Leaders, packs, partenaires |
+| `/` | Accueil : hero, puis des sections qui arrivent chacune avec une transition au fil du défilement (manifeste, chiffres clés, les six pavillons, Scène ÉBËNA, les intervenants de la Méthode des Leaders, Bénin et parrain, packs, partenaires, compte à rebours) |
 | `/le-salon` | Pourquoi ÉBËNA, le concept, le Parc des Chantiers et le Mât de la Fraternité, le Bénin, le mot du parrain |
-| `/programme` | Les six pavillons en détail, La Cour Royale de Maam, Le Voyage (ligne de tram animée), La Méthode des Leaders |
-| `/equipe` | Chef de projet, équipe du salon, équipe du projet |
+| `/programme` | Les six pavillons en détail (chacun avec sa porte aux couleurs du pavillon), La Scène ÉBËNA, La Cour Royale de Maam, Le Voyage (le tram avance au défilement), La Méthode des Leaders et ses intervenants en carrousel |
+| `/equipe` | Chef de projet, équipe du salon, équipe du projet (portraits qui s’ouvrent en arche) |
 | `/exposants` | Packs Silver, Gold et Platinum et formulaire de réservation de stand (`?pack=gold` présélectionne un pack) |
 | `/partenaires` | Institutions, partenaires, organisations associées |
 | `/inscription` | Pré-inscription des visiteurs (numéro d’inscription et ajout à l’agenda) |
@@ -105,8 +105,19 @@ Netlify n’héberge que le site. L’API (Express + PostgreSQL) doit tourner ai
 
 - **Textes, équipe, leaders, packs, partenaires, contacts, réseaux sociaux** : tout est dans [frontend/src/data/site.js](frontend/src/data/site.js). Les réseaux sociaux ne s’affichent que lorsqu’une URL est renseignée.
 - **Images** : dans [frontend/public/images](frontend/public/images), au format WebP. Elles ont été extraites de la plaquette PDF.
-- **Couleurs et typographies** : variables CSS en tête de [frontend/src/styles/global.css](frontend/src/styles/global.css). La palette a été relevée sur l’affiche officielle.
+- **Couleurs et typographies** : variables CSS en tête de [frontend/src/styles/global.css](frontend/src/styles/global.css). La palette a été relevée sur l’affiche officielle. Trois polices au plus, sans italique : Cormorant Garamond pour les titres et les chiffres, Montserrat pour le texte, Yellowtail réservée à la signature « L’Afrique créative en mouvement ».
 - Les listes des formulaires (packs, pavillons, profils, jours, sujets) existent côté site **et** côté API ([Backend/src/constants.js](Backend/src/constants.js)) : garder les mêmes clés.
+
+### Les transitions des pages (accueil, programme, équipe)
+
+Sous l’en-tête, la page défile normalement et chaque section arrive avec sa transition (balayage, porte en arche, rideau, stores, cercle doré…), qui avance au rythme du défilement sans jamais le bloquer. Les éléments de texte apparaissent quand ils entrent dans l’écran.
+
+- Le mécanisme est dans [frontend/src/components/scene](frontend/src/components/scene). Les sections de l’accueil sont dans [frontend/src/pages/home](frontend/src/pages/home) ; les blocs communs à plusieurs pages (porte d’un pavillon, ligne de tram, carrousel des intervenants, La Scène, La Cour Royale, appel à l’action final) dans [frontend/src/components](frontend/src/components).
+- Pour passer une autre page à ce style : entourer ses sections de `<SceneFlow>` et donner aux éléments qui doivent apparaître la classe `build` (variantes `build--zoom`, `build--left`, `build--fade`, `build--wipe`, `build--arch`).
+- Une section se déclare ainsi : `<Scene id="benin" tone="ivoire" transition="drapeau">…</Scene>`. `id` sert d’ancre (`/#benin`).
+- Transitions : `fondu`, `zoom`, `balayage`, `drapeau`, `porte`, `rideau`, `stores`, `poussee`, `noir`, `cercle`. Fonds : `ivoire`, `sable`, `scene`, `soleil`, `bordeaux`, `ebene`.
+- Les six pavillons : sur grand écran, une porte en arche reste à côté du texte (une seule porte qui change de couleur sur l’accueil, une porte par pavillon sur le programme). Les intervenants : carrousel d’affiches (flèches, vignettes, glisser, clavier), qui défile seul tant que le visiteur ne s’en sert pas.
+- Avec le réglage système « réduire les animations », tout s’affiche directement, sans transition.
 
 ## API
 

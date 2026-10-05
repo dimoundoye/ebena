@@ -53,7 +53,10 @@
   --lattice: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cpath d='M28 2L54 28 28 54 2 28z' fill='none' stroke='%23B07A2A' stroke-width='.8'/%3E%3Ccircle cx='28' cy='28' r='1.6' fill='%23B07A2A'/%3E%3C/svg%3E");
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .22 0 0 0 0 .08 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 
-  /* Typographie */
+  /* Typographie : trois familles au plus, une par rôle, jamais d'italique.
+     - display : titres, noms, chiffres (Cormorant Garamond 600, 700 pour les grands chiffres)
+     - sans    : texte courant, libellés, boutons (Montserrat 400, 500, 600)
+     - script  : signature manuscrite seulement (« L’Afrique créative en mouvement ») */
   --font-display: 'Cormorant Garamond', 'Cormorant', Garamond, 'Times New Roman', serif;
   --font-sans: 'Montserrat', 'Segoe UI', system-ui, -apple-system, sans-serif;
   --font-script: 'Yellowtail', 'Brush Script MT', cursive;
@@ -62,6 +65,8 @@
   --container: 1240px;
   --gutter: clamp(16px, 4vw, 44px);
   --header-h: 84px;
+  /* Marge laissée sous l'en-tête fixe quand on saute à une ancre */
+  --scroll-offset: calc(var(--header-h) + 16px);
   --radius-sm: 8px;
   --radius: 16px;
   --radius-lg: 28px;
@@ -81,7 +86,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-h) + 16px);
+  scroll-padding-top: var(--scroll-offset);
   -webkit-text-size-adjust: 100%;
 }
 
@@ -226,11 +231,12 @@ h4 {
   line-height: 1.2;
 }
 
+/* Les mots mis en valeur dans les titres passent en or, pas en italique */
 h1 em,
 h2 em,
-h3 em {
-  font-style: italic;
-  font-weight: 500;
+h3 em,
+cite {
+  font-style: normal;
 }
 
 .eyebrow {
@@ -281,8 +287,7 @@ h3 em {
 
 .quote {
   font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 500;
+  font-weight: 600;
   font-size: clamp(1.35rem, 2.2vw, 1.75rem);
   line-height: 1.35;
   color: var(--ebene-800);

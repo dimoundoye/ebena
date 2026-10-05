@@ -1,0 +1,367 @@
+/* ==========================================================================
+   Scènes : sections qui arrivent avec une transition liée au défilement.
+   La page défile normalement ; seul l'aspect de la section qui entre dans
+   l'écran dépend de --re (0 → 1). Sans JavaScript ou avec « réduire les
+   animations », .scenes n'a pas [data-ready] et tout s'affiche tel quel.
+   ========================================================================== */
+
+.scene {
+  position: relative;
+  overflow: hidden;
+  overflow: clip;
+  background: var(--scene-base, var(--ivoire-100));
+}
+
+/* Fond de la section précédente, visible tant que la transition n'est pas terminée */
+.scene[data-base='ivoire'],
+.scene[data-base='scene'],
+.scene[data-base='soleil'] {
+  --scene-base: var(--ivoire-100);
+}
+
+.scene[data-base='sable'] {
+  --scene-base: #f7e9d1;
+}
+
+.scene[data-base='bordeaux'] {
+  --scene-base: #5c1611;
+}
+
+.scene[data-base='ebene'] {
+  --scene-base: var(--ebene-950);
+}
+
+.scene__layer {
+  position: relative;
+}
+
+.scene__bg {
+  position: absolute;
+  inset: 0;
+  background: var(--tone-bg, var(--ivoire-100));
+}
+
+.scene__body {
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(5rem, 11vw, 9rem);
+}
+
+/* --- Tons ------------------------------------------------------------------------ */
+
+.scene--ivoire {
+  --tone-bg: var(--ivoire-100);
+}
+
+.scene--sable {
+  --tone-bg: #f7e9d1;
+}
+
+.scene--scene {
+  --tone-bg:
+    radial-gradient(ellipse 45% 60% at 80% 0%, rgba(246, 203, 116, 0.5) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 50% at 8% 100%, rgba(246, 203, 116, 0.28) 0%, transparent 70%),
+    var(--ivoire-100);
+}
+
+.scene--soleil {
+  --tone-bg:
+    radial-gradient(circle at 50% 50%, rgba(249, 223, 154, 0.9) 0%, rgba(230, 178, 90, 0.42) 26%, rgba(230, 178, 90, 0) 56%),
+    var(--ivoire-100);
+}
+
+.scene--bordeaux {
+  --tone-bg:
+    radial-gradient(ellipse 70% 60% at 22% 25%, rgba(246, 203, 116, 0.16) 0%, transparent 70%),
+    #5c1611;
+}
+
+.scene--ebene {
+  --tone-bg:
+    radial-gradient(ellipse 60% 55% at 70% 45%, rgba(176, 122, 42, 0.32) 0%, transparent 70%),
+    var(--ebene-950);
+}
+
+.scene--bordeaux,
+.scene--ebene {
+  color: rgba(245, 227, 198, 0.82);
+}
+
+:is(.scene--bordeaux, .scene--ebene) :is(h2, h3, .scene-title) {
+  color: var(--ivoire-100);
+}
+
+:is(.scene--bordeaux, .scene--ebene) :is(.eyebrow, .scene-kicker) {
+  color: var(--or-300);
+}
+
+:is(.scene--bordeaux, .scene--ebene) :is(.lead, .prose, .list-cowrie li) {
+  color: rgba(245, 227, 198, 0.82);
+}
+
+:is(.scene--bordeaux, .scene--ebene) .prose strong {
+  color: var(--ivoire-100);
+}
+
+:is(.scene--bordeaux, .scene--ebene) .scene-quote {
+  color: var(--or-200);
+}
+
+:is(.scene--bordeaux, .scene--ebene) .link-arrow {
+  color: var(--or-300);
+}
+
+:is(.scene--bordeaux, .scene--ebene) .link-arrow:hover {
+  color: var(--ivoire-50);
+}
+
+/* --- Typographie ---------------------------------------------------------------- */
+
+.scene-title {
+  font-size: clamp(2.2rem, 4.6vw, 4rem);
+  line-height: 1.04;
+}
+
+.scene-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--or-700);
+}
+
+.scene-kicker svg {
+  width: 1rem;
+  height: 1rem;
+  flex: none;
+}
+
+.scene-quote {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2vw, 1.7rem);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ebene-800);
+}
+
+/* --- Entrées en scène des éléments (.build) --------------------------------------- */
+
+.scenes[data-ready] .build {
+  transition:
+    opacity 0.8s var(--ease-out),
+    transform 1s var(--ease-out),
+    clip-path 1.1s var(--ease-out);
+  transition-delay: calc(min(var(--b, 0), 6) * 0.08s);
+}
+
+.scenes[data-ready] .build:not([data-in]) {
+  opacity: 0;
+  transform: translate3d(0, 1.6rem, 0);
+}
+
+.scenes[data-ready] .build--zoom:not([data-in]) {
+  transform: scale(0.85);
+}
+
+.scenes[data-ready] .build--left:not([data-in]) {
+  transform: translate3d(-2rem, 0, 0);
+}
+
+.scenes[data-ready] .build--fade:not([data-in]) {
+  transform: none;
+}
+
+.scenes[data-ready] .build--wipe:not([data-in]) {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(-0.3em 100% -0.3em 0);
+}
+
+.scenes[data-ready] .build--wipe[data-in] {
+  clip-path: inset(-0.3em -0.3em -0.3em 0);
+}
+
+/* Porte : l'élément (un portrait) s'ouvre depuis une arche étroite, puis montre son ombre */
+.scenes[data-ready] .build--arch {
+  transition:
+    opacity 0.8s var(--ease-out),
+    clip-path 1.6s cubic-bezier(0.55, 0.05, 0.25, 1);
+  transition-delay: calc(min(var(--b, 0), 6) * 0.08s);
+}
+
+.scenes[data-ready] .build--arch:not([data-in]) {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(42% 26% 0 26% round 999px 999px 0 0);
+}
+
+.scenes[data-ready] .build--arch[data-in] {
+  clip-path: inset(-40px -40px -80px -40px round 0);
+}
+
+/* --- Transitions d'arrivée des sections -------------------------------------------- */
+
+/* Les décors (liseré, rideaux, cercle…) n'existent que pendant la transition */
+.scene__edge,
+.scene__door,
+.scene__curtain,
+.scene__ring {
+  display: none;
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.scenes[data-ready] .scene[data-revealing] > :is(.scene__edge, .scene__door, .scene__ring) {
+  display: flex;
+}
+
+.scenes[data-ready] .scene:not([data-revealed]) > .scene__curtain {
+  display: block;
+}
+
+/* Fondu */
+.scenes[data-ready] .scene[data-transition='fondu']:not([data-revealed]) > .scene__layer {
+  opacity: var(--re, 0);
+}
+
+/* Zoom : la section se pose en grandissant légèrement */
+.scenes[data-ready] .scene[data-transition='zoom']:not([data-revealed]) > .scene__layer {
+  opacity: var(--re, 0);
+  transform: scale(calc(0.92 + 0.08 * var(--re, 0)));
+  transform-origin: 50% 0;
+}
+
+/* Balayage : découverte de gauche à droite derrière un liseré en zigzag doré */
+.scenes[data-ready] .scene[data-transition='balayage']:not([data-revealed]) > .scene__layer,
+.scenes[data-ready] .scene[data-transition='drapeau']:not([data-revealed]) > .scene__layer {
+  clip-path: inset(0 calc((1 - var(--re, 0)) * 100%) 0 0);
+}
+
+.scene__edge {
+  top: 0;
+  bottom: 0;
+}
+
+.scene__edge--zigzag {
+  left: calc(var(--re, 0) * 100% - 28px);
+  width: 28px;
+  border-right: 2px solid var(--or-500);
+  background:
+    var(--zigzag-v) center top / 24px 18px repeat-y,
+    linear-gradient(90deg, rgba(251, 234, 209, 0), var(--ivoire-200));
+}
+
+/* Drapeau : le balayage est mené par les trois couleurs du Bénin */
+.scene__edge--benin {
+  left: calc(var(--re, 0) * 100% - 7.5vw);
+  width: 7.5vw;
+}
+
+.scene__edge--benin span {
+  flex: 1;
+}
+
+.scene__edge--benin span:nth-child(1) {
+  background: #008751;
+}
+
+.scene__edge--benin span:nth-child(2) {
+  background: #fcd116;
+}
+
+.scene__edge--benin span:nth-child(3) {
+  background: #e8112d;
+}
+
+/* Porte : la section s'ouvre comme une porte en arche, puis prend toute la largeur */
+.scenes[data-ready] .scene[data-transition='porte']:not([data-revealed]) {
+  --door-side: calc(41% - 76% * var(--r, 0));
+  --door-top: calc(26vh - 66vh * var(--r, 0));
+  --door-r: calc(9vw + 76vw * var(--r, 0));
+}
+
+.scenes[data-ready] .scene[data-transition='porte']:not([data-revealed]) > .scene__layer {
+  clip-path: inset(var(--door-top) var(--door-side) 0 var(--door-side) round var(--door-r) var(--door-r) 0 0);
+}
+
+.scene__door {
+  top: var(--door-top);
+  left: var(--door-side);
+  right: var(--door-side);
+  bottom: 0;
+  border: 2px solid var(--or-400);
+  border-bottom: 0;
+  border-radius: var(--door-r) var(--door-r) 0 0;
+  box-shadow: inset 0 0 50px rgba(246, 203, 116, 0.5);
+}
+
+/* Rideau : deux pans de velours s'écartent sur la scène */
+.scene__curtain {
+  top: 0;
+  height: min(100%, 110vh);
+  width: 51%;
+  background:
+    linear-gradient(180deg, rgba(20, 4, 2, 0.45) 0%, transparent 25%, transparent 70%, rgba(20, 4, 2, 0.55) 100%),
+    repeating-linear-gradient(90deg, #4c100b 0, #7a2017 1.5vw, #9c3226 2.3vw, #6b1a13 3.4vw, #4c100b 4.4vw);
+}
+
+.scene__curtain--left {
+  left: 0;
+  transform: translateX(calc(var(--re, 0) * -101%));
+  box-shadow:
+    inset -9px 0 0 -3px var(--or-500),
+    24px 0 40px rgba(20, 4, 2, 0.35);
+}
+
+.scene__curtain--right {
+  right: 0;
+  transform: translateX(calc(var(--re, 0) * 101%));
+  box-shadow:
+    inset 9px 0 0 -3px var(--or-500),
+    -24px 0 40px rgba(20, 4, 2, 0.35);
+}
+
+/* Stores : la section apparaît par bandes horizontales, comme un tissu qui se déroule */
+.scenes[data-ready] .scene[data-transition='stores']:not([data-revealed]) > .scene__layer {
+  --stripe: calc(var(--re, 0) * 9vh);
+  -webkit-mask-image: repeating-linear-gradient(to bottom, #000 0, #000 var(--stripe), transparent var(--stripe), transparent 9vh);
+  mask-image: repeating-linear-gradient(to bottom, #000 0, #000 var(--stripe), transparent var(--stripe), transparent 9vh);
+}
+
+/* Poussée : la section glisse depuis la droite, comme un tram qui entre en station */
+.scenes[data-ready] .scene[data-transition='poussee']:not([data-revealed]) > .scene__layer {
+  transform: translateX(calc((1 - var(--re, 0)) * 100%));
+}
+
+/* Fondu au noir : la salle s'assombrit à l'approche des intervenants */
+.scenes[data-ready] .scene[data-transition='noir']:not([data-revealed]) .scene__bg {
+  opacity: var(--re, 0);
+}
+
+/* Cercle : la section s'ouvre depuis un soleil doré */
+.scenes[data-ready] .scene[data-transition='cercle']:not([data-revealed]) > .scene__layer {
+  clip-path: circle(calc(var(--r, 0) * 170vw) at 50% 18vh);
+}
+
+.scene__ring {
+  left: 50%;
+  top: 18vh;
+  width: calc(var(--r, 0) * 340vw);
+  aspect-ratio: 1;
+  border: 2px solid var(--or-400);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow:
+    0 0 0 10px rgba(246, 203, 116, 0.16),
+    inset 0 0 80px rgba(246, 203, 116, 0.55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scenes .build {
+    transition-delay: 0s;
+  }
+}

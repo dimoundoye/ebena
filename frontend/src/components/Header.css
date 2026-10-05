@@ -216,7 +216,6 @@
 
 .mobile-menu__list a.active {
   color: var(--or-700);
-  font-style: italic;
 }
 
 .site-header.is-open .mobile-menu__list a {

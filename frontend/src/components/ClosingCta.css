@@ -1,0 +1,29 @@
+.closing-cta {
+  display: grid;
+  justify-items: center;
+  gap: 1.2rem;
+  max-width: 860px;
+  text-align: center;
+}
+
+.closing-cta__cowries {
+  font-size: 1.6rem;
+}
+
+.closing-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 0.6rem;
+}
+
+@media (max-width: 640px) {
+  .closing-cta__actions {
+    width: 100%;
+  }
+
+  .closing-cta__actions .btn {
+    flex: 1 1 100%;
+  }
+}

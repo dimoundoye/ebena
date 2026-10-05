@@ -1,23 +1,32 @@
-.programme-intro {
-  padding-block: clamp(3.5rem, 7vw, 5.5rem);
-}
+/* ==========================================================================
+   Programme : sections en scènes (transitions dans components/scene)
+   ========================================================================== */
 
-.programme-intro__grid {
+/* --- Introduction ------------------------------------------------------------ */
+
+.prog-intro {
   display: grid;
   grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
   gap: clamp(2rem, 6vw, 5rem);
-  align-items: center;
+  align-items: end;
 }
 
-.programme-intro__ambition {
+.prog-intro__head {
+  display: grid;
+  justify-items: start;
+  gap: 1.15rem;
+}
+
+.prog-intro__ambition {
+  max-width: 44rem;
   font-family: var(--font-display);
-  font-style: italic;
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
-  line-height: 1.3;
-  color: var(--ebene-900);
+  font-size: clamp(1.35rem, 2.3vw, 1.9rem);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ebene-800);
 }
 
-.programme-intro__note {
+.prog-intro__note {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 1rem;
@@ -29,287 +38,217 @@
   color: var(--text-soft);
 }
 
-.programme-intro__note svg {
+.prog-intro__note svg {
   width: 1.5rem;
   height: 1.5rem;
   color: var(--or-600);
 }
 
-.programme-intro__note strong {
+.prog-intro__note strong {
   color: var(--ebene-900);
 }
 
-.programme-intro__note a {
+.prog-intro__note a {
   color: var(--or-700);
   font-weight: 600;
 }
 
-/* --- Pavillons ------------------------------------------------------------------ */
+/* --- Un pavillon : porte collante à gauche, texte à droite --------------------- */
 
-.pavillons__list {
+.pav-detail {
   display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(2.5rem, 7vw, 7rem);
+  align-items: start;
 }
 
-.pavillon {
-  display: grid;
-  grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr);
-  gap: clamp(1.5rem, 5vw, 4.5rem);
-  padding-block: clamp(2.5rem, 5vw, 4rem);
-  border-top: 1px solid var(--line-strong);
-  scroll-margin-top: calc(var(--header-h) + 1rem);
-}
-
-.pavillon:last-child {
-  border-bottom: 1px solid var(--line-strong);
-}
-
-.pavillon__aside {
+.pav-detail__aside {
   position: sticky;
-  top: calc(var(--header-h) + 2rem);
-  align-self: start;
+  top: calc(var(--header-h) + 4vh);
   display: grid;
-  justify-items: start;
-  gap: 1rem;
+  justify-items: center;
+  gap: 1.1rem;
 }
 
-.pavillon__number {
+.pav-detail__door {
+  width: min(100%, 380px, 55vh);
+  padding: 14px;
+}
+
+.pav-detail__count {
   font-family: var(--font-display);
-  font-size: clamp(5rem, 10vw, 8.5rem);
+  font-size: clamp(2.6rem, 4vw, 3.6rem);
   font-weight: 600;
+  line-height: 1;
   font-variant-numeric: lining-nums;
-  line-height: 0.8;
   color: transparent;
   -webkit-text-stroke: 1px var(--or-600);
-  transition: color 0.6s var(--ease);
 }
 
-.pavillon:hover .pavillon__number {
-  color: var(--or-200);
+.pav-detail__count span {
+  font-size: 0.4em;
+  color: var(--text-muted);
+  -webkit-text-stroke: 0;
 }
 
-.pavillon__kicker {
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--or-700);
-}
-
-.pavillon__body {
+.pav-detail__body {
   display: grid;
+  justify-items: start;
   gap: 1.25rem;
-  max-width: 760px;
+  max-width: 720px;
 }
 
-.pavillon__quote {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: clamp(1.3rem, 2vw, 1.6rem);
-  line-height: 1.35;
-  color: var(--or-700);
+.pav-detail__title {
+  font-size: clamp(2rem, 3.6vw, 3.2rem);
+  line-height: 1.06;
 }
 
-.pavillon__list-title {
+.pav-detail__list-title {
+  margin-bottom: 0.9rem;
   font-weight: 600;
   color: var(--ebene-900);
 }
 
-.pavillon__note {
+.pav-detail__note {
   padding: 1rem 1.2rem;
   border-left: 2px solid var(--or-500);
   border-radius: 0 12px 12px 0;
   background: rgba(255, 251, 244, 0.85);
   font-size: 0.92rem;
-  font-style: italic;
   color: var(--ebene-800);
 }
 
-/* --- Scène ------------------------------------------------------------------------------ */
-
-.scene-index {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-}
-
-.scene-index__item {
+/* Pavillon précédent / suivant : la traversée continue */
+.pav-detail__nav {
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.3rem 1.4rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--ivoire-50);
-  box-shadow: var(--shadow-card);
-  text-decoration: none;
-  font-family: var(--font-display);
-  font-size: 1.45rem;
-  font-weight: 600;
-  line-height: 1.15;
-  color: var(--ebene-900);
-  transition:
-    transform 0.5s var(--ease-out),
-    border-color 0.3s;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 0.8rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line-strong);
 }
 
-.scene-index__item:hover {
-  transform: translateY(-4px);
-  border-color: rgba(176, 122, 42, 0.55);
+.pav-detail__prev:hover svg {
+  transform: translateX(-4px);
 }
 
-.scene-index__item small {
-  display: block;
-  margin-bottom: 0.2rem;
-  font-family: var(--font-sans);
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--or-700);
-}
+/* --- Le Voyage ----------------------------------------------------------------------- */
 
-.cour-royale__visual {
-  position: relative;
+.prog-voyage {
   display: grid;
-  justify-items: center;
-  align-content: center;
-  gap: 0.6rem;
-  aspect-ratio: 4 / 5;
-  max-width: 460px;
-  padding: 2rem;
-  border-radius: 999px 999px var(--radius-lg) var(--radius-lg);
-  border: 1px solid rgba(176, 122, 42, 0.45);
-  background:
-    radial-gradient(circle at 50% 75%, rgba(246, 203, 116, 0.85), transparent 60%),
-    var(--sable-300);
-  box-shadow: var(--shadow-soft);
-  overflow: hidden;
-  text-align: center;
+  gap: clamp(2.5rem, 6vw, 4.5rem);
 }
 
-.cour-royale__visual::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: var(--lattice);
-  background-size: 48px 48px;
-  opacity: 0.18;
-}
-
-.cour-royale__band {
-  position: absolute;
-  top: 18%;
-  bottom: 0;
-  left: 1.2rem;
-  width: 24px;
-  opacity: 0.8;
-}
-
-.cour-royale__visual > svg {
-  position: relative;
-  width: 5.5rem;
-  height: 5.5rem;
-  padding: 1.3rem;
-  border-radius: 50%;
-  color: var(--ebene-900);
-  background: var(--ivoire-50);
-  stroke-width: 1.1;
-  box-shadow:
-    0 0 0 1px var(--or-400),
-    0 0 0 10px rgba(255, 251, 244, 0.6),
-    0 0 0 11px rgba(213, 155, 64, 0.45);
-}
-
-.cour-royale__artist {
-  position: relative;
-  margin-top: 1rem;
-  font-size: clamp(2.2rem, 4vw, 3rem);
-  line-height: 1;
-  color: var(--or-700);
-}
-
-.cour-royale__maison {
-  position: relative;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--ebene-800);
-}
-
-.voyage__outro {
+.prog-voyage__head {
+  display: grid;
+  justify-items: start;
+  gap: 1.15rem;
   max-width: 820px;
-  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.prog-voyage__outro {
+  max-width: 820px;
   font-family: var(--font-display);
-  font-style: italic;
   font-size: clamp(1.25rem, 2vw, 1.55rem);
+  font-weight: 600;
   line-height: 1.45;
   color: var(--ebene-800);
 }
 
-.objectifs ol {
+/* --- La Méthode des Leaders (fond sombre) ------------------------------------------------ */
+
+.prog-methode {
+  display: grid;
+  gap: clamp(3rem, 7vw, 5.5rem);
+}
+
+.prog-methode__head {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.prog-methode__title {
+  display: grid;
+  justify-items: start;
+  gap: 1.15rem;
+}
+
+.prog-methode__objectifs {
+  display: grid;
+  gap: 1.2rem;
+}
+
+/* Les cinq objectifs entrent l'un après l'autre, comme des cartes posées sur la table */
+.prog-methode__objectifs ol {
   list-style: none;
   display: grid;
-  margin-top: 1rem;
-  border-top: 1px solid var(--line-strong);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  gap: 1rem;
 }
 
-.objectifs li {
+.prog-methode__objectifs li {
   display: grid;
-  grid-template-columns: 2.6rem 1fr;
-  gap: 0.6rem;
-  align-items: baseline;
-  padding: 0.95rem 0;
-  border-bottom: 1px solid var(--line-strong);
-  color: var(--ebene-900);
+  align-content: start;
+  gap: 0.7rem;
+  padding: 1.4rem 1.4rem 1.6rem;
+  border: 1px solid rgba(246, 203, 116, 0.25);
+  border-radius: var(--radius);
+  background: rgba(255, 251, 244, 0.04);
   font-weight: 500;
+  line-height: 1.5;
+  color: var(--ivoire-100);
 }
 
-.objectifs li span {
+.prog-methode__objectifs li span {
   font-family: var(--font-display);
-  font-size: 1.3rem;
+  font-size: 1.8rem;
   font-weight: 700;
+  line-height: 1;
   font-variant-numeric: lining-nums;
-  color: var(--or-600);
+  color: var(--or-300);
 }
 
-.leaders-wrap {
-  margin-top: clamp(3rem, 6vw, 5rem);
-}
-
-.programme-cta {
+.prog-methode__cta {
   display: flex;
   justify-content: center;
-  margin-top: clamp(2.5rem, 5vw, 3.5rem);
 }
 
+/* --- Responsive ------------------------------------------------------------------------- */
+
 @media (max-width: 900px) {
-  .programme-intro__grid {
-    grid-template-columns: 1fr;
+  .prog-intro,
+  .prog-methode__head {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .pavillon {
-    grid-template-columns: 1fr;
+  /* La porte du pavillon passe en tête, en petit, à côté de son numéro */
+  .pav-detail {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.6rem;
   }
 
-  .pavillon__aside {
+  .pav-detail__aside {
     position: static;
-    grid-template-columns: auto auto;
-    align-items: center;
+    grid-auto-flow: column;
     justify-content: start;
-    column-gap: 1.2rem;
+    align-items: end;
+    gap: 1.2rem;
   }
 
-  .pavillon__kicker {
-    grid-column: 1 / -1;
+  .pav-detail__door {
+    width: clamp(110px, 30vw, 170px);
+    padding: 10px;
   }
 
-  .scene-index {
-    grid-template-columns: 1fr;
+  .pav-detail__door .pav-door__watermark {
+    font-size: 5rem;
   }
 
-  .cour-royale__visual {
-    max-width: 360px;
-    margin-inline: auto;
+  .pav-detail__door .pav-door__icon {
+    width: 4.2rem;
   }
 }

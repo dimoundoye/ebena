@@ -233,6 +233,8 @@ export const COUR_ROYALE = {
     'Son projet, La Cour Royale de Maam, est une exposition immersive qui propose une plongée dans l’histoire et les imaginaires du Sénégal à travers le vêtement.',
     'Inspirée du langage cinématographique, la scénographie donne corps à des figures historiques et sociales et invite le visiteur à découvrir le vêtement autrement : non plus comme un simple objet de mode, mais comme un langage, un marqueur de statut, un récit et une mémoire vivante.',
   ],
+  // Reprise du dernier paragraphe, présentée en liste sur la diapositive d'accueil
+  vetement: ['Un langage', 'Un marqueur de statut', 'Un récit', 'Une mémoire vivante'],
 };
 
 export const VOYAGE = {

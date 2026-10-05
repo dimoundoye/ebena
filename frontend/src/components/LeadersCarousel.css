@@ -1,0 +1,403 @@
+/* ==========================================================================
+   Intervenants de la Méthode des Leaders, sur fond sombre. --f : l'intervenant en cours.
+   Grand écran ([data-mode='scroll']) : les noms défilent avec la page ; les affiches
+   restent à côté et tournent vers le nom qui passe au centre de l'écran.
+   Petit écran ([data-mode='carousel']) : affiches en haut, carrousel à glisser.
+   ========================================================================== */
+
+.leaders-show {
+  display: grid;
+}
+
+.leaders-show__text {
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+}
+
+.leaders-show__motto {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2vw, 1.6rem);
+  font-weight: 600;
+  color: var(--or-200);
+}
+
+/* Compteur « Intervenant 01 / 06 » ; en carrousel, il défile comme un compteur mécanique */
+.leaders-show__counter {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.leaders-show__counter-label {
+  font-family: var(--font-sans);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(245, 227, 198, 0.6);
+}
+
+.leaders-show__digits {
+  display: block;
+  height: 1em;
+  overflow: hidden;
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  font-weight: 700;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--or-300);
+}
+
+.leaders-show__roll {
+  display: grid;
+  transform: translateY(calc(var(--f, 0) * -1em));
+  transition: transform 0.9s var(--ease-out);
+}
+
+.leaders-show__roll span {
+  height: 1em;
+  line-height: 1;
+}
+
+.leaders-show__total {
+  font-size: 1.2rem;
+  color: rgba(245, 227, 198, 0.5);
+}
+
+.leaders-show__items {
+  list-style: none;
+  display: grid;
+  width: 100%;
+}
+
+.leaders-show__item {
+  display: grid;
+  justify-items: start;
+  align-content: start;
+  gap: 0.8rem;
+}
+
+.leaders-show__name {
+  font-size: clamp(2.5rem, 4.6vw, 4.4rem);
+  line-height: 1;
+  color: var(--ivoire-100);
+}
+
+.letters__word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.letters__char {
+  display: inline-block;
+}
+
+.leaders-show__role {
+  max-width: 28rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(245, 227, 198, 0.82);
+}
+
+.leaders-show__pays {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--or-300);
+}
+
+.leaders-show__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+}
+
+.leaders-show__button,
+.leaders-show__play {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(246, 203, 116, 0.4);
+  border-radius: 50%;
+  background: rgba(30, 10, 6, 0.4);
+  color: var(--ivoire-100);
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    color 0.3s,
+    border-color 0.3s,
+    opacity 0.3s;
+}
+
+.leaders-show__button {
+  width: 3.2rem;
+  height: 3.2rem;
+}
+
+.leaders-show__play {
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-left: 0.4rem;
+}
+
+.leaders-show__button svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.leaders-show__play svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.leaders-show__button:hover:not(:disabled),
+.leaders-show__play:hover {
+  border-color: var(--or-300);
+  background: var(--or-300);
+  color: var(--ebene-950);
+}
+
+.leaders-show__button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* --- Affiches en perspective, pilotées par --f ------------------------------------------ */
+
+.leaders-show__stage {
+  display: grid;
+  justify-items: center;
+  gap: 1.2rem;
+}
+
+.leaders-show__viewport {
+  position: relative;
+  width: 100%;
+  height: min(68vh, 620px);
+  overflow: hidden;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.leaders-show__flow {
+  position: absolute;
+  inset: 0;
+  perspective: 1500px;
+  transform-style: preserve-3d;
+}
+
+.leaders-show__poster {
+  --d: calc(var(--i) - var(--f, 0));
+  --ad: max(var(--d), calc(var(--d) * -1));
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 94%;
+  aspect-ratio: 2 / 3;
+  margin: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: clamp(0, calc(1.75 - var(--ad) * 0.6), 1);
+  box-shadow:
+    0 40px 70px -30px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(246, 203, 116, 0.25);
+  transform: translate(-50%, -50%) translateX(calc(var(--d) * 62%)) translateZ(calc(var(--ad) * -260px))
+    rotateY(calc(clamp(-1, var(--d), 1) * -24deg));
+  transition:
+    transform 1s var(--ease-out),
+    opacity 1s var(--ease-out);
+}
+
+.leaders-show__poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.leaders-show__poster::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #140603;
+  opacity: clamp(0, calc(var(--ad) * 0.7), 0.75);
+  transition: opacity 1s var(--ease-out);
+  pointer-events: none;
+}
+
+.leaders-show__thumbs {
+  list-style: none;
+  display: flex;
+  gap: 0.6rem;
+}
+
+.leaders-show__thumb {
+  display: block;
+  width: 40px;
+  aspect-ratio: 2 / 3;
+  padding: 0;
+  border: 1px solid rgba(246, 203, 116, 0.3);
+  border-radius: 6px;
+  overflow: hidden;
+  background: none;
+  cursor: pointer;
+  opacity: 0.45;
+  transition:
+    opacity 0.3s,
+    transform 0.4s var(--ease-out),
+    border-color 0.3s;
+}
+
+.leaders-show__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.leaders-show__thumb:hover {
+  opacity: 0.85;
+}
+
+.leaders-show__thumb[aria-current] {
+  opacity: 1;
+  border-color: var(--or-300);
+  transform: translateY(-4px);
+}
+
+/* --- Grand écran : les noms défilent avec la page ---------------------------------------- */
+
+.leaders-show[data-mode='scroll'] {
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  column-gap: clamp(2rem, 5vw, 5rem);
+}
+
+/* Les affiches restent à l'écran, centrées sous l'en-tête, le temps de parcourir la liste */
+.leaders-show[data-mode='scroll'] .leaders-show__stage {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  align-content: center;
+  height: 100vh;
+  height: 100svh;
+  padding-top: var(--header-h);
+}
+
+/* L'espace sous la liste laisse le dernier nom arriver au centre avant que les affiches ne repartent */
+.leaders-show[data-mode='scroll'] .leaders-show__text {
+  padding-bottom: 20vh;
+}
+
+.leaders-show[data-mode='scroll'] :is(.leaders-show__text > .leaders-show__counter, .leaders-show__controls) {
+  display: none;
+}
+
+/* Un écran à peu près par intervenant : le nom passe au centre pendant que son affiche est devant */
+.leaders-show[data-mode='scroll'] .leaders-show__item {
+  min-height: 52vh;
+  align-content: center;
+  padding-block: 2rem;
+}
+
+/* L'intervenant au centre de l'écran s'allume lettre après lettre ; les autres restent dans l'ombre */
+.leaders-show[data-mode='scroll'] .leaders-show__item > :not(.leaders-show__name) {
+  opacity: 0.3;
+  transition: opacity 0.6s var(--ease);
+}
+
+.leaders-show[data-mode='scroll'] .leaders-show__item[data-pos='current'] > :not(.leaders-show__name) {
+  opacity: 1;
+}
+
+.leaders-show[data-mode='scroll'] .letters__char {
+  color: rgba(253, 245, 232, 0.2);
+  transition: color 0.4s var(--ease);
+}
+
+.leaders-show[data-mode='scroll'] [data-pos='current'] .letters__char {
+  color: var(--ivoire-100);
+  transition: color 0.5s var(--ease) calc(var(--l) * 0.03s);
+}
+
+/* --- Petit écran : carrousel, affiches en haut et textes superposés dessous -------------- */
+
+.leaders-show[data-mode='carousel'] {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.2rem;
+}
+
+.leaders-show[data-mode='carousel'] .leaders-show__stage {
+  grid-row: 1;
+}
+
+.leaders-show[data-mode='carousel'] .leaders-show__text {
+  grid-row: 2;
+}
+
+.leaders-show[data-mode='carousel'] .leaders-show__viewport {
+  height: clamp(300px, 58vh, 520px);
+}
+
+.leaders-show[data-mode='carousel'] :is(.leaders-show__index, .leaders-show__thumbs) {
+  display: none;
+}
+
+.leaders-show[data-mode='carousel'] .leaders-show__counter {
+  margin-top: 1rem;
+}
+
+/* Seul l'intervenant en cours est visible */
+.leaders-show[data-mode='carousel'] .leaders-show__item {
+  grid-area: 1 / 1;
+  visibility: hidden;
+  transition: visibility 0s linear 0.6s;
+}
+
+.scene[data-shown] .leaders-show[data-mode='carousel'] .leaders-show__item[data-pos='current'] {
+  visibility: visible;
+  transition: visibility 0s;
+}
+
+/* Le nom se recompose lettre par lettre */
+.leaders-show[data-mode='carousel'] .letters__char {
+  opacity: 0;
+  transform: translateY(0.55em) rotate(5deg);
+  transition:
+    opacity 0.22s var(--ease),
+    transform 0.5s var(--ease-out);
+  transition-delay: calc(var(--l) * 0.01s);
+}
+
+.leaders-show[data-mode='carousel'] .leaders-show__item[data-pos='before'] .letters__char {
+  transform: translateY(-0.55em) rotate(-5deg);
+}
+
+.scene[data-shown] .leaders-show[data-mode='carousel'] .leaders-show__item[data-pos='current'] .letters__char {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.5s var(--ease),
+    transform 0.8s var(--ease-out);
+  transition-delay: calc(0.25s + var(--l) * 0.028s);
+}
+
+.leaders-show[data-mode='carousel'] :is(.leaders-show__role, .leaders-show__pays) {
+  opacity: 0;
+  transform: translateY(0.8rem);
+  transition:
+    opacity 0.22s var(--ease),
+    transform 0.5s var(--ease-out);
+}
+
+.scene[data-shown] .leaders-show[data-mode='carousel'] .leaders-show__item[data-pos='current'] :is(.leaders-show__role, .leaders-show__pays) {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.6s var(--ease) 0.45s,
+    transform 0.8s var(--ease-out) 0.45s;
+}

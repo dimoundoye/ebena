@@ -1,0 +1,954 @@
+/* ==========================================================================
+   Accueil : contenu des sections (les transitions sont dans components/scene)
+   ========================================================================== */
+
+/* Mises en page à deux colonnes */
+.s-pourquoi,
+.s-imaginaire,
+.s-benin,
+.s-parrain {
+  display: grid;
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: center;
+}
+
+.s-pourquoi__intro,
+.s-pourquoi__text,
+.s-imaginaire__head,
+.s-benin__text,
+.s-parrain__text {
+  display: grid;
+  justify-items: start;
+  gap: 1.15rem;
+}
+
+/* --- Pourquoi ÉBËNA ------------------------------------------------------------- */
+
+.s-pourquoi {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+}
+
+.s-pourquoi__word {
+  display: grid;
+  justify-items: start;
+  gap: 0.35rem;
+  margin-top: 0.8rem;
+  padding: 1.5rem 2rem;
+  border-left: 1px solid var(--or-500);
+  background: linear-gradient(90deg, rgba(246, 203, 116, 0.2), transparent);
+}
+
+.s-pourquoi__old {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.2vw, 1.9rem);
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Le « bois d'ébène » est barré une fois apparu */
+.s-pourquoi__old::after,
+.s-imaginaire__from li::after {
+  content: '';
+  position: absolute;
+  left: -4%;
+  right: -4%;
+  top: 55%;
+  height: 2px;
+  background: var(--bordeaux);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.9s var(--ease-out) 0.7s;
+}
+
+.s-pourquoi__old[data-in]::after,
+.s-imaginaire__from li[data-in]::after,
+.scenes:not([data-ready]) :is(.s-pourquoi__old, .s-imaginaire__from li)::after {
+  transform: scaleX(1);
+}
+
+.s-pourquoi__arrow {
+  position: relative;
+  width: 1px;
+  height: 2rem;
+  margin-left: 1.2rem;
+  background: var(--or-500);
+}
+
+.s-pourquoi__arrow::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -4px;
+  width: 9px;
+  height: 9px;
+  border-right: 1px solid var(--or-600);
+  border-bottom: 1px solid var(--or-600);
+  transform: rotate(45deg);
+}
+
+.s-pourquoi__new {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  background: var(--gold-text);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: gold-shimmer 10s linear infinite;
+}
+
+.s-pourquoi__text {
+  gap: 1.4rem;
+}
+
+.s-pourquoi__paragraph {
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+  line-height: 1.8;
+  color: var(--text-soft);
+}
+
+.s-pourquoi__paragraph::first-letter {
+  float: left;
+  margin: 0.3rem 0.6rem 0 0;
+  font-family: var(--font-display);
+  font-size: 4.1em;
+  font-weight: 700;
+  line-height: 0.75;
+  color: var(--or-600);
+}
+
+/* --- D'un imaginaire à l'autre ---------------------------------------------------- */
+
+.s-imaginaire {
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+}
+
+.s-imaginaire__shift {
+  display: grid;
+  justify-items: start;
+  gap: 0.6rem;
+  padding-left: clamp(1.2rem, 3vw, 2.6rem);
+  border-left: 1px solid var(--line-strong);
+}
+
+.s-imaginaire__label {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--or-700);
+}
+
+.s-imaginaire__from,
+.s-imaginaire__to {
+  list-style: none;
+}
+
+.s-imaginaire__from {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 1.6rem;
+  margin-bottom: 1.4rem;
+}
+
+.s-imaginaire__from li {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.s-imaginaire__from li::after {
+  left: -3%;
+  right: -3%;
+}
+
+.s-imaginaire__to {
+  display: grid;
+}
+
+.s-imaginaire__to li {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.3rem, 5.2vw, 4.6rem);
+  font-weight: 600;
+  line-height: 1.06;
+  color: var(--ebene-900);
+}
+
+.s-imaginaire__to li::before {
+  content: '';
+  flex: none;
+  width: 0.16em;
+  height: 0.16em;
+  background: var(--or-500);
+  transform: rotate(45deg);
+}
+
+/* --- En chiffres -------------------------------------------------------------------- */
+
+.s-chiffres {
+  display: grid;
+  justify-items: center;
+  gap: clamp(2rem, 5vw, 3.6rem);
+  text-align: center;
+}
+
+.s-chiffres__head {
+  display: grid;
+  justify-items: center;
+  gap: 1.15rem;
+  max-width: 920px;
+}
+
+.s-chiffres__list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: 100%;
+  border-block: 1px solid var(--line);
+}
+
+.s-chiffres__list li + li {
+  border-left: 1px solid var(--line);
+}
+
+.s-chiffre {
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+  height: 100%;
+  padding: clamp(1.6rem, 4vw, 2.8rem) clamp(0.6rem, 2vw, 1.6rem);
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.4s;
+}
+
+.s-chiffre:hover {
+  background: rgba(246, 203, 116, 0.16);
+}
+
+.s-chiffre__value {
+  font-family: var(--font-display);
+  font-size: clamp(3.4rem, 8vw, 7rem);
+  font-weight: 700;
+  line-height: 0.9;
+  font-variant-numeric: lining-nums;
+  background: var(--gold-text);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: gold-shimmer 10s linear infinite;
+}
+
+.s-chiffre__label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ebene-900);
+}
+
+.s-chiffre__detail {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-muted);
+}
+
+/* --- Les six pavillons ------------------------------------------------------------------ */
+
+.s-pavillons__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.15rem clamp(2rem, 5vw, 5rem);
+  align-items: end;
+}
+
+.s-pavillons__head .eyebrow {
+  grid-column: 1 / -1;
+}
+
+.s-pavillons__ambition {
+  max-width: 820px;
+  margin: clamp(2.5rem, 5vw, 4rem) auto 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--ebene-800);
+}
+
+.pav-story {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(2.5rem, 7vw, 7rem);
+  margin-top: clamp(3rem, 6vw, 5rem);
+}
+
+/* La porte reste à l'écran pendant qu'on lit les pavillons */
+.pav-story__visual {
+  position: sticky;
+  top: calc(var(--header-h) + 3vh);
+  align-self: start;
+  display: grid;
+  justify-items: center;
+  gap: 1.2rem;
+}
+
+.pav-story__frame {
+  margin: 14px;
+}
+
+.pav-story__arch {
+  height: min(62vh, 560px);
+  aspect-ratio: 11 / 15;
+  background: var(--ebene-900);
+  box-shadow: 0 50px 80px -50px rgba(68, 34, 10, 0.75);
+}
+
+/* Les panneaux glissent dans la porte quand le pavillon actif change */
+.pav-story__panel {
+  --d: calc(var(--i) - var(--f, 0));
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--panel);
+  transform: translateY(calc(var(--d) * 100%));
+  transition: transform 1s var(--ease-out);
+}
+
+/* Le filigrane et l'icône glissent un peu moins vite que le panneau : effet de profondeur */
+.pav-story__panel .pav-door__watermark {
+  transform: translateY(calc(var(--d) * 30%));
+  transition: transform 1.1s var(--ease-out);
+}
+
+.pav-story__panel .pav-door__icon {
+  transform: translateY(calc(var(--d) * -40%));
+  transition: transform 1.2s var(--ease-out);
+}
+
+/* Compteur 01 → 06 qui défile comme un compteur mécanique */
+.pav-story__counter {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.pav-story__digits {
+  display: block;
+  height: 1em;
+  overflow: hidden;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.pav-story__digits {
+  font-size: clamp(3rem, 5vw, 4.4rem);
+  color: transparent;
+  -webkit-text-stroke: 1px var(--or-600);
+}
+
+.pav-story__roll {
+  display: grid;
+  transform: translateY(calc(var(--f, 0) * -1em));
+  transition: transform 0.9s var(--ease-out);
+}
+
+.pav-story__roll span {
+  height: 1em;
+  line-height: 1;
+}
+
+.pav-story__total {
+  font-size: 1.3rem;
+  color: var(--text-muted);
+}
+
+.pav-story__items {
+  list-style: none;
+  display: grid;
+}
+
+.pav-story__item {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 0.85rem;
+  min-height: 52vh;
+  padding-block: 2rem;
+  opacity: 0.3;
+  transition: opacity 0.6s var(--ease);
+}
+
+.pav-story__item.is-active {
+  opacity: 1;
+}
+
+.pav-story__mini {
+  display: none;
+}
+
+.pav-story__title {
+  font-size: clamp(2rem, 3.4vw, 2.9rem);
+  line-height: 1.05;
+}
+
+.pav-story__excerpt {
+  max-width: 34rem;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-soft);
+}
+
+/* --- Le Voyage ------------------------------------------------------------------------- */
+
+.s-voyage {
+  display: grid;
+  gap: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.s-voyage__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1rem clamp(2rem, 5vw, 5rem);
+  align-items: end;
+}
+
+.s-voyage__head > :not(.lead) {
+  grid-column: 1;
+}
+
+.s-voyage__head .lead {
+  grid-column: 2;
+  grid-row: 2 / span 2;
+}
+
+.s-voyage > .link-arrow {
+  justify-self: start;
+}
+
+/* --- Le Bénin ---------------------------------------------------------------------------- */
+
+.s-benin {
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+}
+
+.s-benin__visual {
+  display: grid;
+  justify-items: center;
+  padding: 12px;
+}
+
+/* Drapeau stylisé dans une arche : vert à la hampe, jaune et rouge au battant */
+.s-benin__flag {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  grid-template-rows: 1fr 1fr;
+  height: min(58vh, 500px);
+  aspect-ratio: 3 / 4.2;
+  border-radius: 999px 999px 18px 18px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px var(--or-500),
+    0 0 0 10px var(--ivoire-100),
+    0 0 0 11px rgba(213, 155, 64, 0.5),
+    0 50px 80px -50px rgba(68, 34, 10, 0.7);
+}
+
+.s-benin__flag::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--lattice);
+  background-size: 44px 44px;
+  opacity: 0.18;
+  mix-blend-mode: multiply;
+}
+
+.s-benin__flag span:nth-child(1) {
+  grid-row: 1 / 3;
+  background: #008751;
+}
+
+.s-benin__flag span:nth-child(2) {
+  background: #fcd116;
+}
+
+.s-benin__flag span:nth-child(3) {
+  background: #e8112d;
+}
+
+/* --- Le parrain ------------------------------------------------------------------------- */
+
+.s-parrain {
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+}
+
+.s-parrain__photo {
+  justify-self: center;
+  margin: 14px;
+}
+
+.s-parrain__photo .arch {
+  height: min(62vh, 560px);
+  aspect-ratio: 3 / 4;
+  box-shadow: 0 50px 80px -50px rgba(68, 34, 10, 0.75);
+}
+
+.s-parrain__photo img {
+  object-position: 50% 15%;
+}
+
+.s-parrain__quote {
+  margin: 0;
+}
+
+.s-parrain__quote p {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3.2vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--ebene-900);
+}
+
+.s-parrain__name {
+  margin-top: 0.3rem;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--or-700);
+}
+
+.s-parrain__role {
+  max-width: 30rem;
+  margin-top: -0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.s-parrain__about {
+  max-width: 34rem;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-soft);
+}
+
+/* --- Exposants -------------------------------------------------------------------------- */
+
+.s-exposer {
+  display: grid;
+  gap: clamp(2rem, 5vw, 3.2rem);
+}
+
+.s-exposer__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: 1.15rem clamp(2rem, 5vw, 5rem);
+  align-items: end;
+}
+
+.s-exposer__head .eyebrow {
+  grid-column: 1 / -1;
+}
+
+.s-exposer > .link-arrow {
+  justify-self: center;
+}
+
+.s-packs {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.6rem);
+}
+
+.s-pack {
+  --metal: linear-gradient(105deg, #8f8a83 0%, #cfcac2 26%, #ffffff 48%, #c9c4bc 70%, #8f8a83 100%);
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 0.5rem;
+  padding: 1.8rem 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(246, 203, 116, 0.3), transparent 50%),
+    var(--ivoire-50);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+
+.s-pack--gold {
+  --metal: var(--gold);
+  border-color: rgba(176, 122, 42, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(213, 155, 64, 0.35),
+    0 40px 70px -40px rgba(138, 84, 18, 0.65);
+}
+
+.s-pack--platinum {
+  --metal: linear-gradient(105deg, #a89f92 0%, #e4ded4 28%, #ffffff 48%, #ddd5c8 68%, #a39a8c 100%);
+}
+
+.s-pack__name {
+  width: calc(100% + 1rem);
+  padding: 0.55rem 1rem;
+  background: var(--metal);
+  clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ebene-950);
+}
+
+.s-pack__name span {
+  font-weight: 400;
+}
+
+.s-pack__price {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4vw, 3.1rem);
+  font-weight: 700;
+  line-height: 1.05;
+  font-variant-numeric: lining-nums;
+  color: var(--ebene-900);
+}
+
+.s-pack__price small {
+  font-size: 0.45em;
+  font-weight: 600;
+  color: var(--or-700);
+}
+
+.s-pack__surface {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--or-700);
+}
+
+.s-pack__features {
+  list-style: none;
+  display: grid;
+  gap: 0.65rem;
+  width: 100%;
+  margin-top: 0.8rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--line);
+  text-align: left;
+}
+
+.s-pack__features li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.7rem;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--text-soft);
+}
+
+.s-pack__features svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  margin-top: 0.1rem;
+  color: var(--or-600);
+}
+
+.s-pack__features strong {
+  font-weight: 600;
+  color: var(--ebene-900);
+}
+
+.s-pack__accroche {
+  margin-top: 0.6rem;
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ebene-800);
+}
+
+.s-pack__cta {
+  margin-top: 0.6rem;
+}
+
+/* --- Partenaires ------------------------------------------------------------------------- */
+
+.s-partenaires {
+  display: grid;
+  justify-items: center;
+  gap: clamp(1.8rem, 4vw, 2.6rem);
+  text-align: center;
+}
+
+.s-partenaires__head {
+  display: grid;
+  justify-items: center;
+  gap: 0.8rem;
+}
+
+.s-partenaires__cowries {
+  font-size: 1.5rem;
+}
+
+.s-logos {
+  --cols: 6;
+  --gap: clamp(0.6rem, 1.4vw, 1rem);
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--gap);
+  width: 100%;
+}
+
+.s-logos__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols));
+  height: clamp(76px, 9vw, 118px);
+  padding: clamp(0.6rem, 1.2vw, 1rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  box-shadow: 0 18px 40px -34px rgba(68, 34, 10, 0.55);
+}
+
+.s-logos__item img {
+  min-width: 0;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* --- Rendez-vous ---------------------------------------------------------------------------- */
+
+.scene--soleil .scene__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--lattice);
+  background-size: 56px 56px;
+  opacity: 0.1;
+  mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, #000 0%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, #000 0%, transparent 75%);
+}
+
+.s-rdv {
+  display: grid;
+  justify-items: center;
+  gap: 1.2rem;
+  text-align: center;
+}
+
+.s-rdv .countdown {
+  margin-block: 1rem;
+}
+
+.s-rdv__where {
+  font-size: 0.74rem;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ebene-800);
+}
+
+.s-rdv__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 0.4rem;
+}
+
+/* --- Responsive ------------------------------------------------------------------------- */
+
+@media (max-width: 1000px) {
+  /* Pavillons : plus de porte fixe, chaque pavillon a sa petite porte */
+  .pav-story {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .pav-story__visual {
+    display: none;
+  }
+
+  .pav-story__item {
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 1.3rem;
+    align-content: start;
+    min-height: 0;
+    padding-block: 2rem;
+    border-top: 1px solid var(--line);
+    opacity: 1;
+  }
+
+  .pav-story__item > :not(.pav-story__mini) {
+    grid-column: 2;
+  }
+
+  .pav-story__mini {
+    display: grid;
+    place-items: center;
+    grid-row: 1 / span 5;
+    align-self: start;
+    width: clamp(56px, 12vw, 84px);
+    aspect-ratio: 3 / 4;
+    border-radius: 999px 999px 8px 8px;
+    background: var(--panel);
+    color: var(--ink);
+    box-shadow: 0 0 0 1px var(--or-500), 0 0 0 5px var(--ivoire-100), 0 0 0 6px rgba(213, 155, 64, 0.4);
+  }
+
+  .pav-story__mini svg {
+    width: 42%;
+    height: auto;
+    stroke-width: 1.3;
+  }
+}
+
+@media (max-width: 900px) {
+  .s-pourquoi,
+  .s-imaginaire,
+  .s-benin,
+  .s-parrain,
+  .s-pavillons__head,
+  .s-voyage__head,
+  .s-exposer__head {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.6rem;
+  }
+
+  .s-voyage__head .lead {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .s-imaginaire__shift {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .s-benin__visual,
+  .s-parrain__photo {
+    justify-self: start;
+  }
+
+  .s-benin__flag {
+    height: clamp(180px, 34vh, 300px);
+  }
+
+  .s-parrain__photo .arch {
+    height: clamp(240px, 46vh, 420px);
+  }
+
+  .s-packs {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 520px;
+    width: 100%;
+    justify-self: center;
+  }
+
+  .s-logos {
+    --cols: 4;
+  }
+}
+
+@media (max-width: 640px) {
+  .s-pourquoi__word {
+    grid-auto-flow: column;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.9rem 1.2rem;
+  }
+
+  .s-pourquoi__arrow {
+    width: 1.6rem;
+    height: 1px;
+    margin-left: 0;
+  }
+
+  .s-pourquoi__arrow::after {
+    top: -4px;
+    bottom: auto;
+    left: auto;
+    right: 0;
+    transform: rotate(-45deg);
+  }
+
+  .s-pourquoi__new {
+    font-size: clamp(2.2rem, 10vw, 3rem);
+  }
+
+  .s-imaginaire__to {
+    grid-template-columns: repeat(2, auto);
+    justify-content: start;
+    column-gap: 1.4rem;
+  }
+
+  .s-imaginaire__to li {
+    font-size: clamp(1.9rem, 8.4vw, 2.6rem);
+  }
+
+  .s-chiffres__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .s-chiffres__list li:nth-child(3) {
+    border-left: 0;
+  }
+
+  .s-chiffres__list li:nth-child(n + 3) {
+    border-top: 1px solid var(--line);
+  }
+
+  .s-chiffre__label {
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+  }
+
+  .s-logos__item {
+    height: 72px;
+    padding: 0.5rem;
+    border-radius: 12px;
+  }
+
+  .s-rdv__actions {
+    width: 100%;
+  }
+
+  .s-rdv__actions .btn {
+    flex: 1 1 100%;
+  }
+}

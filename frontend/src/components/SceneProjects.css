@@ -1,0 +1,76 @@
+/* La Scène ÉBËNA et l'index de ses trois projets */
+.s-scene {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: center;
+}
+
+.s-scene__head {
+  display: grid;
+  justify-items: start;
+  gap: 1.15rem;
+}
+
+.s-scene__list {
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+}
+
+.s-scene__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(0.9rem, 1.6vw, 1.4rem);
+  padding: 1.3rem clamp(1rem, 2vw, 1.6rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--ivoire-50);
+  box-shadow: var(--shadow-card);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    transform 0.5s var(--ease-out),
+    border-color 0.3s;
+}
+
+.s-scene__item:hover {
+  transform: translateX(6px);
+  border-color: var(--or-500);
+}
+
+.s-scene__num {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--or-600);
+}
+
+.s-scene__text {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.s-scene__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--ebene-900);
+}
+
+.s-scene__arrow {
+  width: 1.2rem;
+  height: 1.2rem;
+  color: var(--or-600);
+}
+
+@media (max-width: 900px) {
+  .s-scene {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.6rem;
+  }
+}

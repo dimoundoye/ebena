@@ -1,0 +1,110 @@
+/* La Cour Royale de Maam : blason en arche et texte, sur fond bordeaux */
+.s-cour {
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: center;
+}
+
+.s-cour__text {
+  display: grid;
+  justify-items: start;
+  gap: 1.15rem;
+}
+
+.s-cour__prose {
+  color: rgba(245, 227, 198, 0.82);
+}
+
+.s-cour__crest {
+  display: grid;
+  justify-items: center;
+}
+
+.s-cour__arch {
+  position: relative;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1.2rem;
+  height: min(60vh, 520px);
+  aspect-ratio: 3 / 4.3;
+  border: 1px solid rgba(246, 203, 116, 0.55);
+  border-radius: 999px 999px 18px 18px;
+  background:
+    radial-gradient(circle at 50% 32%, rgba(246, 203, 116, 0.3), transparent 62%),
+    rgba(30, 6, 4, 0.35);
+  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.6);
+  color: var(--or-300);
+}
+
+.s-cour__arch::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(246, 203, 116, 0.28);
+  border-radius: inherit;
+}
+
+.s-cour__arch svg {
+  width: clamp(3.4rem, 8vw, 5.2rem);
+  height: auto;
+  stroke-width: 1.1;
+}
+
+.s-cour__maison {
+  max-width: 10rem;
+  font-size: 0.66rem;
+  font-weight: 600;
+  line-height: 1.7;
+  letter-spacing: 0.28em;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--or-200);
+}
+
+.s-cour__vetement {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.s-cour__label {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--or-300);
+}
+
+.s-cour__vetement ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.s-cour__vetement li {
+  padding: 0.45rem 1rem;
+  border: 1px solid rgba(246, 203, 116, 0.4);
+  border-radius: 999px;
+  background: rgba(30, 6, 4, 0.25);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--ivoire-100);
+}
+
+@media (max-width: 900px) {
+  .s-cour {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.6rem;
+  }
+
+  .s-cour__crest {
+    justify-self: start;
+  }
+
+  .s-cour__arch {
+    height: clamp(180px, 34vh, 300px);
+  }
+}
