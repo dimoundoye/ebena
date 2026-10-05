@@ -37,7 +37,6 @@
   position: relative;
   margin: 0;
   padding: 2rem 2.2rem 2rem 2.6rem;
-  border-left: 1px solid var(--or-500);
   background: linear-gradient(90deg, rgba(246, 203, 116, 0.2), transparent);
 }
 

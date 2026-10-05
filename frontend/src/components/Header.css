@@ -286,3 +286,12 @@
     width: 128px;
   }
 }
+
+/* Caché pendant qu'on descend ; reste visible si on y navigue au clavier */
+.site-header {
+  transition: translate 0.4s var(--ease);
+}
+
+.site-header.is-hidden:not(:has(:focus-visible)) {
+  translate: 0 -100%;
+}

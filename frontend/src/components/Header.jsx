@@ -9,10 +9,19 @@ export default function Header() {
   const { pathname } = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const isHome = pathname === '/';
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    // L'en-tête se cache quand on descend et revient dès qu'on remonte
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 24);
+      if (Math.abs(y - last) < 8) return;
+      setHidden(y > last && y > 200);
+      last = y;
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -30,7 +39,7 @@ export default function Header() {
     return () => window.removeEventListener('keydown', onKey);
   }, [open]);
 
-  const classes = ['site-header', scrolled && 'is-scrolled', open && 'is-open', isHome && 'is-home'].filter(Boolean).join(' ');
+  const classes = ['site-header', scrolled && 'is-scrolled', hidden && !open && 'is-hidden', open && 'is-open', isHome && 'is-home'].filter(Boolean).join(' ');
 
   return (
     <header className={classes}>

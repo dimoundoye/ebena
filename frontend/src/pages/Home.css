@@ -93,7 +93,7 @@
   align-items: center;
   gap: 1.6rem;
   padding: 1.1rem 0;
-  border-block: 1px solid var(--line);
+  border-block: 0;
 }
 
 .hero__date {
@@ -132,6 +132,7 @@
 }
 
 .hero__meta-sep {
+  display: none !important;
   align-self: stretch;
   width: 1px;
   background: var(--gold);

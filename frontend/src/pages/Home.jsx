@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, MapPin } from 'lucide-react';
 import { EVENT } from '../data/site.js';
 import { useDocumentMeta } from '../lib/useDocumentMeta.js';
-import Cowrie from '../components/Cowrie.jsx';
 import SceneFlow, { Scene } from '../components/scene/SceneFlow.jsx';
 import CourRoyale from '../components/CourRoyale.jsx';
 import SceneProjects from '../components/SceneProjects.jsx';
@@ -87,26 +86,6 @@ function Hero() {
   );
 }
 
-function Marquee() {
-  const items = [...EVENT.themes, ...EVENT.themes];
-  return (
-    <div className="marquee" aria-label={`Thèmes du salon : ${EVENT.themes.join(', ')}`}>
-      <div className="marquee__track" aria-hidden="true">
-        {[0, 1].map((copy) => (
-          <div className="marquee__group" key={copy}>
-            {items.map((theme, index) => (
-              <span className="marquee__item" key={`${copy}-${index}`}>
-                {theme}
-                <Cowrie className="marquee__cowrie" />
-              </span>
-            ))}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 // Après le hero, la page défile normalement ; chaque section arrive avec sa propre transition
 // (balayage, porte en arche, rideau, cercle doré…) qui avance au rythme du défilement.
 export default function Home() {
@@ -118,7 +97,6 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Marquee />
       <SceneFlow>
         <Scene id="pourquoi">
           <Pourquoi />

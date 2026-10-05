@@ -95,31 +95,36 @@ export function Imaginaire() {
   );
 }
 
-// Chaque chiffre mène à la section qui le détaille
+// Les chiffres, en très grand, sont pris dans une seule phrase dont chaque morceau mène
+// à la section qui le détaille.
 const CHIFFRE_ANCRES = ['#rendez-vous', '#pavillons', '#scene', '#benin'];
 
 export function Chiffres() {
+  const last = CHIFFRES.length - 1;
   return (
     <div className="container s-chiffres">
-      <div className="s-chiffres__head">
-        <p className="eyebrow eyebrow--center build" style={order(0)}>
-          ÉBËNA en chiffres
-        </p>
-        <h2 className="scene-title build" style={order(1)}>
-          Le grand rendez-vous de la création africaine <em className="text-gold">en Europe</em>
-        </h2>
-      </div>
-      <ol className="s-chiffres__list">
+      <p className="eyebrow eyebrow--center build" style={order(0)}>
+        ÉBËNA en chiffres
+      </p>
+      <h2 className="s-chiffres__phrase">
         {CHIFFRES.map((chiffre, index) => (
-          <li key={chiffre.label} className="build build--zoom" style={order(1 + index)}>
-            <Link to={CHIFFRE_ANCRES[index]} className="s-chiffre">
-              <span className="s-chiffre__value">{chiffre.value}</span>
-              <span className="s-chiffre__label">{chiffre.label}</span>
-              <span className="s-chiffre__detail">{chiffre.detail}</span>
+          <span key={chiffre.label} className="build build--fade" style={order(1 + index * 1.5)}>
+            {index > 0 && (index === last ? ' et ' : ', ')}
+            <Link to={CHIFFRE_ANCRES[index]} className="s-chiffres__part">
+              <span className="s-chiffres__value">{chiffre.value}</span>&nbsp;
+              <span className="s-chiffres__words">{chiffre.label}</span>
             </Link>
-          </li>
+            {index === last && (
+              <>
+                &nbsp;: <span className="text-gold">le Bénin</span>.
+              </>
+            )}
+          </span>
         ))}
-      </ol>
+      </h2>
+      <p className="s-chiffres__signature build" style={order(6)}>
+        Le grand rendez-vous de la création africaine en Europe
+      </p>
     </div>
   );
 }
@@ -278,7 +283,7 @@ export function Exposer() {
             </p>
             <p className="s-pack__surface">Stand de {pack.surface}</p>
             <ul className="s-pack__features">
-              {pack.features.slice(0, 3).map((feature) => (
+              {pack.features.map((feature) => (
                 <li key={feature.title}>
                   <Icon name={feature.icon} />
                   <span>

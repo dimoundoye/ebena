@@ -29,7 +29,6 @@ export default function Salon() {
         aside={
           <figure className="salon-poster">
             <img src="/images/affiche-ebena.webp" alt="Affiche officielle d’ÉBËNA 2027" width="922" height="1383" />
-            <figcaption>L’affiche officielle</figcaption>
           </figure>
         }
       />

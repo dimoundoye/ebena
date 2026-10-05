@@ -34,7 +34,7 @@
   gap: 0.35rem;
   margin-top: 0.8rem;
   padding: 1.5rem 2rem;
-  border-left: 1px solid var(--or-500);
+  border-left: 0;
   background: linear-gradient(90deg, rgba(246, 203, 116, 0.2), transparent);
 }
 
@@ -193,54 +193,29 @@
   transform: rotate(45deg);
 }
 
-/* --- En chiffres -------------------------------------------------------------------- */
+/* --- En chiffres : les chiffres géants sont pris dans une phrase ------------------------- */
 
 .s-chiffres {
   display: grid;
   justify-items: center;
-  gap: clamp(2rem, 5vw, 3.6rem);
+  gap: clamp(1.6rem, 3vw, 2.4rem);
   text-align: center;
 }
 
-.s-chiffres__head {
-  display: grid;
-  justify-items: center;
-  gap: 1.15rem;
-  max-width: 920px;
+.s-chiffres__phrase {
+  max-width: 1120px;
+  font-size: clamp(1.9rem, 4.2vw, 3.7rem);
+  font-weight: 600;
+  line-height: 1.5;
+  text-wrap: balance;
+  color: var(--ebene-900);
 }
 
-.s-chiffres__list {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  width: 100%;
-  border-block: 1px solid var(--line);
-}
-
-.s-chiffres__list li + li {
-  border-left: 1px solid var(--line);
-}
-
-.s-chiffre {
-  display: grid;
-  justify-items: center;
-  gap: 0.35rem;
-  height: 100%;
-  padding: clamp(1.6rem, 4vw, 2.8rem) clamp(0.6rem, 2vw, 1.6rem);
-  text-decoration: none;
-  color: inherit;
-  transition: background-color 0.4s;
-}
-
-.s-chiffre:hover {
-  background: rgba(246, 203, 116, 0.16);
-}
-
-.s-chiffre__value {
-  font-family: var(--font-display);
-  font-size: clamp(3.4rem, 8vw, 7rem);
+/* Bien plus grand que le texte, sans écarter les lignes */
+.s-chiffres__value {
+  font-size: 1.85em;
   font-weight: 700;
-  line-height: 0.9;
+  line-height: 0;
   font-variant-numeric: lining-nums;
   background: var(--gold-text);
   background-size: 200% 100%;
@@ -251,21 +226,32 @@
   animation: gold-shimmer 10s linear infinite;
 }
 
-.s-chiffre__label {
-  font-size: 0.7rem;
-  font-weight: 600;
-  line-height: 1.4;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ebene-900);
+.s-chiffres__part {
+  color: inherit;
+  text-decoration: none;
 }
 
-.s-chiffre__detail {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
+.s-chiffres__words {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(213, 155, 64, 0.45);
+  text-underline-offset: 0.2em;
+  transition:
+    color 0.3s,
+    text-decoration-color 0.3s;
+}
+
+.s-chiffres__part:hover .s-chiffres__words {
+  color: var(--or-700);
+  text-decoration-color: var(--or-500);
+}
+
+.s-chiffres__signature {
+  font-size: 0.72rem;
   font-weight: 600;
-  line-height: 1.3;
-  color: var(--text-muted);
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--or-700);
 }
 
 /* --- Les six pavillons ------------------------------------------------------------------ */
@@ -919,23 +905,6 @@
 
   .s-imaginaire__to li {
     font-size: clamp(1.9rem, 8.4vw, 2.6rem);
-  }
-
-  .s-chiffres__list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .s-chiffres__list li:nth-child(3) {
-    border-left: 0;
-  }
-
-  .s-chiffres__list li:nth-child(n + 3) {
-    border-top: 1px solid var(--line);
-  }
-
-  .s-chiffre__label {
-    font-size: 0.62rem;
-    letter-spacing: 0.16em;
   }
 
   .s-logos__item {
