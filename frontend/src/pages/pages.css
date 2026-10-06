@@ -22,16 +22,6 @@
   gap: 2rem;
 }
 
-.dropcap > p:first-child::first-letter {
-  float: left;
-  margin: 0.35rem 0.6rem 0 0;
-  font-family: var(--font-display);
-  font-size: 4.6rem;
-  font-weight: 700;
-  line-height: 0.75;
-  color: var(--or-600);
-}
-
 /* Encadré citation */
 .pullquote {
   position: relative;
@@ -192,7 +182,7 @@
 
 .toc a span {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 600;
   font-variant-numeric: lining-nums;
   color: var(--or-600);
   transition: color 0.3s;
@@ -248,7 +238,7 @@
 .person__name {
   font-family: var(--font-display);
   font-size: 1.35rem;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.15;
   color: var(--ebene-900);
 }
@@ -333,7 +323,7 @@
   margin-top: 0.15rem;
   font-family: var(--font-display);
   font-size: 1.3rem;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.3;
   color: var(--ebene-900);
   font-variant-numeric: lining-nums;

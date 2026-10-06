@@ -57,8 +57,8 @@
      - display : titres, noms, chiffres (Cormorant Garamond 600, 700 pour les grands chiffres)
      - sans    : texte courant, libellés, boutons (Montserrat 400, 500, 600)
      - script  : signature manuscrite seulement (« L’Afrique créative en mouvement ») */
-  --font-display: 'Cormorant Garamond', 'Cormorant', Garamond, 'Times New Roman', serif;
-  --font-sans: 'Montserrat', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-display: 'Plus Jakarta Sans Variable', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Plus Jakarta Sans Variable', 'Segoe UI', system-ui, -apple-system, sans-serif;
   --font-script: 'Yellowtail', 'Brush Script MT', cursive;
 
   /* Mise en page */
@@ -205,7 +205,7 @@ h4 {
   margin: 0;
   font-variant-numeric: lining-nums;
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.04;
   letter-spacing: -0.012em;
   color: var(--heading);
@@ -287,7 +287,7 @@ cite {
 
 .quote {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: clamp(1.35rem, 2.2vw, 1.75rem);
   line-height: 1.35;
   color: var(--ebene-800);
@@ -917,7 +917,7 @@ select.input {
   background: var(--ivoire-50);
   font-family: var(--font-display);
   font-size: 1.7rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.08em;
   color: var(--ebene-900);
 }

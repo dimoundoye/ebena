@@ -21,7 +21,7 @@
   max-width: 44rem;
   font-family: var(--font-display);
   font-size: clamp(1.35rem, 2.3vw, 1.9rem);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.35;
   color: var(--ebene-800);
 }
@@ -78,7 +78,7 @@
 .pav-detail__count {
   font-family: var(--font-display);
   font-size: clamp(2.6rem, 4vw, 3.6rem);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1;
   font-variant-numeric: lining-nums;
   color: transparent;
@@ -151,7 +151,7 @@
   max-width: 820px;
   font-family: var(--font-display);
   font-size: clamp(1.25rem, 2vw, 1.55rem);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.45;
   color: var(--ebene-800);
 }
@@ -205,7 +205,7 @@
 .prog-methode__objectifs li span {
   font-family: var(--font-display);
   font-size: 1.8rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1;
   font-variant-numeric: lining-nums;
   color: var(--or-300);

@@ -62,7 +62,7 @@
   bottom: -0.18em;
   font-family: var(--font-display);
   font-size: clamp(7rem, 24vh, 15rem);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1;
   color: var(--ink);
   opacity: 0.14;

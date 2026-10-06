@@ -45,7 +45,7 @@ export default function Salon() {
             </Reveal>
           </div>
           <div className="split__body">
-            <Reveal className="prose dropcap lead">
+            <Reveal className="prose lead">
               {MANIFESTE.paragraphs.map((paragraph) => (
                 <p key={paragraph.slice(0, 24)}>{paragraph}</p>
               ))}
