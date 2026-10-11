@@ -5,6 +5,8 @@ import { useDocumentMeta } from '../lib/useDocumentMeta.js';
 import SceneFlow, { Scene } from '../components/scene/SceneFlow.jsx';
 import CourRoyale from '../components/CourRoyale.jsx';
 import SceneProjects from '../components/SceneProjects.jsx';
+import Intro from '../components/Intro.jsx';
+import Carrefour from '../components/Carrefour.jsx';
 import {
   Benin,
   Chiffres,
@@ -24,7 +26,6 @@ import './home/HomeSections.css';
 function Hero() {
   return (
     <section className="hero">
-      <div className="hero__lattice" aria-hidden="true" />
       <div className="container hero__grid">
         <div className="hero__text">
           <h1 className="hero__title hero-in" style={{ '--d': '0.15s' }}>
@@ -96,6 +97,7 @@ export default function Home() {
 
   return (
     <>
+      <Intro />
       <Hero />
       <SceneFlow>
         <Scene id="pourquoi">
@@ -107,10 +109,13 @@ export default function Home() {
         <Scene id="en-chiffres" transition="zoom">
           <Chiffres />
         </Scene>
+        <Scene id="carrefour" tone="ebene" transition="noir" className="scene--flush">
+          <Carrefour />
+        </Scene>
         <Scene id="pavillons" tone="sable" transition="porte">
           <Pavillons />
         </Scene>
-        <Scene id="scene" tone="scene" transition="rideau">
+        <Scene id="scene" transition="rideau">
           <SceneProjects />
         </Scene>
         <Scene id="cour-royale" tone="bordeaux" transition="stores">

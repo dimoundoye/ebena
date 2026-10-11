@@ -77,7 +77,7 @@
   gap: 0.7rem;
   padding: 1rem 1.2rem;
   border: 1px solid var(--or-400);
-  border-radius: 14px;
+  border-radius: var(--radius-sm);
   background: var(--ivoire-50);
   color: var(--ebene-900);
   font-weight: 500;

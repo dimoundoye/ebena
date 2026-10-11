@@ -3,32 +3,17 @@
    La page défile normalement ; seul l'aspect de la section qui entre dans
    l'écran dépend de --re (0 → 1). Sans JavaScript ou avec « réduire les
    animations », .scenes n'a pas [data-ready] et tout s'affiche tel quel.
+
+   Les sections teintées (sable, ébène, bordeaux) sont des panneaux arrondis
+   posés sur la page ivoire ; les sections ivoire se confondent avec la page.
+   Pendant sa transition, un panneau garde la couleur de la section précédente
+   (data-base) : la porte s'ouvre dans le mur sombre, le noir se fait sur le sable…
    ========================================================================== */
 
 .scene {
   position: relative;
   overflow: hidden;
   overflow: clip;
-  background: var(--scene-base, var(--ivoire-100));
-}
-
-/* Fond de la section précédente, visible tant que la transition n'est pas terminée */
-.scene[data-base='ivoire'],
-.scene[data-base='scene'],
-.scene[data-base='soleil'] {
-  --scene-base: var(--ivoire-100);
-}
-
-.scene[data-base='sable'] {
-  --scene-base: #f7e9d1;
-}
-
-.scene[data-base='bordeaux'] {
-  --scene-base: #5c1611;
-}
-
-.scene[data-base='ebene'] {
-  --scene-base: var(--ebene-950);
 }
 
 .scene__layer {
@@ -47,6 +32,42 @@
   padding-block: clamp(5rem, 11vw, 9rem);
 }
 
+/* Section dont le contenu touche les bords (ex. la carte du Carrefour) */
+.scene--flush > .scene__layer > .scene__body {
+  padding-block: 0;
+}
+
+/* --- Panneaux arrondis ---------------------------------------------------------------- */
+
+.scene--panel {
+  margin-inline: var(--panel-inset);
+  border-radius: var(--radius-panel);
+  background: var(--scene-base, none);
+}
+
+/* Deux panneaux qui se suivent restent séparés par un mince filet de page */
+.scene--panel + .scene--panel {
+  margin-top: var(--panel-inset);
+}
+
+.scene--panel > .scene__layer {
+  border-radius: inherit;
+}
+
+/* Fond de la section précédente, visible dans le panneau tant que sa transition n'est pas
+   terminée (après une section ivoire, c'est la page elle-même) */
+.scene--panel[data-base='sable'] {
+  --scene-base: var(--surface-sable);
+}
+
+.scene--panel[data-base='bordeaux'] {
+  --scene-base: var(--surface-bordeaux);
+}
+
+.scene--panel[data-base='ebene'] {
+  --scene-base: var(--surface-ebene);
+}
+
 /* --- Tons ------------------------------------------------------------------------ */
 
 .scene--ivoire {
@@ -54,32 +75,27 @@
 }
 
 .scene--sable {
-  --tone-bg: #f7e9d1;
+  --tone-bg: var(--surface-sable);
 }
 
-.scene--scene {
-  --tone-bg:
-    radial-gradient(ellipse 45% 60% at 80% 0%, rgba(246, 203, 116, 0.5) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 50% at 8% 100%, rgba(246, 203, 116, 0.28) 0%, transparent 70%),
-    var(--ivoire-100);
-}
-
+/* Rendez-vous final : une lueur dorée diffuse derrière le compte à rebours */
 .scene--soleil {
   --tone-bg:
-    radial-gradient(circle at 50% 50%, rgba(249, 223, 154, 0.9) 0%, rgba(230, 178, 90, 0.42) 26%, rgba(230, 178, 90, 0) 56%),
+    radial-gradient(ellipse 50% 60% at 50% 55%, rgba(249, 223, 154, 0.55) 0%, rgba(246, 203, 116, 0.18) 45%, rgba(246, 203, 116, 0) 75%),
     var(--ivoire-100);
 }
 
 .scene--bordeaux {
-  --tone-bg:
-    radial-gradient(ellipse 70% 60% at 22% 25%, rgba(246, 203, 116, 0.16) 0%, transparent 70%),
-    #5c1611;
+  --tone-bg: var(--surface-bordeaux);
 }
 
 .scene--ebene {
-  --tone-bg:
-    radial-gradient(ellipse 60% 55% at 70% 45%, rgba(176, 122, 42, 0.32) 0%, transparent 70%),
-    var(--ebene-950);
+  --tone-bg: var(--surface-ebene);
+}
+
+/* Couloir des pavillons (programme) : panneau sombre dont chaque salle gère ses propres couleurs */
+.scene--couloir {
+  --tone-bg: #1e0a06;
 }
 
 .scene--bordeaux,

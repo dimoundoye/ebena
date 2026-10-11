@@ -1,0 +1,171 @@
+/* ==========================================================================
+   Ouverture du site : « bois d'ébène » devient ÉBËNA (Intro.jsx)
+   ========================================================================== */
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+html[data-intro='landing'] .intro {
+  pointer-events: none;
+}
+
+/* Rideau ébène fermé : l'arche ne s'ouvre qu'à l'arrivée sur l'accueil */
+.intro .arch-window {
+  width: 0;
+  height: 0;
+  box-shadow:
+    0 0 0 0 rgba(230, 178, 90, 0),
+    0 0 0 200vmax #1e0a06;
+}
+
+.intro__glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 55% 45% at 50% 50%, rgba(176, 122, 42, 0.3) 0%, transparent 70%);
+}
+
+.intro__phrase,
+.intro__logo {
+  grid-area: 1 / 1;
+}
+
+.intro__phrase {
+  position: relative;
+  margin: 0;
+  padding-inline: 0.2em;
+  font-size: clamp(1.9rem, 5.4vw, 4rem);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  color: rgba(245, 227, 198, 0.88);
+  opacity: 0;
+}
+
+/* Le vieux mot est barré, comme dans la section « Pourquoi ÉBËNA » */
+.intro__strike {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 54%;
+  height: 0.06em;
+  min-height: 2px;
+  border-radius: 2px;
+  background: #b3362b;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.intro__logo {
+  position: relative;
+  width: min(80vw, 720px);
+  transform-origin: 0 0;
+  filter: drop-shadow(0 0 28px rgba(246, 203, 116, 0.3));
+}
+
+.intro__reveal {
+  position: relative;
+  clip-path: inset(-30% 100% -30% 0);
+}
+
+.intro__base,
+.intro__cowrie {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Le logo sans ses cauris : la zone des deux coquillages, au-dessus du Ë, est retirée */
+.intro__base,
+.intro__sheen {
+  clip-path: polygon(0 0, 44% 0, 44% 30.8%, 57% 30.8%, 57% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Chaque cauri est le même logo, découpé autour d'un seul coquillage */
+.intro__cowrie {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.intro__cowrie--left {
+  clip-path: inset(0 49.8% 69.2% 44%);
+}
+
+.intro__cowrie--right {
+  clip-path: inset(0 43% 69.2% 50.2%);
+}
+
+/* Reflet doré qui balaie les lettres (le masque reprend la forme du logo) */
+.intro__sheen {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  -webkit-mask: url('/images/logo-ebena.webp') center / 100% 100% no-repeat;
+  mask: url('/images/logo-ebena.webp') center / 100% 100% no-repeat;
+  mix-blend-mode: screen;
+}
+
+.intro__sheen span {
+  position: absolute;
+  inset: 0 -60%;
+  background: linear-gradient(100deg, transparent 42%, rgba(255, 244, 214, 0.9) 50%, transparent 58%);
+  transform: translateX(-60%);
+}
+
+.intro__skip {
+  position: absolute;
+  right: clamp(1rem, 4vw, 2.5rem);
+  bottom: clamp(1rem, 4vw, 2.2rem);
+  padding: 0.6rem 0.2rem;
+  border: 0;
+  background: none;
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(245, 227, 198, 0.55);
+  cursor: pointer;
+  transition:
+    color 0.3s,
+    opacity 0.3s;
+}
+
+.intro__skip:hover,
+.intro__skip:focus-visible {
+  color: var(--or-300);
+}
+
+html[data-intro='landing'] .intro__skip {
+  opacity: 0;
+}
+
+/* --- L'accueil derrière l'ouverture ------------------------------------------------------ */
+
+/* Pas de défilement pendant l'ouverture (la place de la barre de défilement est gardée) */
+html:is([data-intro='play'], [data-intro='landing']) {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
+
+/* Les animations d'entrée de l'accueil attendent l'arrivée */
+html[data-intro='play'] .hero *,
+html[data-intro='play'] .hero *::before,
+html[data-intro='play'] .hero *::after {
+  animation-play-state: paused !important;
+}
+
+/* Le logo de l'accueil reste à sa place, caché, jusqu'à ce que celui de l'ouverture s'y pose */
+html[data-intro] .hero__title {
+  animation: none;
+}
+
+html:is([data-intro='play'], [data-intro='landing']) .hero__title {
+  opacity: 0;
+}

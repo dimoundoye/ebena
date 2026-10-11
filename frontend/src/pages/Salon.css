@@ -8,11 +8,8 @@
 
 .salon-poster img {
   width: 100%;
-  border-radius: 14px;
-  box-shadow:
-    0 0 0 10px var(--ivoire-50),
-    0 0 0 11px rgba(213, 155, 64, 0.55),
-    0 50px 80px -40px rgba(68, 34, 10, 0.7);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-photo);
 }
 
 .salon-poster figcaption {
@@ -84,7 +81,7 @@
   display: grid;
   grid-template-rows: 2fr 1.5fr 1.5fr;
   width: 14px;
-  border-radius: 14px;
+  border-radius: var(--radius-sm);
   overflow: hidden;
 }
 

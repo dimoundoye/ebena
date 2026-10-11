@@ -21,6 +21,23 @@
     />
     <meta property="og:image" content="/images/og-ebena.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Ouverture du site (components/Intro.jsx) : une fois par visite, en arrivant sur l'accueil.
+         Décidée ici pour que l'écran soit ébène dès le départ, sans éclair clair avant React. -->
+    <script>
+      try {
+        if (location.pathname === '/' && !sessionStorage.getItem('ebena-intro') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          document.documentElement.dataset.intro = 'play';
+        }
+      } catch (error) {}
+    </script>
+    <style>
+      html[data-intro] #root:empty {
+        position: fixed;
+        inset: 0;
+        background: #1e0a06;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>

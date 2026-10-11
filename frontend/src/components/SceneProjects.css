@@ -26,18 +26,20 @@
   padding: 1.3rem clamp(1rem, 2vw, 1.6rem);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: var(--ivoire-50);
+  background: #fffcf7;
   box-shadow: var(--shadow-card);
   text-decoration: none;
   color: inherit;
   transition:
-    transform 0.5s var(--ease-out),
+    transform 0.6s var(--ease-spring),
+    box-shadow 0.5s var(--ease),
     border-color 0.3s;
 }
 
 .s-scene__item:hover {
-  transform: translateX(6px);
-  border-color: var(--or-500);
+  transform: translateY(-3px);
+  border-color: rgba(176, 122, 42, 0.45);
+  box-shadow: var(--shadow-lift);
 }
 
 .s-scene__num {

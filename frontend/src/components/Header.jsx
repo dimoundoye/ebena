@@ -13,13 +13,13 @@ export default function Header() {
   const isHome = pathname === '/';
 
   useEffect(() => {
-    // L'en-tête se cache quand on descend et revient dès qu'on remonte
+    // L'en-tête se cache dès qu'on descend et revient dès qu'on remonte
     let last = window.scrollY;
     const onScroll = () => {
       const y = window.scrollY;
       setScrolled(y > 24);
       if (Math.abs(y - last) < 8) return;
-      setHidden(y > last && y > 200);
+      setHidden(y > last && y > 24);
       last = y;
     };
     onScroll();
@@ -77,7 +77,6 @@ export default function Header() {
       </div>
 
       <div id="menu-mobile" className="mobile-menu" inert={!open}>
-        <div className="mobile-menu__band band-zigzag-v" aria-hidden="true" />
         <div className="container mobile-menu__inner">
           <nav aria-label="Navigation mobile">
             <ul className="mobile-menu__list">

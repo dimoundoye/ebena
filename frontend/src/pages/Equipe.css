@@ -17,23 +17,14 @@
   margin: 14px;
 }
 
-/* Cadre doré décalé derrière le portrait */
-.team-lead__photo::before {
-  content: '';
-  position: absolute;
-  inset: -14px 14px 14px -14px;
-  border: 1px solid var(--or-500);
-  border-radius: 22px;
-}
-
 .team-lead__frame {
   position: relative;
 }
 
 .team-lead__frame img {
   width: 100%;
-  border-radius: 18px;
-  box-shadow: 0 50px 80px -46px rgba(68, 34, 10, 0.75);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-photo);
 }
 
 .team-lead__text {
@@ -75,14 +66,14 @@
 
 .team-card__photo {
   position: relative;
-  border-radius: 16px;
+  border-radius: var(--radius);
 }
 
 .team-card__photo img {
   width: 100%;
   aspect-ratio: 2 / 3;
   object-fit: cover;
-  border-radius: 16px;
+  border-radius: var(--radius);
   box-shadow: 0 34px 60px -38px rgba(30, 10, 6, 0.7);
   transition:
     transform 0.8s var(--ease-out),

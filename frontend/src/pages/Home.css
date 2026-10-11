@@ -14,16 +14,6 @@
   align-items: center;
 }
 
-.hero__lattice {
-  position: absolute;
-  inset: 0;
-  background-image: var(--lattice);
-  background-size: 56px 56px;
-  opacity: 0.1;
-  mask-image: radial-gradient(ellipse 60% 70% at 78% 55%, #000 0%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse 60% 70% at 78% 55%, #000 0%, transparent 75%);
-}
-
 .hero__grid {
   position: relative;
   display: grid;
@@ -186,7 +176,14 @@
   width: min(100%, 440px);
 }
 
+/* Liseré doré décalé autour du portrait, comme sur l'affiche */
 .hero__arch-frame::before {
+  content: '';
+  position: absolute;
+  inset: -14px;
+  border: 1px solid var(--or-500);
+  border-radius: 999px 999px calc(var(--radius-lg) + 10px) calc(var(--radius-lg) + 10px);
+  pointer-events: none;
   animation: fade-in 1.4s var(--ease-out) 1s both;
 }
 

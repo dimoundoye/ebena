@@ -200,7 +200,7 @@
   height: 94%;
   aspect-ratio: 2 / 3;
   margin: 0;
-  border-radius: 14px;
+  border-radius: var(--radius);
   overflow: hidden;
   cursor: pointer;
   opacity: clamp(0, calc(1.75 - var(--ad) * 0.6), 1);
@@ -243,7 +243,7 @@
   aspect-ratio: 2 / 3;
   padding: 0;
   border: 1px solid rgba(246, 203, 116, 0.3);
-  border-radius: 6px;
+  border-radius: 8px;
   overflow: hidden;
   background: none;
   cursor: pointer;

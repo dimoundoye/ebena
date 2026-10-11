@@ -11,25 +11,12 @@
   display: grid;
   gap: 0.9rem;
   padding: 1.8rem 1.8rem 1.6rem;
-  border: 1px solid rgba(176, 122, 42, 0.5);
-  border-radius: 22px;
+  border-radius: var(--radius-lg);
   background:
-    radial-gradient(circle at 100% 0%, rgba(246, 203, 116, 0.7), transparent 55%),
-    linear-gradient(160deg, var(--ivoire-50), var(--ivoire-200));
-  box-shadow: var(--shadow-soft);
+    radial-gradient(70% 90% at 100% 0%, rgba(246, 203, 116, 0.55) 0%, rgba(246, 203, 116, 0) 65%),
+    var(--surface-sable);
+  box-shadow: var(--shadow-card);
   overflow: hidden;
-}
-
-.inscription-ticket::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  width: 24px;
-  background-image: var(--zigzag-v);
-  background-size: 24px 18px;
-  opacity: 0.8;
 }
 
 .inscription-ticket__head {

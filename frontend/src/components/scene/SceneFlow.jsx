@@ -12,6 +12,8 @@ const REDUCED_MOTION = '(prefers-reduced-motion: reduce)';
 const SPAN = { default: 0.6, noir: 0.4, porte: 0.85, rideau: 0.75, cercle: 0.9 };
 // Niveau de révélation à partir duquel la section est « arrivée » (contenu animé qui en dépend)
 const SHOWN_AT = { default: 0.3, noir: 0.8, cercle: 0.5 };
+// Tons dessinés en panneaux arrondis sur la page ; les autres (ivoire, soleil) se confondent avec elle
+const PANEL_TONES = new Set(['sable', 'ebene', 'bordeaux', 'couloir']);
 
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 const easeOut = (t) => 1 - (1 - t) ** 3;
@@ -44,11 +46,18 @@ function SceneDecor({ type }) {
   }
 }
 
-// Une section de la page. `tone` : fond de la section ; `base` (fourni par SceneFlow) : fond de la
-// section précédente, visible tant que la transition n'a pas fini de révéler celle-ci.
+// Une section de la page. `tone` : fond de la section (les tons sable, ébène et bordeaux sont des
+// panneaux arrondis) ; `base` (fourni par SceneFlow) : fond de la section précédente, visible dans
+// le panneau tant que la transition n'a pas fini de révéler celui-ci.
 export function Scene({ id, tone = 'ivoire', base = 'ivoire', transition, className = '', children }) {
+  const panel = PANEL_TONES.has(tone);
   return (
-    <section id={id} className={`scene scene--${tone} ${className}`.trim()} data-base={base} data-transition={transition}>
+    <section
+      id={id}
+      className={['scene', `scene--${tone}`, panel && 'scene--panel', className].filter(Boolean).join(' ')}
+      data-base={base}
+      data-transition={transition}
+    >
       <div className="scene__layer">
         <div className="scene__bg" aria-hidden="true" />
         <div className="scene__body">{children}</div>

@@ -117,7 +117,6 @@ export default function Salon() {
               ))}
             </Reveal>
             <Reveal className="gold-panel" delay={0.12}>
-              <div className="gold-panel__band band-zigzag-v" aria-hidden="true" />
               <p className="eyebrow">Au cœur du salon</p>
               <h3 className="h3">{CONCEPT.mat.title}</h3>
               <p className="lead">{CONCEPT.mat.text}</p>

@@ -2,13 +2,10 @@ import Reveal from './Reveal.jsx';
 import { CowriePair } from './Cowrie.jsx';
 import './PageHero.css';
 
-// En-tête des pages intérieures : titre éditorial, motif en losanges et frise dorée.
+// En-tête des pages intérieures : titre éditorial dans un panneau arrondi.
 export default function PageHero({ eyebrow, title, intro, children, aside }) {
   return (
     <section className={`page-hero ${aside ? 'page-hero--with-aside' : ''}`}>
-      <div className="page-hero__lattice" aria-hidden="true" />
-      <div className="page-hero__halo" aria-hidden="true" />
-      <div className="page-hero__band band-zigzag-v" aria-hidden="true" />
       <div className="container page-hero__inner">
         <div className="page-hero__text">
           <Reveal as="p" className="eyebrow">

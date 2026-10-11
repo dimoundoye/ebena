@@ -409,6 +409,22 @@ export const PARTENAIRES = {
   ],
 };
 
+// --- Le Carrefour : carte de l'accueil, des pays reliés à Nantes ---------------------
+// `code` : code pays ISO numérique (allume ses points sur la carte) ; `lat` / `lon` : départ de
+// l'arc (la capitale) ; `label` : côté de l'étiquette (left, right, top, bottom).
+// Ajouter un pays : une ligne ici, sans régénérer la carte.
+export const CARREFOUR = {
+  title: 'Le carrefour : d’Afrique et des diasporas, rendez-vous à Nantes',
+  hub: { name: 'Nantes', lat: 47.2184, lon: -1.5536 },
+  pays: [
+    { slug: 'benin', code: '204', name: 'Bénin', lat: 6.4969, lon: 2.6283, label: 'right', honneur: true },
+    { slug: 'senegal', code: '686', name: 'Sénégal', lat: 14.7167, lon: -17.4677, label: 'left' },
+    { slug: 'guinee', code: '324', name: 'Guinée', lat: 9.6412, lon: -13.5784, label: 'left' },
+    { slug: 'cote-d-ivoire', code: '384', name: 'Côte d’Ivoire', lat: 5.36, lon: -4.0083, label: 'bottom' },
+    { slug: 'etats-unis', code: '840', name: 'États-Unis', lat: 38.9072, lon: -77.0369, label: 'left' },
+  ],
+};
+
 // --- Référentiels des formulaires (identiques au Backend) -------------------------
 export const JOURS = [
   { value: '2027-06-04', label: 'Vendredi 4 juin' },

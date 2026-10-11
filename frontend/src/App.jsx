@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout.jsx';
+import PageDoor from './components/PageDoor.jsx';
 import Home from './pages/Home.jsx';
 import Salon from './pages/Salon.jsx';
 import Programme from './pages/Programme.jsx';
@@ -18,35 +19,39 @@ const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard.jsx'));
 
 export default function App() {
   return (
-    <Routes>
-      <Route element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="le-salon" element={<Salon />} />
-        <Route path="programme" element={<Programme />} />
-        <Route path="equipe" element={<Equipe />} />
-        <Route path="exposants" element={<Exposants />} />
-        <Route path="partenaires" element={<Partenaires />} />
-        <Route path="inscription" element={<Inscription />} />
-        <Route path="contact" element={<Contact />} />
-        <Route path="mentions-legales" element={<MentionsLegales />} />
-        <Route path="*" element={<NotFound />} />
-      </Route>
-      <Route
-        path="admin/login"
-        element={
-          <Suspense fallback={null}>
-            <AdminLogin />
-          </Suspense>
-        }
-      />
-      <Route
-        path="admin/*"
-        element={
-          <Suspense fallback={null}>
-            <AdminDashboard />
-          </Suspense>
-        }
-      />
-    </Routes>
+    <PageDoor>
+      {(location) => (
+        <Routes location={location}>
+          <Route element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="le-salon" element={<Salon />} />
+            <Route path="programme" element={<Programme />} />
+            <Route path="equipe" element={<Equipe />} />
+            <Route path="exposants" element={<Exposants />} />
+            <Route path="partenaires" element={<Partenaires />} />
+            <Route path="inscription" element={<Inscription />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="mentions-legales" element={<MentionsLegales />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+          <Route
+            path="admin/login"
+            element={
+              <Suspense fallback={null}>
+                <AdminLogin />
+              </Suspense>
+            }
+          />
+          <Route
+            path="admin/*"
+            element={
+              <Suspense fallback={null}>
+                <AdminDashboard />
+              </Suspense>
+            }
+          />
+        </Routes>
+      )}
+    </PageDoor>
   );
 }

@@ -1,0 +1,230 @@
+/* ==========================================================================
+   Le Carrefour : rien que la carte, des pays reliés à Nantes (Carrefour.jsx)
+   ========================================================================== */
+
+/* La carte occupe toute la section, d'un bord à l'autre de l'écran (section sans marges :
+   scene--flush dans Home.jsx) */
+.s-carrefour__map {
+  position: relative;
+}
+
+.s-carrefour__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Points des continents (chaque point est un segment nul, arrondi par le trait) */
+.s-carrefour__dots {
+  opacity: 0;
+  transition: opacity 1.2s var(--ease);
+}
+
+.s-carrefour__dots[data-loaded] {
+  opacity: 1;
+}
+
+.s-carrefour__land,
+.s-carrefour__country {
+  fill: none;
+  stroke-width: 2.1;
+  stroke-linecap: round;
+}
+
+.s-carrefour__land {
+  stroke: rgba(213, 155, 64, 0.26);
+}
+
+.s-carrefour__country {
+  stroke: rgba(246, 203, 116, 0.62);
+  transition: stroke 0.4s;
+}
+
+.s-carrefour__country[data-active] {
+  stroke: #fff0c4;
+  filter: drop-shadow(0 0 2.5px rgba(246, 203, 116, 0.95));
+}
+
+/* Arcs vers Nantes : tracés quand la carte entre à l'écran, puis parcourus par des lueurs */
+.s-carrefour__route {
+  transition: opacity 0.5s;
+}
+
+.s-carrefour[data-selected] .s-carrefour__route:not([data-active]) {
+  opacity: 0.3;
+}
+
+/* Épaisseurs dans le repère de la carte (1 000 de large) : elles suivent sa taille à l'écran.
+   Pas de « non-scaling-stroke » : il fausserait le tracé progressif des arcs (pathLength). */
+.s-carrefour__arc,
+.s-carrefour__glow {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.s-carrefour__arc {
+  stroke: var(--or-300);
+  stroke-width: 1.05;
+  stroke-dasharray: 1;
+  transition:
+    stroke-dashoffset 1.8s var(--ease-out) calc(0.3s + var(--i) * 0.18s),
+    stroke 0.4s;
+}
+
+.s-carrefour__glow {
+  stroke: rgba(246, 203, 116, 0.28);
+  stroke-width: 4.5;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+/* Le pays invité d'honneur garde sa route plus lumineuse */
+.s-carrefour__route[data-honneur] .s-carrefour__arc {
+  stroke: #fbe3a6;
+  stroke-width: 1.35;
+}
+
+.s-carrefour__route[data-honneur] .s-carrefour__glow {
+  opacity: 0.7;
+}
+
+.s-carrefour__route[data-active] .s-carrefour__arc {
+  stroke: #fff0c4;
+}
+
+.s-carrefour__route[data-active] .s-carrefour__glow {
+  opacity: 1;
+}
+
+.s-carrefour__light {
+  transition: opacity 0.8s ease 2.2s;
+}
+
+.scenes[data-ready] .s-carrefour__map:not([data-in]) .s-carrefour__arc {
+  stroke-dashoffset: 1;
+}
+
+.scenes[data-ready] .s-carrefour__map:not([data-in]) .s-carrefour__light {
+  opacity: 0;
+  transition: none;
+}
+
+/* Nantes : un point lumineux et deux ondes qui s'élargissent */
+.s-carrefour__hub-dot {
+  fill: #fff2cf;
+  filter: drop-shadow(0 0 4px rgba(246, 203, 116, 1));
+}
+
+.s-carrefour__pulse {
+  fill: none;
+  stroke: var(--or-300);
+  stroke-width: 1.2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: carrefour-pulse 2.8s var(--ease-out) infinite;
+}
+
+.s-carrefour__pulse--late {
+  animation-delay: 1.4s;
+}
+
+@keyframes carrefour-pulse {
+  from {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(4.5);
+  }
+}
+
+/* Repères des pays (posés en pourcentage sur la carte) et étiquettes */
+.s-carrefour__markers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.s-carrefour__marker {
+  position: absolute;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  translate: -50% -50%;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.s-carrefour__marker::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: -0.25rem 0 0 -0.25rem;
+  border-radius: 50%;
+  background: var(--or-300);
+  box-shadow:
+    0 0 0 3px rgba(246, 203, 116, 0.22),
+    0 0 10px rgba(246, 203, 116, 0.75);
+  transition:
+    transform 0.3s var(--ease-out),
+    background-color 0.3s;
+}
+
+.s-carrefour__marker[data-active]::before {
+  background: #fff2cf;
+  transform: scale(1.5);
+}
+
+.s-carrefour__marker-label,
+.s-carrefour__hub-label {
+  position: absolute;
+  font-size: clamp(0.5rem, 0.85vw, 0.7rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgba(245, 227, 198, 0.75);
+  transition: color 0.3s;
+}
+
+.s-carrefour__marker[data-side='left'] .s-carrefour__marker-label {
+  right: calc(100% - 0.2rem);
+  top: 50%;
+  translate: 0 -50%;
+}
+
+.s-carrefour__marker[data-side='right'] .s-carrefour__marker-label {
+  left: calc(100% - 0.2rem);
+  top: 50%;
+  translate: 0 -50%;
+}
+
+.s-carrefour__marker[data-side='top'] .s-carrefour__marker-label {
+  bottom: calc(100% - 0.3rem);
+  left: 50%;
+  translate: -50% 0;
+}
+
+.s-carrefour__marker[data-side='bottom'] .s-carrefour__marker-label {
+  top: calc(100% - 0.3rem);
+  left: 50%;
+  translate: -50% 0;
+}
+
+.s-carrefour__marker[data-active] .s-carrefour__marker-label {
+  color: var(--or-200);
+}
+
+.s-carrefour__hub-label {
+  font-size: clamp(0.56rem, 0.95vw, 0.78rem);
+  letter-spacing: 0.22em;
+  color: var(--or-200);
+  translate: 0.9rem -50%;
+}

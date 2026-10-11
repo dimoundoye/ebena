@@ -9,8 +9,6 @@ export default function Footer() {
   const socials = SOCIALS.filter((social) => social.url);
   return (
     <footer className="site-footer">
-      <div className="site-footer__band band-zigzag-h" aria-hidden="true" />
-
       <div className="container site-footer__top">
         <div className="site-footer__newsletter">
           <p className="eyebrow">Newsletter</p>

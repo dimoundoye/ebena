@@ -19,7 +19,6 @@ export default function CtaBand({
     <section className="cta-band">
       <div className="container">
         <Reveal className="cta-band__panel">
-          <div className="cta-band__band band-zigzag-v" aria-hidden="true" />
           <div className="cta-band__content">
             <p className="eyebrow">{eyebrow}</p>
             <h2 className="h2">{title}</h2>

@@ -34,8 +34,8 @@
   gap: 0.35rem;
   margin-top: 0.8rem;
   padding: 1.5rem 2rem;
-  border-radius: var(--radius);
-  background: linear-gradient(90deg, rgba(246, 203, 116, 0.2), transparent);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(90deg, rgba(246, 203, 116, 0.22), rgba(246, 203, 116, 0));
 }
 
 .s-pourquoi__old {
@@ -94,12 +94,10 @@
   line-height: 1;
   letter-spacing: 0.04em;
   background: var(--gold-text);
-  background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-  animation: gold-shimmer 10s linear infinite;
 }
 
 .s-pourquoi__text {
@@ -206,12 +204,10 @@
   line-height: 0;
   font-variant-numeric: lining-nums;
   background: var(--gold-text);
-  background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-  animation: gold-shimmer 10s linear infinite;
 }
 
 .s-chiffres__part {
@@ -291,7 +287,7 @@
   height: min(62vh, 560px);
   aspect-ratio: 11 / 15;
   background: var(--ebene-900);
-  box-shadow: 0 50px 80px -50px rgba(68, 34, 10, 0.75);
+  box-shadow: var(--shadow-photo);
 }
 
 /* Les panneaux glissent dans la porte quand le pavillon actif change */
@@ -433,7 +429,8 @@
   padding: 12px;
 }
 
-/* Drapeau stylisé dans une arche : vert à la hampe, jaune et rouge au battant */
+/* Drapeau stylisé dans une arche : vert à la hampe, jaune et rouge au battant, avec un léger
+   modelé de lumière */
 .s-benin__flag {
   position: relative;
   display: grid;
@@ -441,23 +438,16 @@
   grid-template-rows: 1fr 1fr;
   height: min(58vh, 500px);
   aspect-ratio: 3 / 4.2;
-  border-radius: 999px 999px 18px 18px;
+  border-radius: 999px 999px var(--radius-lg) var(--radius-lg);
   overflow: hidden;
-  box-shadow:
-    0 0 0 1px var(--or-500),
-    0 0 0 10px var(--ivoire-100),
-    0 0 0 11px rgba(213, 155, 64, 0.5),
-    0 50px 80px -50px rgba(68, 34, 10, 0.7);
+  box-shadow: var(--shadow-photo);
 }
 
 .s-benin__flag::after {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: var(--lattice);
-  background-size: 44px 44px;
-  opacity: 0.18;
-  mix-blend-mode: multiply;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0) 45%, rgba(0, 0, 0, 0.12) 100%);
 }
 
 .s-benin__flag span:nth-child(1) {
@@ -487,7 +477,7 @@
 .s-parrain__photo .arch {
   height: min(62vh, 560px);
   aspect-ratio: 3 / 4;
-  box-shadow: 0 50px 80px -50px rgba(68, 34, 10, 0.75);
+  box-shadow: var(--shadow-photo);
 }
 
 .s-parrain__photo img {
@@ -560,42 +550,48 @@
 }
 
 .s-pack {
-  --metal: linear-gradient(105deg, #8f8a83 0%, #cfcac2 26%, #ffffff 48%, #c9c4bc 70%, #8f8a83 100%);
+  --metal: linear-gradient(120deg, #a29d96 0%, #d8d4cd 55%, #f3f1ed 100%);
   position: relative;
   display: grid;
   justify-items: center;
   align-content: start;
   gap: 0.5rem;
-  padding: 1.8rem 1.5rem;
+  padding: 2rem 1.6rem 1.8rem;
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
-  background:
-    radial-gradient(circle at 0% 0%, rgba(246, 203, 116, 0.3), transparent 50%),
-    var(--ivoire-50);
+  background: #fffcf7;
   box-shadow: var(--shadow-card);
   text-align: center;
 }
 
+/* Le pack mis en avant passe en panneau ébène, comme une carte « recommandée » */
 .s-pack--gold {
   --metal: var(--gold);
-  border-color: rgba(176, 122, 42, 0.55);
+  border-color: transparent;
+  background: var(--surface-ebene);
+  color: rgba(245, 227, 198, 0.82);
   box-shadow:
-    0 0 0 1px rgba(213, 155, 64, 0.35),
-    0 40px 70px -40px rgba(138, 84, 18, 0.65);
+    0 2px 6px rgba(30, 10, 6, 0.15),
+    0 44px 70px -36px rgba(30, 10, 6, 0.7);
 }
 
 .s-pack--platinum {
-  --metal: linear-gradient(105deg, #a89f92 0%, #e4ded4 28%, #ffffff 48%, #ddd5c8 68%, #a39a8c 100%);
+  --metal: linear-gradient(120deg, #aea595 0%, #e2dcd2 55%, #faf7f2 100%);
 }
 
+/* Nom du pack en pastille métallique */
 .s-pack__name {
-  width: calc(100% + 1rem);
-  padding: 0.55rem 1rem;
+  margin-bottom: 0.4rem;
+  padding: 0.5rem 1.15rem;
+  border-radius: 999px;
   background: var(--metal);
-  clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
-  font-size: 1.3rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 6px 14px -8px rgba(49, 21, 2, 0.45);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--ebene-950);
 }
@@ -672,6 +668,26 @@
   margin-top: 0.6rem;
 }
 
+.s-pack--gold :is(.s-pack__price, .s-pack__features strong) {
+  color: var(--ivoire-100);
+}
+
+.s-pack--gold :is(.s-pack__price small, .s-pack__surface, .s-pack__features svg) {
+  color: var(--or-300);
+}
+
+.s-pack--gold .s-pack__features {
+  border-top-color: rgba(246, 203, 116, 0.18);
+}
+
+.s-pack--gold .s-pack__features li {
+  color: rgba(245, 227, 198, 0.78);
+}
+
+.s-pack--gold .s-pack__accroche {
+  color: var(--or-200);
+}
+
 /* --- Partenaires ------------------------------------------------------------------------- */
 
 .s-partenaires {
@@ -712,7 +728,7 @@
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: #fff;
-  box-shadow: 0 18px 40px -34px rgba(68, 34, 10, 0.55);
+  box-shadow: var(--shadow-card);
 }
 
 .s-logos__item img {
@@ -725,17 +741,6 @@
 }
 
 /* --- Rendez-vous ---------------------------------------------------------------------------- */
-
-.scene--soleil .scene__bg::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: var(--lattice);
-  background-size: 56px 56px;
-  opacity: 0.1;
-  mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, #000 0%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, #000 0%, transparent 75%);
-}
 
 .s-rdv {
   display: grid;
@@ -799,10 +804,10 @@
     align-self: start;
     width: clamp(56px, 12vw, 84px);
     aspect-ratio: 3 / 4;
-    border-radius: 999px 999px 8px 8px;
+    border-radius: 999px 999px var(--radius-xs) var(--radius-xs);
     background: var(--panel);
     color: var(--ink);
-    box-shadow: 0 0 0 1px var(--or-500), 0 0 0 5px var(--ivoire-100), 0 0 0 6px rgba(213, 155, 64, 0.4);
+    box-shadow: 0 14px 24px -14px rgba(49, 21, 2, 0.55);
   }
 
   .pav-story__mini svg {
@@ -883,17 +888,23 @@
   .s-imaginaire__to {
     grid-template-columns: repeat(2, auto);
     justify-content: start;
-    column-gap: 1.4rem;
+    column-gap: 1.1rem;
   }
 
+  /* Deux mots par ligne, à l'intérieur du panneau même sur un petit téléphone */
   .s-imaginaire__to li {
-    font-size: clamp(1.9rem, 8.4vw, 2.6rem);
+    gap: 0.6rem;
+    font-size: clamp(1.45rem, 7.4vw, 2.6rem);
+  }
+
+  .pav-story__title {
+    font-size: clamp(1.5rem, 7.6vw, 2rem);
   }
 
   .s-logos__item {
     height: 72px;
     padding: 0.5rem;
-    border-radius: 12px;
+    border-radius: var(--radius-sm);
   }
 
   .s-rdv__actions {

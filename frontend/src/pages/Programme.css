@@ -1,5 +1,6 @@
 /* ==========================================================================
-   Programme : sections en scènes (transitions dans components/scene)
+   Programme : sections en scènes (transitions dans components/scene) ;
+   le couloir des pavillons est dans programme/PavillonsCorridor.css
    ========================================================================== */
 
 /* --- Introduction ------------------------------------------------------------ */
@@ -31,9 +32,10 @@
   grid-template-columns: auto 1fr;
   gap: 1rem;
   padding: 1.4rem 1.5rem;
-  border: 1px dashed var(--or-600);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: var(--ivoire-50);
+  background: #fffcf7;
+  box-shadow: var(--shadow-card);
   font-size: 0.92rem;
   color: var(--text-soft);
 }
@@ -51,86 +53,6 @@
 .prog-intro__note a {
   color: var(--or-700);
   font-weight: 600;
-}
-
-/* --- Un pavillon : porte collante à gauche, texte à droite --------------------- */
-
-.pav-detail {
-  display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  gap: clamp(2.5rem, 7vw, 7rem);
-  align-items: start;
-}
-
-.pav-detail__aside {
-  position: sticky;
-  top: calc(var(--header-h) + 4vh);
-  display: grid;
-  justify-items: center;
-  gap: 1.1rem;
-}
-
-.pav-detail__door {
-  width: min(100%, 380px, 55vh);
-  padding: 14px;
-}
-
-.pav-detail__count {
-  font-family: var(--font-display);
-  font-size: clamp(2.6rem, 4vw, 3.6rem);
-  font-weight: 500;
-  line-height: 1;
-  font-variant-numeric: lining-nums;
-  color: transparent;
-  -webkit-text-stroke: 1px var(--or-600);
-}
-
-.pav-detail__count span {
-  font-size: 0.4em;
-  color: var(--text-muted);
-  -webkit-text-stroke: 0;
-}
-
-.pav-detail__body {
-  display: grid;
-  justify-items: start;
-  gap: 1.25rem;
-  max-width: 720px;
-}
-
-.pav-detail__title {
-  font-size: clamp(2rem, 3.6vw, 3.2rem);
-  line-height: 1.06;
-}
-
-.pav-detail__list-title {
-  margin-bottom: 0.9rem;
-  font-weight: 600;
-  color: var(--ebene-900);
-}
-
-.pav-detail__note {
-  padding: 1rem 1.2rem;
-  border-radius: 12px;
-  background: rgba(255, 251, 244, 0.85);
-  font-size: 0.92rem;
-  color: var(--ebene-800);
-}
-
-/* Pavillon précédent / suivant : la traversée continue */
-.pav-detail__nav {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem 2rem;
-  flex-wrap: wrap;
-  width: 100%;
-  margin-top: 0.8rem;
-  padding-top: 1.4rem;
-  border-top: 1px solid var(--line-strong);
-}
-
-.pav-detail__prev:hover svg {
-  transform: translateX(-4px);
 }
 
 /* --- Le Voyage ----------------------------------------------------------------------- */
@@ -222,32 +144,5 @@
   .prog-intro,
   .prog-methode__head {
     grid-template-columns: minmax(0, 1fr);
-  }
-
-  /* La porte du pavillon passe en tête, en petit, à côté de son numéro */
-  .pav-detail {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1.6rem;
-  }
-
-  .pav-detail__aside {
-    position: static;
-    grid-auto-flow: column;
-    justify-content: start;
-    align-items: end;
-    gap: 1.2rem;
-  }
-
-  .pav-detail__door {
-    width: clamp(110px, 30vw, 170px);
-    padding: 10px;
-  }
-
-  .pav-detail__door .pav-door__watermark {
-    font-size: 5rem;
-  }
-
-  .pav-detail__door .pav-door__icon {
-    width: 4.2rem;
   }
 }

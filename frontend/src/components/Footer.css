@@ -1,30 +1,32 @@
+/* Pied de page : un panneau ébène arrondi qui clôt la page, comme les sections sombres */
 .site-footer {
   position: relative;
+  margin: 0 var(--panel-inset) var(--panel-inset);
   padding-top: clamp(4rem, 8vw, 6rem);
-  background: var(--sable-300);
-  color: var(--text-soft);
+  border-radius: var(--radius-panel);
+  background: var(--surface-ebene);
+  color: rgba(245, 227, 198, 0.72);
   overflow: hidden;
 }
 
+/* Faisceau de lumière dorée, très diffus, derrière le rendez-vous */
 .site-footer::before {
   content: '';
   position: absolute;
-  right: -10%;
-  top: -30%;
-  width: 60vw;
-  height: 60vw;
-  max-width: 760px;
-  max-height: 760px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(246, 203, 116, 0.5), rgba(246, 203, 116, 0) 65%);
+  right: 6%;
+  top: -10%;
+  width: min(46vw, 620px);
+  height: 120%;
+  background: radial-gradient(ellipse 50% 50% at 50% 30%, rgba(246, 203, 116, 0.14) 0%, rgba(246, 203, 116, 0) 70%);
   pointer-events: none;
 }
 
-.site-footer__band {
-  position: absolute;
-  inset: 0 0 auto;
-  height: 24px;
-  opacity: 0.9;
+.site-footer .eyebrow {
+  color: var(--or-300);
+}
+
+.site-footer h2 {
+  color: var(--ivoire-100);
 }
 
 .site-footer__top {
@@ -34,7 +36,7 @@
   gap: clamp(2.5rem, 6vw, 6rem);
   align-items: center;
   padding-bottom: clamp(3rem, 6vw, 4.5rem);
-  border-bottom: 1px solid var(--line-strong);
+  border-bottom: 1px solid rgba(246, 203, 116, 0.14);
 }
 
 .site-footer__newsletter {
@@ -46,17 +48,20 @@
   max-width: 520px;
 }
 
+/* Carte du rendez-vous : arche en verre fumé */
 .site-footer__rdv {
   justify-self: end;
   display: grid;
   justify-items: center;
   gap: 0.35rem;
   padding: 2.2rem 2.6rem;
-  border: 1px solid rgba(176, 122, 42, 0.45);
-  border-radius: 999px 999px 26px 26px;
-  background: rgba(255, 251, 244, 0.72);
+  border: 1px solid rgba(246, 203, 116, 0.22);
+  border-radius: 999px 999px var(--radius-lg) var(--radius-lg);
+  background: linear-gradient(180deg, rgba(255, 240, 210, 0.09) 0%, rgba(255, 240, 210, 0.02) 100%);
   text-align: center;
-  box-shadow: var(--shadow-soft);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 240, 210, 0.12),
+    0 30px 60px -36px rgba(0, 0, 0, 0.7);
 }
 
 .site-footer__cowries {
@@ -67,7 +72,7 @@
 .site-footer__script {
   font-size: 1.7rem;
   line-height: 1;
-  color: var(--or-700);
+  color: var(--or-300);
 }
 
 .site-footer__dates {
@@ -76,7 +81,7 @@
   font-size: clamp(2rem, 3.4vw, 2.6rem);
   font-weight: 600;
   line-height: 1.1;
-  color: var(--ebene-900);
+  color: var(--ivoire-100);
 }
 
 .site-footer__venue {
@@ -85,7 +90,7 @@
   font-weight: 600;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--or-700);
+  color: var(--or-300);
 }
 
 .site-footer__grid {
@@ -114,7 +119,7 @@
   font-weight: 600;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--ebene-900);
+  color: var(--or-300);
 }
 
 .site-footer ul {
@@ -129,8 +134,8 @@
   transition: color 0.25s;
 }
 
-.site-footer a:hover {
-  color: var(--or-700);
+.site-footer a:not(.btn):hover {
+  color: var(--or-200);
 }
 
 .site-footer__contact li {
@@ -144,7 +149,7 @@
   width: 1.05rem;
   height: 1.05rem;
   margin-top: 0.3rem;
-  color: var(--or-600);
+  color: var(--or-400);
 }
 
 .site-footer__socials {
@@ -161,9 +166,59 @@
   justify-content: space-between;
   gap: 0.75rem 2rem;
   padding-block: 1.6rem 2rem;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid rgba(246, 203, 116, 0.12);
   font-size: 0.8rem;
-  color: var(--text-muted);
+  color: rgba(245, 227, 198, 0.5);
+}
+
+/* Lettre d'information sur fond sombre */
+.site-footer .newsletter-form__row {
+  border-color: rgba(246, 203, 116, 0.24);
+  background: rgba(255, 240, 210, 0.06);
+}
+
+.site-footer .newsletter-form__row:focus-within {
+  border-color: var(--or-300);
+  box-shadow: 0 0 0 4px rgba(246, 203, 116, 0.16);
+}
+
+.site-footer .newsletter-form__input {
+  color: var(--ivoire-100);
+}
+
+.site-footer .newsletter-form__input::placeholder {
+  color: rgba(245, 227, 198, 0.42);
+}
+
+.site-footer .newsletter-form__button {
+  background: var(--or-300);
+  color: var(--ebene-950);
+}
+
+.site-footer .newsletter-form__button:hover {
+  background: var(--or-200);
+}
+
+.site-footer .newsletter-form__note {
+  color: rgba(245, 227, 198, 0.5);
+}
+
+.site-footer .field__error {
+  color: #f2a494;
+}
+
+.site-footer .newsletter-success {
+  border-color: rgba(246, 203, 116, 0.35);
+  background: rgba(255, 240, 210, 0.06);
+  color: var(--ivoire-100);
+}
+
+.site-footer .newsletter-success svg {
+  color: var(--or-300);
+}
+
+.site-footer :focus-visible {
+  outline-color: var(--or-300);
 }
 
 @media (max-width: 1000px) {

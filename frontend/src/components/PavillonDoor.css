@@ -1,5 +1,6 @@
 /* ==========================================================================
-   Pavillons : couleur propre à chacun et porte en arche
+   Pavillons : couleur propre à chacun, icône et numéro des portes
+   (porte de l'accueil : pav-story ; couloir du programme : pav-walk)
    ========================================================================== */
 
 .pav-tone--memoire {
@@ -32,28 +33,13 @@
   --ink: var(--ivoire-50);
 }
 
-/* Porte : fond aux couleurs du pavillon, motif en losanges, icône et numéro en filigrane */
-.pav-door {
-  position: relative;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  isolation: isolate;
-  aspect-ratio: 11 / 15;
-  border-radius: 999px 999px var(--radius) var(--radius);
-  background: var(--panel);
-  box-shadow: 0 50px 80px -50px rgba(68, 34, 10, 0.75);
-}
-
-.pav-door::before,
+/* Porte de l'accueil : fond aux couleurs du pavillon, éclairé par le haut */
 .pav-story__panel::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-image: var(--lattice);
-  background-size: 44px 44px;
-  opacity: 0.2;
+  background: radial-gradient(ellipse 80% 55% at 50% 0%, rgba(255, 244, 214, 0.28) 0%, rgba(255, 244, 214, 0) 70%);
 }
 
 .pav-door__watermark {
@@ -74,10 +60,10 @@
   place-items: center;
   width: clamp(5rem, 15vh, 8.5rem);
   aspect-ratio: 1;
-  border: 1px solid var(--ink);
+  border: 1px solid color-mix(in srgb, var(--ink) 60%, transparent);
   border-radius: 50%;
   color: var(--ink);
-  box-shadow: 0 0 0 10px rgba(255, 251, 244, 0.08);
+  background: rgba(255, 251, 244, 0.08);
 }
 
 .pav-door__icon svg {

@@ -1,17 +1,17 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, CalendarClock } from 'lucide-react';
+import { ArrowRight, CalendarClock } from 'lucide-react';
 import { EXPOSITIONS, METHODE, PAVILLONS, SCENE, VOYAGE } from '../data/site.js';
 import { useDocumentMeta } from '../lib/useDocumentMeta.js';
 import PageHero from '../components/PageHero.jsx';
 import SceneFlow, { Scene } from '../components/scene/SceneFlow.jsx';
 import { order } from '../components/scene/order.js';
 import Icon from '../components/Icon.jsx';
-import PavillonDoor from '../components/PavillonDoor.jsx';
 import SceneProjects from '../components/SceneProjects.jsx';
 import CourRoyale from '../components/CourRoyale.jsx';
 import TramLine from '../components/TramLine.jsx';
 import LeadersCarousel from '../components/LeadersCarousel.jsx';
 import ClosingCta from '../components/ClosingCta.jsx';
+import PavillonsCorridor from './programme/PavillonsCorridor.jsx';
 import './pages.css';
 import './Programme.css';
 
@@ -36,85 +36,6 @@ function Introduction() {
           l’approche du salon. <Link to="/inscription">Inscrivez-vous</Link> pour le recevoir en avant-première.
         </p>
       </div>
-    </div>
-  );
-}
-
-// Un pavillon : sa porte en arche reste à côté du texte pendant la lecture (grand écran)
-function Pavillon({ pavillon, index }) {
-  const previous = PAVILLONS[index - 1];
-  const next = PAVILLONS[index + 1];
-  return (
-    <div className="container pav-detail">
-      <div className="pav-detail__aside">
-        <div className="pav-detail__door build build--zoom" style={order(0)}>
-          <PavillonDoor pavillon={pavillon} />
-        </div>
-        <p className="pav-detail__count build" style={order(1)} aria-hidden="true">
-          {pavillon.numero}
-          <span> / {String(PAVILLONS.length).padStart(2, '0')}</span>
-        </p>
-      </div>
-
-      <article className="pav-detail__body">
-        <p className="scene-kicker build" style={order(0)}>
-          Pavillon {pavillon.numero}
-        </p>
-        <h2 className="pav-detail__title build" style={order(1)}>
-          {pavillon.title}
-        </h2>
-        <p className="scene-quote build" style={order(2)}>
-          « {pavillon.quote} »
-        </p>
-        <div className="prose build" style={order(3)}>
-          {pavillon.paragraphs.map((paragraph) => (
-            <p key={paragraph.slice(0, 24)}>{paragraph}</p>
-          ))}
-        </div>
-        {pavillon.list && (
-          <div className="pav-detail__list build" style={order(0)}>
-            <p className="pav-detail__list-title">{pavillon.listTitle}</p>
-            <ul className="list-cowrie">
-              {pavillon.list.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-        {pavillon.tags && (
-          <ul className="tags build" style={order(0)}>
-            {pavillon.tags.map((tag) => (
-              <li key={tag} className="tag">
-                {tag}
-              </li>
-            ))}
-          </ul>
-        )}
-        {pavillon.note && (
-          <p className="pav-detail__note build" style={order(0)}>
-            {pavillon.note}
-          </p>
-        )}
-
-        <nav className="pav-detail__nav build" style={order(0)} aria-label="Pavillons voisins">
-          {previous ? (
-            <Link to={`#${previous.slug}`} className="link-arrow pav-detail__prev">
-              <ArrowLeft /> {previous.short}
-            </Link>
-          ) : (
-            <span />
-          )}
-          {next ? (
-            <Link to={`#${next.slug}`} className="link-arrow">
-              {next.short} <ArrowRight />
-            </Link>
-          ) : (
-            <Link to="#scene" className="link-arrow">
-              La Scène ÉBËNA <ArrowRight />
-            </Link>
-          )}
-        </nav>
-      </article>
     </div>
   );
 }
@@ -217,22 +138,15 @@ export default function Programme() {
         </nav>
       </PageHero>
 
-      {/* Chaque pavillon entre par une porte (ou un balayage), en alternant fonds sable et ivoire */}
       <SceneFlow>
         <Scene id="introduction">
           <Introduction />
         </Scene>
-        {PAVILLONS.map((pavillon, index) => (
-          <Scene
-            key={pavillon.slug}
-            id={pavillon.slug}
-            tone={index % 2 === 0 ? 'sable' : 'ivoire'}
-            transition={index % 2 === 0 ? 'porte' : 'balayage'}
-          >
-            <Pavillon pavillon={pavillon} index={index} />
-          </Scene>
-        ))}
-        <Scene id="scene" tone="scene" transition="rideau">
+        {/* Le couloir des pavillons : une porte s'approche et s'ouvre sur chaque pavillon */}
+        <Scene id="pavillons" tone="couloir" transition="fondu" className="scene--flush">
+          <PavillonsCorridor />
+        </Scene>
+        <Scene id="scene" transition="rideau">
           <SceneProjects />
         </Scene>
         <Scene id="cour-royale" tone="bordeaux" transition="stores">

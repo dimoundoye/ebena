@@ -8,22 +8,12 @@
   grid-template-columns: minmax(0, 1.4fr) auto;
   align-items: end;
   gap: 2.5rem;
-  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.75rem, 6vw, 5rem) clamp(2.5rem, 6vw, 4.5rem) clamp(3rem, 8vw, 6.5rem);
-  border: 1px solid rgba(176, 122, 42, 0.4);
-  border-radius: var(--radius-lg);
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.75rem, 6vw, 5rem);
+  border-radius: var(--radius-panel);
   background:
-    radial-gradient(circle at 100% 0%, rgba(246, 203, 116, 0.55), transparent 55%),
-    linear-gradient(135deg, var(--ivoire-50), var(--ivoire-200));
-  box-shadow: var(--shadow-soft);
+    radial-gradient(60% 100% at 100% 0%, rgba(246, 203, 116, 0.5) 0%, rgba(246, 203, 116, 0) 65%),
+    var(--surface-sable);
   overflow: hidden;
-}
-
-.cta-band__band {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: clamp(1rem, 3vw, 2.2rem);
-  width: 24px;
 }
 
 .cta-band__content {

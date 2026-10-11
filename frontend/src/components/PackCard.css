@@ -6,59 +6,40 @@
 }
 
 .pack-card {
-  --metal: linear-gradient(105deg, #8f8a83 0%, #cfcac2 26%, #ffffff 48%, #c9c4bc 70%, #8f8a83 100%);
+  --metal: linear-gradient(120deg, #a29d96 0%, #d8d4cd 55%, #f3f1ed 100%);
   position: relative;
   display: flex;
   flex-direction: column;
   padding: 2.2rem 1.8rem 1.9rem;
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
-  background:
-    radial-gradient(circle at 0% 0%, rgba(246, 203, 116, 0.32), transparent 45%),
-    var(--ivoire-50);
+  background: #fffcf7;
   box-shadow: var(--shadow-card);
   overflow: hidden;
   transition:
-    transform 0.6s var(--ease-out),
-    box-shadow 0.6s var(--ease-out),
+    transform 0.7s var(--ease-spring),
+    box-shadow 0.6s var(--ease),
     border-color 0.4s;
-}
-
-/* Arc doré dans l'angle, comme sur les flyers des packs */
-.pack-card::before {
-  content: '';
-  position: absolute;
-  top: -70px;
-  left: -70px;
-  width: 170px;
-  height: 170px;
-  border-radius: 50%;
-  border: 2px solid transparent;
-  background: var(--gold) border-box;
-  -webkit-mask:
-    linear-gradient(#000 0 0) padding-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0.55;
-  pointer-events: none;
 }
 
 .pack-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 40px 70px -42px rgba(68, 34, 10, 0.65);
+  box-shadow: var(--shadow-lift);
 }
 
+/* La formule mise en avant passe en panneau ébène, comme une carte « recommandée » */
 .pack-card--gold {
   --metal: var(--gold);
-  border-color: rgba(176, 122, 42, 0.55);
+  border-color: transparent;
+  background: var(--surface-ebene);
+  color: rgba(245, 227, 198, 0.82);
   box-shadow:
-    0 0 0 1px rgba(213, 155, 64, 0.35),
-    0 40px 70px -40px rgba(138, 84, 18, 0.65);
+    0 2px 6px rgba(30, 10, 6, 0.15),
+    0 44px 70px -36px rgba(30, 10, 6, 0.7);
 }
 
 .pack-card--platinum {
-  --metal: linear-gradient(105deg, #a89f92 0%, #e4ded4 28%, #ffffff 48%, #ddd5c8 68%, #a39a8c 100%);
+  --metal: linear-gradient(120deg, #aea595 0%, #e2dcd2 55%, #faf7f2 100%);
 }
 
 .pack-card.is-selected {
@@ -66,6 +47,44 @@
   box-shadow:
     0 0 0 2px var(--ebene-900),
     0 40px 70px -40px rgba(49, 21, 2, 0.6);
+}
+
+.pack-card--gold.is-selected {
+  box-shadow:
+    0 0 0 2px var(--or-300),
+    0 44px 70px -36px rgba(30, 10, 6, 0.7);
+}
+
+.pack-card--gold :is(.pack-card__kicker, .pack-card__price, .pack-card__features strong) {
+  color: var(--ivoire-100);
+}
+
+.pack-card--gold :is(.pack-card__price small, .pack-card__surface, .pack-card__more) {
+  color: var(--or-300);
+}
+
+.pack-card--gold .pack-card__features {
+  border-top-color: rgba(246, 203, 116, 0.18);
+}
+
+.pack-card--gold .pack-card__features li {
+  color: rgba(245, 227, 198, 0.78);
+}
+
+.pack-card--gold .pack-card__icon {
+  background: rgba(255, 240, 210, 0.08);
+  color: var(--or-300);
+  box-shadow: inset 0 0 0 1px rgba(246, 203, 116, 0.25);
+}
+
+.pack-card--gold .pack-card__accroche {
+  color: var(--or-200);
+}
+
+/* Formule choisie : bouton ivoire, bien visible sur le fond ébène */
+.pack-card--gold .btn--dark {
+  background: var(--ivoire-100);
+  color: var(--ebene-900);
 }
 
 .pack-card__head {
@@ -83,24 +102,22 @@
   color: var(--ebene-800);
 }
 
+/* Nom de la formule en pastille métallique */
 .pack-card__ribbon {
-  width: calc(100% + 1rem);
-  margin: 0.4rem 0 0.2rem;
-  padding: 0.7rem 1rem;
+  margin: 0.5rem 0 0.4rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
   background: var(--metal);
-  background-size: 200% 100%;
-  clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 8px 18px -10px rgba(49, 21, 2, 0.45);
   font-family: var(--font-sans);
-  font-size: clamp(1.45rem, 2.2vw, 1.85rem);
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
   font-weight: 700;
-  letter-spacing: 0.02em;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ebene-950);
-  transition: background-position 1.2s var(--ease);
-}
-
-.pack-card:hover .pack-card__ribbon {
-  background-position: 100% 0;
 }
 
 .pack-card__ribbon-light {
@@ -160,10 +177,12 @@
   place-items: center;
   width: 2.3rem;
   height: 2.3rem;
-  border-radius: 50%;
-  border: 1px solid var(--or-400);
-  color: var(--ebene-900);
-  background: var(--ivoire-100);
+  border-radius: var(--radius-xs);
+  color: var(--or-700);
+  background: linear-gradient(160deg, #fff 0%, var(--ivoire-200) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(138, 84, 18, 0.14),
+    0 6px 12px -8px rgba(68, 34, 10, 0.35);
 }
 
 .pack-card__icon svg {
