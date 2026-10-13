@@ -115,8 +115,8 @@ Sous l’en-tête, la page défile normalement et chaque section arrive avec sa 
 - Le mécanisme est dans [frontend/src/components/scene](frontend/src/components/scene). Les sections de l’accueil sont dans [frontend/src/pages/home](frontend/src/pages/home) ; les blocs communs à plusieurs pages (porte d’un pavillon, ligne de tram, carrousel des intervenants, La Scène, La Cour Royale, appel à l’action final) dans [frontend/src/components](frontend/src/components).
 - Pour passer une autre page à ce style : entourer ses sections de `<SceneFlow>` et donner aux éléments qui doivent apparaître la classe `build` (variantes `build--zoom`, `build--left`, `build--fade`, `build--wipe`, `build--arch`).
 - Une section se déclare ainsi : `<Scene id="benin" tone="ivoire" transition="drapeau">…</Scene>`. `id` sert d’ancre (`/#benin`).
-- Transitions : `fondu`, `zoom`, `balayage`, `drapeau`, `porte`, `rideau`, `stores`, `poussee`, `noir`, `cercle`. Fonds : `ivoire`, `sable`, `scene`, `soleil`, `bordeaux`, `ebene`.
-- Les six pavillons : sur grand écran, une porte en arche reste à côté du texte (une seule porte qui change de couleur sur l’accueil, une porte par pavillon sur le programme). Les intervenants : carrousel d’affiches (flèches, vignettes, glisser, clavier), qui défile seul tant que le visiteur ne s’en sert pas.
+- Transitions : `fondu`, `zoom`, `balayage`, `drapeau`, `porte`, `rideau`, `stores`, `poussee`, `noir`, `cercle`. Fonds : `ivoire`, `soleil` (fondus dans la page), `sable`, `bordeaux`, `ebene`, `couloir` (panneaux arrondis).
+- Les six pavillons : sur l’accueil, une porte en arche reste à côté du texte et change de couleur à chaque pavillon ; sur le programme, le « couloir des pavillons » ([frontend/src/pages/programme](frontend/src/pages/programme)) : une porte s’approche et s’ouvre sur chaque pavillon au fil du défilement. Les intervenants : carrousel d’affiches (flèches, vignettes, glisser, clavier), qui défile seul tant que le visiteur ne s’en sert pas.
 - Avec le réglage système « réduire les animations », tout s’affiche directement, sans transition.
 
 ## API

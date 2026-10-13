@@ -5,7 +5,6 @@ import { useDocumentMeta } from '../lib/useDocumentMeta.js';
 import SceneFlow, { Scene } from '../components/scene/SceneFlow.jsx';
 import CourRoyale from '../components/CourRoyale.jsx';
 import SceneProjects from '../components/SceneProjects.jsx';
-import Intro from '../components/Intro.jsx';
 import Carrefour from '../components/Carrefour.jsx';
 import {
   Benin,
@@ -97,7 +96,6 @@ export default function Home() {
 
   return (
     <>
-      <Intro />
       <Hero />
       <SceneFlow>
         <Scene id="pourquoi">

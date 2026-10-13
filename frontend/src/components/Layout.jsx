@@ -1,15 +1,17 @@
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Header from './Header.jsx';
 import Footer from './Footer.jsx';
 
 // Nouvelle page : remonte en haut, ou saute directement à l'ancre (#…) demandée.
 // Même page : défile en douceur jusqu'à l'ancre.
+// Avant l'affichage, et avant les effets de la page (placée avant elle dans l'arbre) : la page
+// sait d'emblée ce qui est à l'écran à son arrivée, qu'elle montre alors sans animation.
 function ScrollManager() {
   const { pathname, hash } = useLocation();
   const previousPath = useRef(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const samePage = previousPath.current === pathname;
 
     if (!hash) {

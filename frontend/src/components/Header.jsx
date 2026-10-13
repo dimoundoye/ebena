@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { ArrowRight, Mail, MapPin } from 'lucide-react';
 import { CONTACTS, EVENT, NAV } from '../data/site.js';
@@ -10,6 +10,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [arriving, setArriving] = useState(false);
   const isHome = pathname === '/';
 
   useEffect(() => {
@@ -27,8 +28,14 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => {
+  // Nouvelle page : l'en-tête y est d'emblée, sans glisser depuis le haut ni s'animer
+  useLayoutEffect(() => {
     setOpen(false);
+    setHidden(false);
+    setScrolled(window.scrollY > 24);
+    setArriving(true);
+    const frame = requestAnimationFrame(() => setArriving(false));
+    return () => cancelAnimationFrame(frame);
   }, [pathname]);
 
   useEffect(() => {
@@ -39,7 +46,9 @@ export default function Header() {
     return () => window.removeEventListener('keydown', onKey);
   }, [open]);
 
-  const classes = ['site-header', scrolled && 'is-scrolled', hidden && !open && 'is-hidden', open && 'is-open', isHome && 'is-home'].filter(Boolean).join(' ');
+  const classes = ['site-header', scrolled && 'is-scrolled', hidden && !open && 'is-hidden', open && 'is-open', isHome && 'is-home', arriving && 'is-arriving']
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <header className={classes}>

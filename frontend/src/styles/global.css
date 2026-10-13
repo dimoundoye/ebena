@@ -968,6 +968,11 @@ select.input {
   transform: none;
 }
 
+/* Déjà à l'écran à l'arrivée sur la page : affiché sans fondu */
+.reveal--instant {
+  transition: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

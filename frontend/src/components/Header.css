@@ -302,3 +302,11 @@
 .site-header.is-hidden:not(:has(:focus-visible)) {
   translate: 0 calc(-100% - 24px);
 }
+
+/* Arrivée sur une nouvelle page : l'en-tête prend sa place sans transition */
+.site-header.is-arriving,
+.site-header.is-arriving .site-header__inner,
+.site-header.is-arriving .site-header__inner::before,
+.site-header.is-arriving .brand {
+  transition: none;
+}

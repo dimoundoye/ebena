@@ -130,7 +130,8 @@ export default function SceneFlow({ children }) {
     sections.forEach((section) => sectionObserver.observe(section));
     progressItems.forEach((item) => itemObserver.observe(item));
 
-    // Les éléments .build entrent en scène quand ils apparaissent à l'écran
+    // Les éléments .build entrent en scène quand ils apparaissent à l'écran ; ceux qui y sont déjà à
+    // l'arrivée sur la page s'affichent tout de suite (posés avant [data-ready] : pas de transition)
     const buildObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -141,7 +142,12 @@ export default function SceneFlow({ children }) {
       },
       { rootMargin: '0px 0px -10% 0px' }
     );
-    root.querySelectorAll('.build').forEach((element) => buildObserver.observe(element));
+    const viewportHeight = window.innerHeight;
+    root.querySelectorAll('.build').forEach((element) => {
+      const { top, bottom } = element.getBoundingClientRect();
+      if (top < viewportHeight && bottom > 0) element.dataset.in = '';
+      else buildObserver.observe(element);
+    });
 
     const onResize = () => update(true);
     window.addEventListener('scroll', schedule, { passive: true });
