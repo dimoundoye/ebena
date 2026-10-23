@@ -78,11 +78,9 @@
   --tone-bg: var(--surface-sable);
 }
 
-/* Rendez-vous final : une lueur dorée diffuse derrière le compte à rebours */
+/* Rendez-vous final : ivoire uni, le soleil n'existe que dans la transition (cercle doré) */
 .scene--soleil {
-  --tone-bg:
-    radial-gradient(ellipse 50% 60% at 50% 55%, rgba(249, 223, 154, 0.55) 0%, rgba(246, 203, 116, 0.18) 45%, rgba(246, 203, 116, 0) 75%),
-    var(--ivoire-100);
+  --tone-bg: var(--ivoire-100);
 }
 
 .scene--bordeaux {
@@ -121,14 +119,6 @@
 
 :is(.scene--bordeaux, .scene--ebene) .scene-quote {
   color: var(--or-200);
-}
-
-:is(.scene--bordeaux, .scene--ebene) .link-arrow {
-  color: var(--or-300);
-}
-
-:is(.scene--bordeaux, .scene--ebene) .link-arrow:hover {
-  color: var(--ivoire-50);
 }
 
 /* --- Typographie ---------------------------------------------------------------- */

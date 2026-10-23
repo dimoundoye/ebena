@@ -1,4 +1,5 @@
 import { AlertCircle, Check, LoaderCircle } from 'lucide-react';
+import Button from './Button.jsx';
 
 export function Field({ label, name, error, hint, optional, className = '', children }) {
   return (
@@ -128,19 +129,15 @@ export function FormAlert({ message }) {
   );
 }
 
-export function SubmitButton({ submitting, children, className = 'btn btn--dark', icon: IconAfter }) {
+// Roue qui tourne dans la pastille du bouton pendant l'envoi
+function Spinner(props) {
+  return <LoaderCircle className="spinner" {...props} />;
+}
+
+export function SubmitButton({ submitting, children, block = false, icon }) {
   return (
-    <button type="submit" className={className} disabled={submitting}>
-      {submitting ? (
-        <>
-          <LoaderCircle className="spinner" aria-hidden="true" /> Envoi en cours…
-        </>
-      ) : (
-        <>
-          {children}
-          {IconAfter && <IconAfter aria-hidden="true" />}
-        </>
-      )}
-    </button>
+    <Button type="submit" block={block} icon={submitting ? Spinner : icon} disabled={submitting}>
+      {submitting ? 'Envoi en cours…' : children}
+    </Button>
   );
 }

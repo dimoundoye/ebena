@@ -140,7 +140,6 @@ export const PAVILLONS = [
       'Loin des clichés, ce pavillon a pour ambition de révéler un continent en pleine révolution numérique, où la jeunesse développe des solutions innovantes dans les domaines de l’IA, de la fintech, de l’agritech, de la santé numérique, de l’éducation et des industries culturelles et créatives.',
       'Permettre aux chercheurs et aux entreprises nantaises et africaines d’échanger, de démontrer, mais aussi de développer leur réseau international sur le marché du numérique : tel est l’objectif de ce pavillon.',
     ],
-    tags: ['IA', 'Fintech', 'Agritech', 'Santé numérique', 'Éducation', 'Industries créatives'],
   },
   {
     slug: 'musique',
@@ -189,7 +188,6 @@ export const PAVILLONS = [
       'C’est un espace où l’on ne parle pas seulement de l’Afrique : il est dédié à créer des connexions, développer des projets et construire des partenariats.',
       'Rendez-vous B2B, pitchs, rencontres d’affaires, présentations de marché, networking et échanges sectoriels y sont organisés pendant trois jours.',
     ],
-    tags: ['Rencontrer', 'Connecter', 'Investir', 'Entreprendre', 'Développer'],
   },
 ];
 
@@ -234,7 +232,6 @@ export const COUR_ROYALE = {
     'Inspirée du langage cinématographique, la scénographie donne corps à des figures historiques et sociales et invite le visiteur à découvrir le vêtement autrement : non plus comme un simple objet de mode, mais comme un langage, un marqueur de statut, un récit et une mémoire vivante.',
   ],
   // Reprise du dernier paragraphe, présentée en liste sur la diapositive d'accueil
-  vetement: ['Un langage', 'Un marqueur de statut', 'Un récit', 'Une mémoire vivante'],
 };
 
 export const VOYAGE = {

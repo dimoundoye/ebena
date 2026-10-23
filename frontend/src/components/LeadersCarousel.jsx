@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Pause, Play } from 'lucide-react';
 import { LEADERS, SCENE } from '../data/site.js';
+import Button from './Button.jsx';
 import { order } from './scene/order.js';
 import './LeadersCarousel.css';
 
@@ -218,9 +218,9 @@ export default function LeadersCarousel({ heading = true }) {
           </button>
         </div>
 
-        <Link to="/programme#leaders" className="link-arrow build" style={order(4)}>
-          Le cycle en détail <ArrowRight />
-        </Link>
+        <Button to="/programme#leaders" variant="link" className="build" style={order(4)}>
+          Le cycle en détail
+        </Button>
       </div>
 
       {/* Une seule entrée en scène pour les affiches et les vignettes : sur grand écran, ce bloc

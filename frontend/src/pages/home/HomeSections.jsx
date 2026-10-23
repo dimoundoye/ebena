@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
 import {
   BENIN,
   CHIFFRES,
@@ -13,6 +12,7 @@ import {
   VOYAGE,
   formatPrix,
 } from '../../data/site.js';
+import Button from '../../components/Button.jsx';
 import Countdown from '../../components/Countdown.jsx';
 import Icon from '../../components/Icon.jsx';
 import TramLine from '../../components/TramLine.jsx';
@@ -46,9 +46,9 @@ export function Pourquoi() {
         <p className="s-pourquoi__paragraph build" style={order(1)}>
           {MANIFESTE.paragraphs[0]}
         </p>
-        <Link to="/le-salon" className="link-arrow build" style={order(2)}>
-          Lire le manifeste <ArrowRight />
-        </Link>
+        <Button to="/le-salon" variant="link" className="build" style={order(2)}>
+          Lire le manifeste
+        </Button>
       </div>
     </div>
   );
@@ -174,9 +174,9 @@ export function Voyage() {
 
       <TramLine />
 
-      <Link to="/programme#voyage" className="link-arrow build" style={order(0)}>
-        Le parcours en détail <ArrowRight />
-      </Link>
+      <Button to="/programme#voyage" variant="link" className="build" style={order(0)}>
+        Le parcours en détail
+      </Button>
     </div>
   );
 }
@@ -209,9 +209,9 @@ export function Benin() {
         <p className="lead build" style={order(3)}>
           {BENIN.text}
         </p>
-        <Link to="/le-salon#benin" className="link-arrow build" style={order(4)}>
-          Le Bénin à ÉBËNA <ArrowRight />
-        </Link>
+        <Button to="/le-salon#benin" variant="link" className="build" style={order(4)}>
+          Le Bénin à ÉBËNA
+        </Button>
       </div>
     </div>
   );
@@ -250,9 +250,9 @@ export function Parrain() {
         <p className="s-parrain__about build" style={order(5)}>
           {PARRAIN.paragraphs[0]}
         </p>
-        <Link to="/le-salon#parrain" className="link-arrow build" style={order(6)}>
-          Lire le mot du parrain <ArrowRight />
-        </Link>
+        <Button to="/le-salon#parrain" variant="link" className="build" style={order(6)}>
+          Lire le mot du parrain
+        </Button>
       </div>
     </div>
   );
@@ -293,19 +293,20 @@ export function Exposer() {
               ))}
             </ul>
             <p className="s-pack__accroche">{pack.accroche}</p>
-            <Link
+            <Button
               to={`/exposants?pack=${pack.id}#reservation`}
-              className={`btn btn--sm ${pack.featured ? 'btn--gold' : 'btn--ghost'} s-pack__cta`}
+              variant={pack.featured ? 'gold' : 'ghost'}
+              size="sm"
+              className="s-pack__cta"
             >
               Réserver <span className="sr-only">le pack {pack.name}</span>
-              <ArrowRight />
-            </Link>
+            </Button>
           </li>
         ))}
       </ul>
-      <Link to="/exposants" className="link-arrow build" style={order(0)}>
-        Comparer les formules <ArrowRight />
-      </Link>
+      <Button to="/exposants" variant="link" className="build" style={order(0)}>
+        Comparer les formules
+      </Button>
     </div>
   );
 }
@@ -329,9 +330,9 @@ export function Partenaires() {
           </li>
         ))}
       </ul>
-      <Link to="/partenaires" className="link-arrow build" style={order(0)}>
-        Tous nos partenaires <ArrowRight />
-      </Link>
+      <Button to="/partenaires" variant="link" className="build" style={order(0)}>
+        Tous nos partenaires
+      </Button>
     </div>
   );
 }
@@ -352,12 +353,12 @@ export function RendezVous() {
         {EVENT.datesLong} · {EVENT.venue}, {EVENT.city}
       </p>
       <div className="s-rdv__actions build" style={order(4)}>
-        <Link to="/inscription" className="btn btn--dark">
-          Je m’inscris <ArrowRight />
-        </Link>
-        <Link to="/exposants" className="btn btn--ghost">
+        <Button to="/inscription" size="lg">
+          Je m’inscris
+        </Button>
+        <Button to="/exposants" variant="ghost" size="lg">
           Devenir exposant
-        </Link>
+        </Button>
       </div>
     </div>
   );

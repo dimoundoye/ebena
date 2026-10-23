@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { CHEF_DE_PROJET, EQUIPE_PROJET, EQUIPE_SALON } from '../data/site.js';
 import { useDocumentMeta } from '../lib/useDocumentMeta.js';
 import PageHero from '../components/PageHero.jsx';
@@ -43,8 +44,40 @@ function ChefDeProjet() {
   );
 }
 
-// Une équipe : chaque portrait s'ouvre comme une porte en arche en entrant dans l'écran
+// Mur d'arches : décalage vertical de chaque colonne (en rem) et amplitude de son glissement au
+// défilement (en px), de la première à la cinquième colonne
+const WALL_LIFT = [0, 4.5, 1.5, 5.5, 2.5];
+const WALL_DRIFT = [40, 120, 70, 140, 90];
+const WALL_QUERIES = [
+  ['(max-width: 640px)', 2],
+  ['(max-width: 980px)', 3],
+];
+
+// Quatre colonnes sur grand écran (une équipe de cinq tient sur une seule ligne), puis trois et deux
+function wallColumns(count) {
+  const narrow = WALL_QUERIES.find(([query]) => window.matchMedia(query).matches);
+  if (narrow) return Math.min(count, narrow[1]);
+  return count > 5 ? 4 : count;
+}
+
+function useWallColumns(count) {
+  const [columns, setColumns] = useState(() => wallColumns(count));
+
+  useEffect(() => {
+    const medias = WALL_QUERIES.map(([query]) => window.matchMedia(query));
+    const onChange = () => setColumns(wallColumns(count));
+    medias.forEach((media) => media.addEventListener('change', onChange));
+    return () => medias.forEach((media) => media.removeEventListener('change', onChange));
+  }, [count]);
+
+  return columns;
+}
+
+// Une équipe en mur d'arches : les colonnes sont décalées et glissent chacune à sa vitesse au fil du
+// défilement (--q, posé par SceneFlow) ; chaque portrait s'ouvre comme une porte en entrant dans
+// l'écran, et son arche devient rectangle au survol pour montrer toute l'affiche.
 function Team({ eyebrow, title, people }) {
+  const columns = useWallColumns(people.length);
   return (
     <div className="container team">
       <div className="team__head">
@@ -55,27 +88,40 @@ function Team({ eyebrow, title, people }) {
           {title}
         </h2>
       </div>
-      <ul className="team__grid">
-        {people.map((person, index) => (
-          <li key={person.slug} className="team-card">
-            <figure>
-              <div className="team-card__photo build build--arch" style={order(index % 4)}>
-                <img
-                  src={`/images/equipe/${person.slug}.webp`}
-                  alt={`${person.name}, ${person.role}`}
-                  width="400"
-                  height="596"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <figcaption className="team-card__caption build" style={order((index % 4) + 2)}>
-                <span className="team-card__name">{person.name}</span>
-                <span className="team-card__role">{person.role}</span>
-              </figcaption>
-            </figure>
-          </li>
-        ))}
+      <ul
+        className="arch-wall"
+        data-progress
+        data-start="1"
+        data-end="-1"
+        style={{ '--cols': columns, '--lift-max': Math.max(...WALL_LIFT.slice(0, columns)) }}
+      >
+        {people.map((person, index) => {
+          const column = index % columns;
+          return (
+            <li key={person.slug} className="arch-wall__item" style={{ '--lift': WALL_LIFT[column], '--drift': WALL_DRIFT[column] }}>
+              <figure className="arch-card">
+                <div className="arch-card__reveal build build--arch" style={order(column)}>
+                  <div className="arch-card__door">
+                    <div className="arch-card__window">
+                      <img
+                        src={`/images/equipe/${person.slug}.webp`}
+                        alt={`${person.name}, ${person.role}`}
+                        width="400"
+                        height="596"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <figcaption className="arch-card__caption build" style={order(column + 2)}>
+                  <span className="arch-card__name">{person.name}</span>
+                  <span className="arch-card__role">{person.role}</span>
+                </figcaption>
+              </figure>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

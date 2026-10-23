@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
 import { PARTENAIRES } from '../data/site.js';
 import { useDocumentMeta } from '../lib/useDocumentMeta.js';
+import Button from '../components/Button.jsx';
 import PageHero from '../components/PageHero.jsx';
 import Reveal from '../components/Reveal.jsx';
 import PartnersWall from '../components/PartnersWall.jsx';
@@ -50,9 +49,9 @@ export default function Partenaires() {
               ))}
             </Reveal>
             <Reveal delay={0.15}>
-              <Link to="/contact?sujet=partenariat" className="link-arrow">
-                Rejoindre les partenaires <ArrowRight />
-              </Link>
+              <Button to="/contact?sujet=partenariat" variant="link">
+                Rejoindre les partenaires
+              </Button>
             </Reveal>
           </div>
         </div>

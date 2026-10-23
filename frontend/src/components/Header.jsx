@@ -1,7 +1,8 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { ArrowRight, Mail, MapPin } from 'lucide-react';
+import { Mail, MapPin } from 'lucide-react';
 import { CONTACTS, EVENT, NAV } from '../data/site.js';
+import Button from './Button.jsx';
 import { CowriePair } from './Cowrie.jsx';
 import './Header.css';
 
@@ -66,9 +67,9 @@ export default function Header() {
         </nav>
 
         <div className="site-header__actions">
-          <Link to="/inscription" className="btn btn--dark btn--sm site-header__cta">
+          <Button to="/inscription" size="sm" className="site-header__cta">
             Je m’inscris
-          </Link>
+          </Button>
           <button
             type="button"
             className="menu-toggle"
@@ -107,12 +108,10 @@ export default function Header() {
               {EVENT.dates} · {EVENT.venue}, {EVENT.city}
             </p>
             <div className="mobile-menu__actions">
-              <Link to="/inscription" className="btn btn--dark">
-                Je m’inscris <ArrowRight />
-              </Link>
-              <Link to="/exposants" className="btn btn--ghost">
+              <Button to="/inscription">Je m’inscris</Button>
+              <Button to="/exposants" variant="ghost">
                 Devenir exposant
-              </Link>
+              </Button>
             </div>
             <p className="mobile-menu__contact">
               <Mail aria-hidden="true" /> <a href={`mailto:${CONTACTS.email}`}>{CONTACTS.email}</a>

@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowUpRight } from 'lucide-react';
 import { PAVILLONS } from '../../data/site.js';
+import Button from '../../components/Button.jsx';
 import Icon from '../../components/Icon.jsx';
 import '../../components/PavillonDoor.css';
 
@@ -71,10 +70,9 @@ export default function PavillonsStory() {
             <h3 className="pav-story__title">{pavillon.short}</h3>
             <p className="scene-quote">« {pavillon.quote} »</p>
             <p className="pav-story__excerpt">{pavillon.excerpt}</p>
-            <Link to={`/programme#${pavillon.slug}`} className="link-arrow">
-              Explorer le pavillon <ArrowUpRight />
-              <span className="sr-only"> {pavillon.short}</span>
-            </Link>
+            <Button to={`/programme#${pavillon.slug}`} variant="link">
+              Explorer le pavillon<span className="sr-only"> {pavillon.short}</span>
+            </Button>
           </li>
         ))}
       </ol>

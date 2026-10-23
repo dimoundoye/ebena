@@ -10,6 +10,7 @@
     "carte": "node scripts/carrefour-carte.mjs"
   },
   "dependencies": {
+    "@fontsource-variable/inter-tight": "^5.3.0",
     "@fontsource-variable/plus-jakarta-sans": "^5.3.0",
     "@fontsource/yellowtail": "^5.3.0",
     "lucide-react": "^1.52.0",

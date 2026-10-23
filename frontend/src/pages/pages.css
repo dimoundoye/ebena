@@ -28,7 +28,7 @@
   margin: 0;
   padding: 2rem 2.2rem 2rem 2.6rem;
   border-radius: var(--radius-lg);
-  background: linear-gradient(90deg, rgba(246, 203, 116, 0.22), rgba(246, 203, 116, 0));
+  background: rgba(246, 203, 116, 0.18);
 }
 
 .pullquote::before {
@@ -95,13 +95,6 @@
   background: var(--ebene-800);
 }
 
-/* Liste des publics en pastilles */
-.publics {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem;
-}
-
 /* Bloc photo + texte */
 .feature {
   display: grid;
@@ -134,58 +127,13 @@
   gap: 1rem;
   padding: clamp(2rem, 5vw, 3.2rem);
   border-radius: var(--radius-lg);
-  background:
-    radial-gradient(70% 90% at 100% 0%, rgba(246, 203, 116, 0.5) 0%, rgba(246, 203, 116, 0) 65%),
-    var(--surface-sable);
+  background: var(--surface-sable);
   overflow: hidden;
 }
 
 .gold-panel > * {
   position: relative;
   max-width: 640px;
-}
-
-/* Sommaire en pastilles (ancres) */
-.toc {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-}
-
-.toc a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 1.05rem;
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  background: rgba(255, 251, 244, 0.75);
-  font-size: 0.8rem;
-  font-weight: 500;
-  text-decoration: none;
-  color: var(--ebene-800);
-  transition:
-    background-color 0.3s,
-    color 0.3s,
-    border-color 0.3s;
-}
-
-.toc a span {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-variant-numeric: lining-nums;
-  color: var(--or-600);
-  transition: color 0.3s;
-}
-
-.toc a:hover {
-  border-color: var(--ebene-900);
-  background: var(--ebene-900);
-  color: var(--or-100);
-}
-
-.toc a:hover span {
-  color: var(--or-300);
 }
 
 /* Grille des cartes de personnes */

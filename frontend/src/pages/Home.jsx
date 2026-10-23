@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
-import { ArrowRight, MapPin } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 import { EVENT } from '../data/site.js';
 import { useDocumentMeta } from '../lib/useDocumentMeta.js';
+import Button from '../components/Button.jsx';
 import SceneFlow, { Scene } from '../components/scene/SceneFlow.jsx';
 import CourRoyale from '../components/CourRoyale.jsx';
 import SceneProjects from '../components/SceneProjects.jsx';
@@ -57,12 +57,12 @@ function Hero() {
           </div>
 
           <div className="hero__actions hero-in" style={{ '--d': '0.8s' }}>
-            <Link to="/inscription" className="btn btn--dark">
-              Je m’inscris <ArrowRight />
-            </Link>
-            <Link to="/exposants" className="btn btn--ghost">
+            <Button to="/inscription" size="lg">
+              Je m’inscris
+            </Button>
+            <Button to="/exposants" variant="ghost" size="lg">
               Devenir exposant
-            </Link>
+            </Button>
           </div>
         </div>
 

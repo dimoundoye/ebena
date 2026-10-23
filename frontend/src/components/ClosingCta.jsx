@@ -1,6 +1,5 @@
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
 import { EVENT } from '../data/site.js';
+import Button from './Button.jsx';
 import { CowriePair } from './Cowrie.jsx';
 import { order } from './scene/order.js';
 import './ClosingCta.css';
@@ -34,13 +33,13 @@ export default function ClosingCta({
         </p>
       )}
       <div className="closing-cta__actions build" style={order(4)}>
-        <Link to={primary.to} className="btn btn--dark">
-          {primary.label} <ArrowRight />
-        </Link>
+        <Button to={primary.to} size="lg">
+          {primary.label}
+        </Button>
         {secondary && (
-          <Link to={secondary.to} className="btn btn--ghost">
+          <Button to={secondary.to} variant="ghost" size="lg">
             {secondary.label}
-          </Link>
+          </Button>
         )}
       </div>
     </div>

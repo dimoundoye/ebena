@@ -27,12 +27,6 @@
 .pav-walk {
   /* Le couloir, avant la première porte (les suivantes reçoivent la salle précédente) */
   --wall: #1e0a06;
-  /* Valeurs par défaut : porte franchie, salle visible */
-  --a: 1;
-  --o: 1;
-  --e: 1;
-  /* Taille de la porte pendant l'approche : petite au loin, puis à sa taille */
-  --s0: calc(0.42 + 0.58 * var(--a));
   position: relative;
   background: var(--room);
   color: var(--room-text);
@@ -85,7 +79,15 @@
   position: relative;
 }
 
+/* Variables du passage, posées par le JS sur la scène (porte franchie et salle visible par défaut) */
 .pav-walk__stage {
+  --a: 1;
+  --o: 1;
+  --e: 1;
+  /* Taille de la porte pendant l'approche : petite au loin, puis à sa taille ; la traversée
+     l'agrandit ensuite jusqu'à --k */
+  --s0: calc(0.42 + 0.58 * var(--a));
+  --door-scale: calc(var(--s0) * (1 + (var(--k) - 1) * var(--e)));
   position: relative;
   isolation: isolate;
 }
@@ -198,9 +200,11 @@
   z-index: 1;
 }
 
-/* L'arche : le mur est son ombre géante, l'intérieur laisse voir la salle une fois les battants
-   ouverts. Elle grandit en approchant, puis bien au-delà de l'écran pendant la traversée. */
-.pav-walk__doorway {
+/* L'arche, sa lueur et son cadre doré partagent ses dimensions, centrées à --door-y, et son
+   agrandissement ; chacun n'est qu'agrandi ou estompé (calques séparés, rien à redessiner) */
+.pav-walk__doorway,
+.pav-walk__glow,
+.pav-walk__frame {
   position: absolute;
   left: 50%;
   top: var(--door-y);
@@ -208,15 +212,43 @@
   height: var(--door-h);
   margin: calc(var(--door-h) / -2) 0 0 calc(var(--door-w) / -2);
   border-radius: 999px 999px 6px 6px;
+  transform: scale(var(--door-scale));
+}
+
+/* L'arche : le mur est son ombre géante, l'intérieur laisse voir la salle une fois les battants
+   ouverts. Elle grandit en approchant, puis bien au-delà de l'écran pendant la traversée. */
+.pav-walk__doorway {
   overflow: hidden;
   perspective: 1600px;
-  transform: scale(calc(var(--s0) * (1 + (var(--k) - 1) * var(--e))));
+  box-shadow: 0 0 0 300vmax var(--wall);
+}
+
+/* Lueur de la salle autour de la porte, plus vive quand les battants s'ouvrent */
+.pav-walk__glow {
+  box-shadow: 0 0 140px 50px rgba(246, 203, 116, 0.38);
+  opacity: calc(0.21 + 0.79 * var(--o));
+}
+
+/* Cadre doré de l'arche, posé sur la lueur */
+.pav-walk__frame {
   box-shadow:
     0 0 0 2px var(--or-400),
     0 0 0 10px var(--wall),
-    0 0 0 11px rgba(213, 155, 64, 0.45),
-    0 0 140px 50px rgba(246, 203, 116, calc(0.08 + 0.3 * var(--o))),
-    0 0 0 300vmax var(--wall);
+    0 0 0 11px rgba(213, 155, 64, 0.45);
+}
+
+/* Calques préparés pour la carte graphique, sur les seules portes proches de l'écran */
+.pav-walk[data-near]
+  :is(
+    .pav-walk__doorway,
+    .pav-walk__glow,
+    .pav-walk__frame,
+    .pav-walk__ground,
+    .pav-walk__plaque,
+    .pav-walk__vignette,
+    .pav-walk__heading
+  ) {
+  will-change: transform, opacity;
 }
 
 /* Les deux battants s'ouvrent vers l'intérieur de la salle et s'assombrissent en tournant ;
@@ -337,14 +369,15 @@
   line-height: 1;
 }
 
-/* Ombre au sol, sous la porte (seule sa moitié basse dépasse de la porte) */
+/* Ombre au sol, sous la porte (seule sa moitié basse dépasse de la porte) ; elle suit la porte par
+   une transformation : centrée sur son seuil, à son échelle */
 .pav-walk__ground {
   position: absolute;
   left: 50%;
-  top: calc(var(--door-y) + var(--s0) * var(--door-h) / 2);
-  width: calc(var(--s0) * var(--door-w) * 1.7);
-  height: calc(var(--s0) * var(--door-h) * 0.09);
-  translate: -50% -50%;
+  top: var(--door-y);
+  width: calc(var(--door-w) * 1.7);
+  height: calc(var(--door-h) * 0.09);
+  transform: translate(-50%, calc(-50% + var(--s0) * var(--door-h) / 2)) scale(var(--s0));
   border-radius: 50%;
   background: radial-gradient(closest-side, rgba(10, 3, 1, 0.4), rgba(10, 3, 1, 0));
   clip-path: inset(50% 0 0 0);
@@ -355,8 +388,8 @@
 .pav-walk__plaque {
   position: absolute;
   left: 50%;
-  top: calc(var(--door-y) - var(--s0) * var(--door-h) / 2 - 1.4rem);
-  translate: -50% -100%;
+  top: var(--door-y);
+  translate: -50% calc(-100% - var(--s0) * var(--door-h) / 2 - 1.4rem);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -408,6 +441,11 @@
   align-items: start;
 }
 
+/* Pavillon sans encadré : le texte seul, sur une largeur de lecture */
+.pav-walk__body--solo {
+  grid-template-columns: minmax(0, 46rem);
+}
+
 .pav-walk__prose {
   font-size: clamp(1rem, 1.3vw, 1.1rem);
   line-height: 1.8;
@@ -439,12 +477,6 @@
   line-height: 1.65;
 }
 
-.pav-walk .tag {
-  border-color: var(--room-line);
-  background: transparent;
-  color: var(--room-title);
-}
-
 .pav-walk__nav {
   display: flex;
   flex-wrap: wrap;
@@ -455,16 +487,12 @@
   border-top: 1px solid var(--room-line);
 }
 
-.pav-walk .link-arrow {
-  color: var(--room-accent);
+.pav-walk .btn--link {
+  --btn-fg: var(--room-accent);
 }
 
-.pav-walk .link-arrow:hover {
-  color: var(--room-title);
-}
-
-.pav-walk__prev:hover svg {
-  transform: translateX(-4px);
+.pav-walk .btn--link .btn__icon {
+  border-color: var(--room-line);
 }
 
 @media (max-width: 900px) {

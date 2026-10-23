@@ -1,9 +1,10 @@
 import { useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Check, ExternalLink, Mail, MapPin, Megaphone, Phone, Send } from 'lucide-react';
+import { Check, Mail, MapPin, Megaphone, Phone, Send } from 'lucide-react';
 import { CONTACTS, EVENT, SUJETS } from '../data/site.js';
 import { useDocumentMeta } from '../lib/useDocumentMeta.js';
 import { focusFirstError, formToObject, useApiForm } from '../lib/useApiForm.js';
+import Button from '../components/Button.jsx';
 import PageHero from '../components/PageHero.jsx';
 import Reveal from '../components/Reveal.jsx';
 import { ConsentCheckbox, FormAlert, Honeypot, SelectField, SubmitButton, TextField } from '../components/forms.jsx';
@@ -86,9 +87,9 @@ export default function Contact() {
                   <p className="info-item__label">Lieu du salon</p>
                   <p className="info-item__value">{EVENT.venue}</p>
                   <p className="info-item__detail">{EVENT.address}</p>
-                  <a className="link-arrow contact-map" href={EVENT.mapUrl} target="_blank" rel="noreferrer">
-                    Voir sur la carte <ExternalLink />
-                  </a>
+                  <Button href={EVENT.mapUrl} variant="link" className="contact-map" target="_blank" rel="noreferrer">
+                    Voir sur la carte
+                  </Button>
                 </div>
               </Reveal>
             </ul>
@@ -102,9 +103,9 @@ export default function Contact() {
                 </span>
                 <h2 className="h3">Message envoyé</h2>
                 <p className="lead">Merci pour votre message. L’équipe ÉBËNA vous répondra dans les meilleurs délais.</p>
-                <button type="button" className="btn btn--ghost" onClick={reset}>
+                <Button variant="ghost" icon={false} onClick={reset}>
                   Envoyer un autre message
-                </button>
+                </Button>
               </div>
             ) : (
               <form key={sujetInitial} ref={formRef} className="card form-card form" onSubmit={onSubmit} noValidate>

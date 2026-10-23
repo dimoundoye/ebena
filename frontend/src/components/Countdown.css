@@ -89,11 +89,7 @@
 
 .countdown--large .countdown__value {
   font-size: clamp(2.6rem, 8vw, 6rem);
-  background: var(--gold-text);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+  color: var(--gold-text);
 }
 
 .countdown--large .countdown__label {

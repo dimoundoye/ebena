@@ -50,7 +50,7 @@ export default function AdminLogin() {
           <FormAlert message={error} />
           <TextField label="E-mail" name="email" type="email" autoComplete="username" required />
           <TextField label="Mot de passe" name="password" type="password" autoComplete="current-password" required />
-          <SubmitButton submitting={submitting} className="btn btn--dark btn--block" icon={LogIn}>
+          <SubmitButton submitting={submitting} block icon={LogIn}>
             Se connecter
           </SubmitButton>
         </form>

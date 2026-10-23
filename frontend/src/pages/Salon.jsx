@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
 import { BENIN, CONCEPT, EVENT, MANIFESTE, PARRAIN, PARTENAIRES } from '../data/site.js';
 import { useDocumentMeta } from '../lib/useDocumentMeta.js';
+import Button from '../components/Button.jsx';
 import PageHero from '../components/PageHero.jsx';
 import Reveal from '../components/Reveal.jsx';
 import SectionHeading from '../components/SectionHeading.jsx';
@@ -77,16 +76,6 @@ export default function Salon() {
                 <p key={paragraph.slice(0, 24)}>{paragraph}</p>
               ))}
             </Reveal>
-            <Reveal className="stack" delay={0.1}>
-              <p className="eyebrow">Qui se croisera à ÉBËNA</p>
-              <ul className="publics" aria-label="Publics attendus">
-                {CONCEPT.publics.map((publicCible) => (
-                  <li key={publicCible} className="tag">
-                    {publicCible}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
             <Reveal className="salon-themes" delay={0.15}>
               {EVENT.themes.map((theme, index) => (
                 <span key={theme}>
@@ -120,9 +109,9 @@ export default function Salon() {
               <p className="eyebrow">Au cœur du salon</p>
               <h3 className="h3">{CONCEPT.mat.title}</h3>
               <p className="lead">{CONCEPT.mat.text}</p>
-              <Link to="/programme" className="link-arrow">
-                Découvrir les pavillons et la scène <ArrowRight />
-              </Link>
+              <Button to="/programme" variant="link">
+                Découvrir les pavillons et la scène
+              </Button>
             </Reveal>
           </div>
         </div>
@@ -204,9 +193,9 @@ export default function Salon() {
             ))}
           </Reveal>
           <Reveal delay={0.2}>
-            <Link to="/equipe" className="btn btn--ghost">
-              Rencontrer l’équipe <ArrowRight />
-            </Link>
+            <Button to="/equipe" variant="ghost">
+              Rencontrer l’équipe
+            </Button>
           </Reveal>
         </div>
       </section>

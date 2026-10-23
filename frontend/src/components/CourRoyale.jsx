@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
-import { ArrowRight, Crown } from 'lucide-react';
+import { Crown } from 'lucide-react';
 import { COUR_ROYALE, SCENE } from '../data/site.js';
+import Button from './Button.jsx';
 import Icon from './Icon.jsx';
 import { order } from './scene/order.js';
 import './CourRoyale.css';
@@ -38,22 +38,10 @@ export default function CourRoyale({ full = false }) {
             {COUR_ROYALE.paragraphs[1]}
           </p>
         )}
-        <div className="s-cour__vetement">
-          <p className="s-cour__label build" style={order(0)}>
-            Le vêtement comme
-          </p>
-          <ul>
-            {COUR_ROYALE.vetement.map((item, index) => (
-              <li key={item} className="build build--left" style={order(1 + index)}>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
         {!full && (
-          <Link to="/programme#cour-royale" className="link-arrow build" style={order(2)}>
-            Découvrir l’exposition <ArrowRight />
-          </Link>
+          <Button to="/programme#cour-royale" variant="link" className="build" style={order(2)}>
+            Découvrir l’exposition
+          </Button>
         )}
       </div>
     </div>

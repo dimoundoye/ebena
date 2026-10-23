@@ -53,6 +53,7 @@ export default function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <div className="grain" aria-hidden="true" />
     </>
   );
 }

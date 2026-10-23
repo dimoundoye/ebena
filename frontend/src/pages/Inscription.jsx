@@ -5,6 +5,7 @@ import { EVENT, INTERETS, JOURS, PROFILS } from '../data/site.js';
 import { useDocumentMeta } from '../lib/useDocumentMeta.js';
 import { focusFirstError, formToObject, useApiForm } from '../lib/useApiForm.js';
 import { downloadEventIcs } from '../lib/calendar.js';
+import Button from '../components/Button.jsx';
 import PageHero from '../components/PageHero.jsx';
 import Reveal from '../components/Reveal.jsx';
 import Countdown from '../components/Countdown.jsx';
@@ -93,12 +94,12 @@ export default function Inscription() {
                 <p className="reference">{result?.reference}</p>
                 <p className="field__hint">Un e-mail de confirmation vient de vous être envoyé.</p>
                 <div className="inscription-success__actions">
-                  <button type="button" className="btn btn--dark" onClick={() => downloadEventIcs(result?.reference)}>
-                    <CalendarPlus /> Ajouter à mon agenda
-                  </button>
-                  <Link to="/programme" className="btn btn--ghost">
+                  <Button icon={CalendarPlus} onClick={() => downloadEventIcs(result?.reference)}>
+                    Ajouter à mon agenda
+                  </Button>
+                  <Button to="/programme" variant="ghost">
                     Découvrir le programme
-                  </Link>
+                  </Button>
                 </div>
                 <button type="button" className="inscription-success__again" onClick={reset}>
                   Inscrire une autre personne

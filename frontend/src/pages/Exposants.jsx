@@ -1,9 +1,10 @@
 import { useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ArrowRight, Check, Handshake, Megaphone, Phone, Send, Store, Users } from 'lucide-react';
+import { Check, Handshake, Megaphone, Phone, Send, Store, Users } from 'lucide-react';
 import { CONTACTS, formatPrix, PACKS, PAVILLONS } from '../data/site.js';
 import { useDocumentMeta } from '../lib/useDocumentMeta.js';
 import { focusFirstError, formToObject, useApiForm } from '../lib/useApiForm.js';
+import Button from '../components/Button.jsx';
 import PageHero from '../components/PageHero.jsx';
 import Reveal from '../components/Reveal.jsx';
 import SectionHeading from '../components/SectionHeading.jsx';
@@ -50,9 +51,9 @@ function ReservationForm({ pack, onPackChange }) {
         </p>
         <p className="reference">{result?.reference}</p>
         <p className="field__hint">Conservez cette référence : elle vous sera demandée lors de nos échanges. Un e-mail de confirmation vous a été envoyé.</p>
-        <button type="button" className="btn btn--ghost" onClick={reset}>
+        <Button variant="ghost" icon={false} onClick={reset}>
           Faire une autre demande
-        </button>
+        </Button>
       </div>
     );
   }
@@ -284,9 +285,9 @@ export default function Exposants() {
             Vous souhaitez sponsoriser un pavillon ou un temps fort ?
           </Reveal>
           <Reveal delay={0.08}>
-            <Link to="/contact?sujet=partenariat" className="btn btn--ghost">
-              Parlons partenariat <ArrowRight />
-            </Link>
+            <Button to="/contact?sujet=partenariat" variant="ghost">
+              Parlons partenariat
+            </Button>
           </Reveal>
         </div>
       </section>

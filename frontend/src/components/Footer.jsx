@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { CalendarDays, Mail, MapPin, Phone } from 'lucide-react';
 import { CONTACTS, EVENT, NAV, SOCIALS } from '../data/site.js';
+import Button from './Button.jsx';
 import NewsletterForm from './NewsletterForm.jsx';
 import { CowriePair } from './Cowrie.jsx';
 import './Footer.css';
@@ -26,9 +27,9 @@ export default function Footer() {
           <p className="site-footer__venue">
             {EVENT.venue} · {EVENT.city}
           </p>
-          <Link to="/inscription" className="btn btn--gold">
+          <Button to="/inscription" variant="gold">
             Je m’inscris
-          </Link>
+          </Button>
         </div>
       </div>
 

@@ -3,7 +3,6 @@
   place-items: center;
   min-height: 90vh;
   padding: calc(var(--header-h) + 3rem) 0 4rem;
-  background: radial-gradient(circle at 50% 30%, rgba(246, 203, 116, 0.45), transparent 55%);
 }
 
 .not-found__inner {
@@ -17,12 +16,4 @@
 .not-found__cowries {
   font-size: 3.4rem;
   animation: cowries-float 6s ease-in-out infinite;
-}
-
-.not-found .btn svg {
-  transition: transform 0.4s var(--ease);
-}
-
-.not-found .btn:hover svg {
-  transform: translateX(-3px);
 }

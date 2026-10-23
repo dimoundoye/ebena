@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, CalendarClock } from 'lucide-react';
-import { EXPOSITIONS, METHODE, PAVILLONS, SCENE, VOYAGE } from '../data/site.js';
+import { CalendarClock } from 'lucide-react';
+import { EXPOSITIONS, METHODE, SCENE, VOYAGE } from '../data/site.js';
 import { useDocumentMeta } from '../lib/useDocumentMeta.js';
+import Button from '../components/Button.jsx';
 import PageHero from '../components/PageHero.jsx';
 import SceneFlow, { Scene } from '../components/scene/SceneFlow.jsx';
 import { order } from '../components/scene/order.js';
@@ -101,9 +102,9 @@ function Methode() {
       <LeadersCarousel heading={false} />
 
       <div className="prog-methode__cta build" style={order(0)}>
-        <Link to="/exposants?pack=platinum#packs" className="btn btn--gold">
-          Prendre la parole : pack Platinum <ArrowRight />
-        </Link>
+        <Button to="/exposants?pack=platinum#packs" variant="gold">
+          Prendre la parole : pack Platinum
+        </Button>
       </div>
     </div>
   );
@@ -125,18 +126,7 @@ export default function Programme() {
           </>
         }
         intro={EXPOSITIONS.intro}
-      >
-        <nav className="toc" aria-label="Sommaire du programme">
-          {PAVILLONS.map((pavillon) => (
-            <a key={pavillon.slug} href={`#${pavillon.slug}`}>
-              <span>{pavillon.numero}</span> {pavillon.short}
-            </a>
-          ))}
-          <a href="#scene">
-            <span>✦</span> La Scène ÉBËNA
-          </a>
-        </nav>
-      </PageHero>
+      />
 
       <SceneFlow>
         <Scene id="introduction">

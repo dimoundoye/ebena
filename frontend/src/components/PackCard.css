@@ -81,12 +81,6 @@
   color: var(--or-200);
 }
 
-/* Formule choisie : bouton ivoire, bien visible sur le fond ébène */
-.pack-card--gold .btn--dark {
-  background: var(--ivoire-100);
-  color: var(--ebene-900);
-}
-
 .pack-card__head {
   display: grid;
   justify-items: center;

@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
-import { ArrowRight, Check } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { formatPrix } from '../data/site.js';
+import Button from './Button.jsx';
 import Icon from './Icon.jsx';
 import './PackCard.css';
 
@@ -44,26 +44,19 @@ export default function PackCard({ pack, compact = false, selected = false, onSe
 
       <div className="pack-card__footer">
         {onSelect ? (
-          <button
-            type="button"
-            className={`btn ${selected ? 'btn--dark' : pack.featured ? 'btn--gold' : 'btn--ghost'} btn--block`}
+          <Button
+            variant={selected ? 'dark' : pack.featured ? 'gold' : 'ghost'}
+            block
+            icon={selected ? Check : undefined}
             onClick={() => onSelect(pack.id)}
             aria-pressed={selected}
           >
-            {selected ? (
-              <>
-                <Check /> Pack sélectionné
-              </>
-            ) : (
-              <>
-                Choisir le pack {pack.name} <ArrowRight />
-              </>
-            )}
-          </button>
+            {selected ? 'Pack sélectionné' : `Choisir le pack ${pack.name}`}
+          </Button>
         ) : (
-          <Link to={`/exposants?pack=${pack.id}#reservation`} className={`btn ${pack.featured ? 'btn--gold' : 'btn--ghost'} btn--block`}>
-            Réserver ce pack <ArrowRight />
-          </Link>
+          <Button to={`/exposants?pack=${pack.id}#reservation`} variant={pack.featured ? 'gold' : 'ghost'} block>
+            Réserver ce pack
+          </Button>
         )}
       </div>
     </article>

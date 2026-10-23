@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { PAVILLONS } from '../../data/site.js';
+import Button from '../../components/Button.jsx';
 import Icon from '../../components/Icon.jsx';
 import { order } from '../../components/scene/order.js';
 import '../../components/PavillonDoor.css';
@@ -12,7 +12,8 @@ import './PavillonsCorridor.css';
 // l'écran ; son contenu défile ensuite normalement, jusqu'à la porte suivante, posée dans le mur
 // du fond. Tout suit le défilement, sans jamais le bloquer. Variables posées sur chaque pavillon :
 // --a (approche), --o (ouverture), --e (traversée), de 0 à 1 ; --k sur le couloir (agrandissement
-// final de l'arche).
+// final de l'arche). Pour un défilement fluide, ces variables sont posées sur la scène seule et ne
+// changent que des transformations et des opacités (rien à recalculer ni à redessiner).
 
 const REDUCED_MOTION = '(prefers-reduced-motion: reduce)';
 // Salles sombres, où le texte est clair
@@ -102,6 +103,8 @@ function PavillonWalk({ pavillon, index }) {
               <DoorLeaf side="left" pavillon={pavillon} />
               <DoorLeaf side="right" pavillon={pavillon} />
             </div>
+            <span className="pav-walk__glow" />
+            <span className="pav-walk__frame" />
             <span className="pav-walk__ground" />
             <p className="pav-walk__plaque">
               <span>Pavillon {pavillon.numero}</span> {pavillon.short}
@@ -112,53 +115,46 @@ function PavillonWalk({ pavillon, index }) {
       </div>
 
       <div className="pav-walk__content">
-        <div className="container pav-walk__body">
+        <div className={`container pav-walk__body ${pavillon.list || pavillon.note ? '' : 'pav-walk__body--solo'}`}>
           <div className="prose pav-walk__prose build" style={order(0)}>
             {pavillon.paragraphs.map((paragraph) => (
               <p key={paragraph.slice(0, 24)}>{paragraph}</p>
             ))}
           </div>
 
-          <div className="pav-walk__extras build" style={order(1)}>
-            {pavillon.list && (
-              <div>
-                <p className="pav-walk__list-title">{pavillon.listTitle}</p>
-                <ul className="list-cowrie">
-                  {pavillon.list.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            {pavillon.tags && (
-              <ul className="tags">
-                {pavillon.tags.map((tag) => (
-                  <li key={tag} className="tag">
-                    {tag}
-                  </li>
-                ))}
-              </ul>
-            )}
-            {pavillon.note && <p className="pav-walk__note">{pavillon.note}</p>}
-          </div>
+          {(pavillon.list || pavillon.note) && (
+            <div className="pav-walk__extras build" style={order(1)}>
+              {pavillon.list && (
+                <div>
+                  <p className="pav-walk__list-title">{pavillon.listTitle}</p>
+                  <ul className="list-cowrie">
+                    {pavillon.list.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {pavillon.note && <p className="pav-walk__note">{pavillon.note}</p>}
+            </div>
+          )}
         </div>
 
         <nav className="container pav-walk__nav build" style={order(0)} aria-label="Pavillons voisins">
           {previous ? (
-            <Link to={`#${previous.slug}`} className="link-arrow pav-walk__prev">
-              <ArrowLeft /> {previous.short}
-            </Link>
+            <Button to={`#${previous.slug}`} variant="link" icon={ArrowLeft} iconStart>
+              {previous.short}
+            </Button>
           ) : (
             <span />
           )}
           {next ? (
-            <Link to={`#${next.slug}`} className="link-arrow">
-              {next.short} <ArrowRight />
-            </Link>
+            <Button to={`#${next.slug}`} variant="link" icon={ArrowRight}>
+              {next.short}
+            </Button>
           ) : (
-            <Link to="#scene" className="link-arrow">
-              La Scène ÉBËNA <ArrowRight />
-            </Link>
+            <Button to="#scene" variant="link" icon={ArrowRight}>
+              La Scène ÉBËNA
+            </Button>
           )}
         </nav>
       </div>
@@ -181,6 +177,7 @@ export default function PavillonsCorridor() {
       walk,
       track: walk.querySelector('.pav-walk__track'),
       stage: walk.querySelector('.pav-walk__stage'),
+      values: {},
     }));
     const near = new Set(walks);
     let frame = 0;
@@ -200,11 +197,19 @@ export default function PavillonsCorridor() {
         const { top, height } = track.getBoundingClientRect();
         return clamp01(-top / Math.max(1, height - stage.offsetHeight));
       });
-      targets.forEach(({ walk }, index) => {
+      // Posées sur la scène seule (pas sur le texte de la salle), et seulement quand elles changent
+      targets.forEach(({ stage, values }, index) => {
         const p = positions[index];
-        walk.style.setProperty('--a', progress(p, APPROCHE).toFixed(4));
-        walk.style.setProperty('--o', progress(p, OUVERTURE).toFixed(4));
-        walk.style.setProperty('--e', progress(p, TRAVERSEE).toFixed(4));
+        const next = {
+          '--a': progress(p, APPROCHE).toFixed(4),
+          '--o': progress(p, OUVERTURE).toFixed(4),
+          '--e': progress(p, TRAVERSEE).toFixed(4),
+        };
+        Object.entries(next).forEach(([name, value]) => {
+          if (values[name] === value) return;
+          values[name] = value;
+          stage.style.setProperty(name, value);
+        });
       });
     };
 
@@ -212,13 +217,15 @@ export default function PavillonsCorridor() {
       if (!frame) frame = requestAnimationFrame(update);
     };
 
-    // Seules les portes proches de l'écran sont recalculées au défilement
+    // Seules les portes proches de l'écran sont recalculées au défilement, et ont leurs calques
+    // préparés pour la carte graphique ([data-near])
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           const part = walks.find(({ track }) => track === entry.target);
           if (entry.isIntersecting) near.add(part);
           else near.delete(part);
+          part.walk.toggleAttribute('data-near', entry.isIntersecting);
         });
         schedule();
       },
@@ -242,6 +249,7 @@ export default function PavillonsCorridor() {
       observer.disconnect();
       window.removeEventListener('scroll', schedule);
       window.removeEventListener('resize', onResize);
+      walks.forEach(({ walk }) => walk.removeAttribute('data-near'));
       delete root.dataset.ready;
     };
   }, []);
