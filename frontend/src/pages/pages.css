@@ -53,7 +53,7 @@
   display: block;
   margin-top: 0.9rem;
   font-style: normal;
-  font-size: 0.72rem;
+  font-size: 0.91rem;
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -182,7 +182,7 @@
 }
 
 .person__role {
-  font-size: 0.84rem;
+  font-size: 1.07rem;
   line-height: 1.5;
   color: var(--text-soft);
 }
@@ -218,7 +218,7 @@
 }
 
 .form-actions__note {
-  font-size: 0.8rem;
+  font-size: 1.01rem;
   color: var(--text-muted);
 }
 
@@ -251,7 +251,7 @@
 }
 
 .info-item__label {
-  font-size: 0.66rem;
+  font-size: 0.84rem;
   font-weight: 600;
   letter-spacing: 0.24em;
   text-transform: uppercase;
@@ -279,7 +279,7 @@
 }
 
 .info-item__detail {
-  font-size: 0.88rem;
+  font-size: 1.11rem;
   color: var(--text-soft);
 }
 
@@ -312,6 +312,6 @@
   }
 
   .person__name {
-    font-size: 1.15rem;
+    font-size: 1.26rem;
   }
 }

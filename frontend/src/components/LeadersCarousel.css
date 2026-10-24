@@ -34,7 +34,7 @@
 
 .leaders-show__counter-label {
   font-family: var(--font-sans);
-  font-size: 0.64rem;
+  font-size: 0.81rem;
   font-weight: 600;
   letter-spacing: 0.26em;
   text-transform: uppercase;
@@ -97,13 +97,13 @@
 
 .leaders-show__role {
   max-width: 28rem;
-  font-size: 1rem;
+  font-size: 1.19rem;
   line-height: 1.6;
   color: rgba(245, 227, 198, 0.82);
 }
 
 .leaders-show__pays {
-  font-size: 0.7rem;
+  font-size: 0.89rem;
   font-weight: 600;
   letter-spacing: 0.26em;
   text-transform: uppercase;

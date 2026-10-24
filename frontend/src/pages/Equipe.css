@@ -147,7 +147,7 @@
 }
 
 .arch-card__role {
-  font-size: 0.84rem;
+  font-size: 1.07rem;
   line-height: 1.5;
   color: var(--text-soft);
 }
@@ -177,11 +177,11 @@
   }
 
   .arch-card__name {
-    font-size: 1.05rem;
+    font-size: 1.16rem;
   }
 
   .arch-card__role {
-    font-size: 0.76rem;
+    font-size: 0.96rem;
   }
 }
 

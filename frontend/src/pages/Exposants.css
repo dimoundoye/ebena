@@ -7,7 +7,7 @@
 }
 
 .exposants-facts li {
-  font-size: 0.72rem;
+  font-size: 0.91rem;
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -41,7 +41,7 @@
 }
 
 .avantage p {
-  font-size: 0.92rem;
+  font-size: 1.17rem;
   line-height: 1.6;
   color: var(--text-soft);
 }
@@ -59,7 +59,7 @@
   grid-template-columns: 2.4rem 1fr;
   gap: 0.9rem;
   align-items: start;
-  font-size: 0.95rem;
+  font-size: 1.2rem;
   color: var(--text-soft);
 }
 
@@ -149,7 +149,7 @@
 }
 
 .pack-option__meta {
-  font-size: 0.78rem;
+  font-size: 0.99rem;
   color: var(--text-muted);
 }
 

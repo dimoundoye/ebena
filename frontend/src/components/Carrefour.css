@@ -185,7 +185,7 @@
 .s-carrefour__marker-label,
 .s-carrefour__hub-label {
   position: absolute;
-  font-size: clamp(0.5rem, 0.85vw, 0.7rem);
+  font-size: clamp(0.66rem, 0.95vw, 0.88rem);
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -223,7 +223,7 @@
 }
 
 .s-carrefour__hub-label {
-  font-size: clamp(0.56rem, 0.95vw, 0.78rem);
+  font-size: clamp(0.73rem, 1.05vw, 0.97rem);
   letter-spacing: 0.22em;
   color: var(--or-200);
   translate: 0.9rem -50%;

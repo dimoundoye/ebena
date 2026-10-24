@@ -91,7 +91,7 @@
 }
 
 .tramline__index {
-  font-size: 0.62rem;
+  font-size: 0.81rem;
   font-weight: 600;
   letter-spacing: 0.24em;
   text-transform: uppercase;
@@ -107,7 +107,7 @@
 }
 
 .tramline__meaning {
-  font-size: 0.86rem;
+  font-size: 1.09rem;
   line-height: 1.45;
   color: var(--text-soft);
 }
@@ -119,7 +119,7 @@
 .tramline__text {
   max-width: 19rem;
   margin-top: 0.4rem;
-  font-size: 0.86rem;
+  font-size: 1.09rem;
   line-height: 1.6;
   color: var(--text-soft);
 }
@@ -135,7 +135,7 @@
   }
 
   .tramline__meaning {
-    font-size: 0.76rem;
+    font-size: 0.96rem;
   }
 
   .tramline__meaning span {

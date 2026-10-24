@@ -53,7 +53,6 @@ export const MANIFESTE = {
     'Nantes est une ville dont l’histoire est profondément marquée par le commerce triangulaire. Le mot « bois d’ébène » y porte une mémoire particulière : dans le langage brutal des négriers, il désignait cyniquement des hommes, des femmes et des enfants réduits en esclavage. ÉBËNA naît précisément de cette histoire, mais pour en déplacer le regard.',
     'Nous reprenons ce mot, non pour effacer la violence de l’histoire, mais pour nous le réapproprier, lui redonner sa dignité et rappeler ce qu’il portait avant même les usages que la traite et la colonisation lui ont imposés. ÉBËNA est ainsi un acte de réappropriation.',
   ],
-  from: ['Marchandisation', 'Déshumanisation'],
   to: ['Création', 'Excellence', 'Dignité', 'Fraternité'],
 };
 

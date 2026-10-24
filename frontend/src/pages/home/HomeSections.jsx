@@ -32,12 +32,7 @@ export function Pourquoi() {
           La réappropriation du sens historique d’un <em className="text-gold">mot</em>
         </h2>
         <div className="s-pourquoi__word">
-          <span className="s-pourquoi__old build build--fade" style={order(2)}>
-            « Bois d’ébène »
-          </span>
-          <span className="s-pourquoi__arrow build build--fade" style={order(3)} aria-hidden="true" />
-          <span className="sr-only">devient</span>
-          <span className="s-pourquoi__new build build--zoom" style={order(4)}>
+          <span className="s-pourquoi__new build build--zoom" style={order(2)}>
             ÉBËNA
           </span>
         </div>
@@ -71,17 +66,7 @@ export function Imaginaire() {
 
       <div className="s-imaginaire__shift">
         <p className="s-imaginaire__label build" style={order(0)}>
-          D’un imaginaire de
-        </p>
-        <ul className="s-imaginaire__from">
-          {MANIFESTE.from.map((word, index) => (
-            <li key={word} className="build build--fade" style={order(1 + index)}>
-              {word}
-            </li>
-          ))}
-        </ul>
-        <p className="s-imaginaire__label build" style={order(0)}>
-          à un imaginaire de
+          Vers un imaginaire de
         </p>
         <ul className="s-imaginaire__to">
           {MANIFESTE.to.map((word, index) => (
